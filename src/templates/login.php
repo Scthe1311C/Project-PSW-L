@@ -7,9 +7,15 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     </head>
     <body>
+		<!-- 
+		TODO: AJAX password check
+		TODO: dynamic image change ?
+		TODO: image info using actual image info
+		-->
+	
         <div id="login-page">
             <!-- main page content -->
-            <div class="dialog">
+            <div class="dialog"  id="login-dialog">
                 <header>
                     <h1>
                         Dropbox App
@@ -20,12 +26,18 @@
 						<fieldset>
 							<input type="text" placeholder="Username..">
 							<input type="password" placeholder="Password..">
-							<div id="dialog-buttons">
-								<span>Sign in</span>
-							</div>
+								<span id="sign-in">Sign in</span>
+								<a href="#" id="forgot-password">forgot ?</a>
 						</fieldset>
 					</form>
 				</div>
+			</div>
+			
+			<div class="login-other-info-panel" id="login-image-info">
+					"Some random city" by AAA
+			</div>
+			<div class="login-other-info-panel" id="login-register">
+					<a href="#" id="register">register</a>
 			</div>
         </div>
     </body>
