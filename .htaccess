@@ -13,7 +13,7 @@ deny from all
 
 # redirect to index.php for reqeust that has no extension
 RewriteEngine on
-RewriteCond $1 !\.(gif|jpe?g|png|ico|css|js|swf|wav|mp3|less|cur|php)
+RewriteCond $1 !\.(gif|jpe?g|png|ico|css|js|swf|wav|mp3|less|cur|php|ttf)
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.+)$      index.php     [L,QSA]
 

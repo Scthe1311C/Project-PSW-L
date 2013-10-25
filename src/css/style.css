@@ -1,0 +1,46 @@
+@font-face{
+	font-family: AlexBrushRegular;
+	src: url('../fonts/AlexBrushRegular.ttf');
+}
+
+.dialog{
+	padding:0px;
+	border-radius: 4px;
+	border-color:#A4BACA;
+	position:relative;
+}
+
+.dialog header{
+	margin:0px;
+	padding:0px;
+	background-color: #517FA4;
+	border-top-left-radius:inherit;
+	border-top-right-radius:inherit;
+	border:1px solid;
+	border-color:inherit;
+}
+
+.dialog h1{
+	font-weight:400;
+	text-align: center;
+	color:#fff;
+	font-family:AlexBrushRegular;
+}
+
+.dialog input{
+	display:block;
+	width:100%;
+	padding:0px;
+}
+
+.dialog-content{
+	margin:0px;
+	padding: 10px 7px;
+	background-color: #fff;
+	border-bottom-left-radius:inherit;
+	border-bottom-right-radius:inherit;
+	border-bottom:1px solid;
+	border-left:1px solid;
+	border-right:1px solid;
+	border-color:inherit;
+}
