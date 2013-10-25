@@ -21,7 +21,7 @@
                         Dropbox App
                     </h1>
                 </header>
-				<div class="dialog-content">
+				<div class="dialog-content" id="login-dialog-content">
 					<form formmethod="post" style="margin-bottom:0px">
 						<fieldset>
 							<input type="text" placeholder="Username..">

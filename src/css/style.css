@@ -101,7 +101,7 @@
 
 #login-dialog{
 	width:260px;
-	position:absoute !important;
+	position:absoute;
 	top:30%;
 	left:65%;
 }
@@ -113,4 +113,71 @@
 		left: 50%;
 		margin-left: -130px;
 	}
+}
+
+@media (max-width:550px) {
+	.dialog header{
+		margin:0px;
+		padding:0px;
+		background-color: #517FA4;
+		border-top-left-radius:inherit;
+		border-top-right-radius:inherit;
+		border:1px solid;
+		border-color:inherit;
+	}
+
+	#login-dialog{
+		position:fixed !important;
+		top:0px;
+		left:0px;
+		width:100%;
+		margin:0px;
+		border-radius:0px;
+	}
+	
+	#login-dialog-content{
+		width:80%;
+		margin:0px auto;
+		margin-top:30%;
+		border-width:1px 0px;
+		border-top-style:solid;
+		text-align: center;
+	}
+	
+	#login-image-info{
+		display:none;
+	}
+
+	#login-register{
+		width:100%;
+		bottom:0px;
+		left:0px;
+		top:auto;
+		padding: 2px 7px;
+		text-align: center;
+	}
+	
+	.dialog h1{
+		font-size:22px;
+		margin:0px;
+		line-height:25px;
+	}
+	
+	#sign-in{
+		float:none;
+		width:auto;
+		margin:0px auto;
+		padding:7px 10px;
+		font-size:20px;
+		display:inline-block;
+	}
+
+	#forgot-password{
+		float:none;
+		margin:10px auto 0px;
+		left:auto;
+		display:block;
+		text-align: center;
+	}
+
 }
