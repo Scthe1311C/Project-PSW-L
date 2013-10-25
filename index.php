@@ -22,16 +22,67 @@
 	$page_name = substr( $request_uri, 0, strrpos( $request_uri, "?")===FALSE ? strlen($request_uri): strrpos( $request_uri, "?")); // remove GET params
 	$page_name = substr( $page_name, strrpos( $page_name, "/")); // get all after last '/'
 
-	if( $page_name=="/login"){
+	if( $page_name=="/"){
+		/* home page */
+		$content = home();
+	
+	}else if( $page_name=="/login"){
+		/* login as user providing login and password */
 		$content = login();
 
-	}else if( $page_name=="/"){
-		$content = welcome();
+	}else if( $page_name=="/register"){
+		/* register new user */
+		$content = '<html><body><h1>Register</h1></body></html>';
 
+	}else if( $page_name=="/settings"){
+		/* change user's settings */
+		$content = '<html><body><h1>Settings</h1></body></html>';
+
+	}else if( $page_name=="/about"){
+		/* about the website */
+		$content = '<html><body><h1>About</h1></body></html>';
+
+	}else if( $page_name=="/popular"){
+		/* photos with biggest number of views */
+		/* TODO : popular this week/month/..*/
+		$content = '<html><body><h1>Popular</h1></body></html>';
+
+	}else if( $page_name=="/galleries"){
+		/* galleries ( photo sets) created by users f.e. flowers */
+		$content = '<html><body><h1>Galleries</h1></body></html>';
+
+	}else if( $page_name=="/upload"){
+		/* view my photos and select ones to upload for public viewership */
+		$content = '<html><body><h1>Upload</h1></body></html>';
+
+	}else if( $page_name=="/profile_photos"){
+		/* view my photos */
+		$content = '<html><body><h1>Profile photos</h1></body></html>';
+	
+	}else if( $page_name=="/profile_galleries"){
+		/* view my galleries */
+		$content = '<html><body><h1>Profile galleries</h1></body></html>';
+		
+	}else if( $page_name=="/photo"){
+		/* single photo view */
+		$content = '<html><body><h1>Photo</h1></body></html>';
+	
 	} else {
 		$content =  '<html><body><h1>Page Not Found</h1></body></html>';
 		header('Status: 404 Not Found');
 	}
+	
+	/*
+	TODO:
+		search
+		new photos
+		explore ( show random images ?)
+		favourite ( most likes )
+		world map ( based on dropbox profile country/user's profile)
+		groups
+		friends ( last activity/messages/timeline etc.)
+		send message etc.
+	*/
 	
 	// render content
 	echo $content;

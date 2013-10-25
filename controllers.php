@@ -1,6 +1,6 @@
 <?php 
 
-function welcome(){
+function home(){
 	return render_template( "home.php");
 }
 
