@@ -40,7 +40,7 @@
 
 	}else if( $page_name=="/about"){
 		/* about the website */
-		$content = '<html><body><h1>About</h1></body></html>';
+		$content = about();
 
 	}else if( $page_name=="/popular"){
 		/* photos with biggest number of views */
