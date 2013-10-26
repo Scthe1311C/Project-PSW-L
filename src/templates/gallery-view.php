@@ -18,14 +18,18 @@
 		$is_logged = true;
 	?>
 	
-	<body style="background-color: #222 !important; height:100%">
+	<body style="background-color: #fff !important; height:100%">
 		<div class="container">
 			<?php include 'nav_bar.php' ?>
 			
 			<?php for( $i = 1; $i < 8; $i++){ ?>
 				<!-- single image element -->
-				
-				<div class="gallery-thumbnail" style="width:250px; height:188px">
+				<div class="gallery-thumbnail" style="width:188px; height:141">
+					
+					<!-- gradients -->
+					<div class="image-info gallery-thumbnail-bottom-gradient"></div>
+					<div class="image-info gallery-thumbnail-top-gradient"></div>
+					
 					<!-- image info -->
 					<div class="image-info views-count">
 						<i class="icon-eye-open icon-white"></i><span>&nbsp;2k</span>

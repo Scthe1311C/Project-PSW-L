@@ -2,19 +2,13 @@
 	display:inline-block;
 	margin: 15px 18px 23px;
 	padding:0px;
-	/*
 	border:0px none;
-	*/
-	border:1px solid red;
 	box-shadow: #101010 2px 2px 5px;
 	position:relative;
 }
 
 .gallery-thumbnail .file { 
 	height: 100%;
-	/*
-	margin-bottom: -2px;
-	*/
 	width: 100%;
 	padding: 0px;
 	height: 100%;
@@ -23,10 +17,47 @@
 	margin:0px;
 }
 
-.image-info{
+.gallery-thumbnail > .image-info{
 	position:absolute;
 	color:white;
 	margin: 2px 2px;
+	display:none;
+}
+
+.gallery-thumbnail:hover > .image-info{
+	display:block;
+}
+
+.gallery-thumbnail:hover > .gallery-thumbnail-bottom-gradient{
+	background-color:red;
+	height:20px !important;
+	bottom:0px;
+	width:100% !important;
+	margin: 0px !important;
+	padding: 0px !important;
+	background-color: #transparent;
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(transparent), rgba(0,0,0,0.5));
+	background: -webkit-linear-gradient(top, transparent, rgba(0,0,0,0.5));
+	background: -moz-linear-gradient(top, transparent, rgba(0,0,0,0.5));
+	background: -ms-linear-gradient(top, transparent, rgba(0,0,0,0.5));
+	background: -o-linear-gradient(top, transparent, rgba(0,0,0,0.5));
+}
+
+.gallery-thumbnail:hover > .gallery-thumbnail-top-gradient{
+	background-color:red;
+	height:20px !important;
+	top:0px;
+	width:100% !important;
+	margin: 0px !important;
+	padding: 0px !important;
+	
+	/* fallback */
+	background-color: #transparent;
+	background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(transparent), rgba(0,0,0,0.5));
+	background: -webkit-linear-gradient(bottom, transparent, rgba(0,0,0,0.5));
+	background: -moz-linear-gradient(bottom, transparent, rgba(0,0,0,0.5));
+	background: -ms-linear-gradient(bottom, transparent, rgba(0,0,0,0.5));
+	background: -o-linear-gradient(bottom, transparent, rgba(0,0,0,0.5));
 }
 
 .gallery-thumbnail .views-count{
