@@ -44,3 +44,64 @@
 	border-right:1px solid;
 	border-color:inherit;
 }
+
+/*
+	navigation bar
+*/
+#navigation-bar{
+	border-width:0 1px 1px !important;
+	border-style:solid;
+	border-color:#A4BACA;
+}
+
+#navigation-bar-inner{
+	/* linear-gradient(rgb(255, 255, 255), rgb(242, 242, 242)) */
+	background-image:none !important;
+	background-color: rgba(81, 127, 164, 0.8) !important; /* #517FA4 */
+	border-width:0px;
+}
+
+#brand{
+	font-weight:100;
+	color:#fff;
+	font-family:AlexBrushRegular;
+	font-size:30px;
+}
+
+.navigation-bar-item{
+	text-shadow:0 0 !important;
+	color: #e8e8e8 !important;
+	font-size:14px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.navigation-bar-item:hover{
+	color: white !important;
+}
+
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+	margin: 0;
+}
+
+.navigation-bar-dropdown-item{
+	color:black;
+}
+
+/*
+#navigation-bar-search{
+	border-radius:0px;
+	position: relative;
+	display:inline-block;
+}
+
+div.navigation-bar-search-icon > input {
+	position: absolute;
+	background:url('http://l.yimg.com/g/images/sprites/icons-s9157f2a5d4.png') no-repeat;
+	background-position: 0 -134px;
+	cursor:pointer;
+	width: 20px;
+	height: 30px;
+	border: none;
+}
+*/
