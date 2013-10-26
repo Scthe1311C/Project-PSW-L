@@ -56,8 +56,8 @@
 
 #navigation-bar-inner{
 	/* linear-gradient(rgb(255, 255, 255), rgb(242, 242, 242)) */
-	background-image:none !important;
-	background-color: rgba(81, 127, 164, 0.8) !important; /* #517FA4 */
+ 	background-image:none !important;
+ 	background-color: rgba(81, 127, 164, 0.8) !important; /* #517FA4 */
 	border-width:0px;
 }
 
