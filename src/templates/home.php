@@ -9,9 +9,9 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	</head>
 	
-	<body style="background:url('src/img/img1.jpg') no-repeat center center fixed !important; height:100%">
-		<div class="container">
+	<body style="background-color:#d0d0d0; height:100%">
 			<?php include 'nav_bar.php' ?>
+		<div class="container">
 			
 			<div class="dialog-content" style="margin-top:10px;">
 				<table style="margin:10px auto">
@@ -27,6 +27,81 @@
 							<li><a href="photo">Photo</a></li>
 						</td>
 						<td>
+							<li><a href="login">Login</a></li>
+							<li><a href="about">About</a></li>
+							<li><a href="popular">Popular</a></li>
+							<li><a href="upload">Upload</a></li>
+							<li><a href="profile_photos">Profile photos</a></li>
+							<li><a href="profile_galleries">Profile galleries</a></li>
+							
+							<br/>
+							<br/>
+							<li><a href="login">Login</a></li>
+							<li><a href="about">About</a></li>
+							<li><a href="popular">Popular</a></li>
+							<li><a href="upload">Upload</a></li>
+							<li><a href="profile_photos">Profile photos</a></li>
+							<li><a href="profile_galleries">Profile galleries</a></li>
+							<li><a href="login">Login</a></li>
+							<li><a href="about">About</a></li>
+							<li><a href="popular">Popular</a></li>
+							<li><a href="upload">Upload</a></li>
+							<li><a href="profile_photos">Profile photos</a></li>
+							<li><a href="profile_galleries">Profile galleries</a></li>
+							<li><a href="login">Login</a></li>
+							<li><a href="about">About</a></li>
+							<li><a href="popular">Popular</a></li>
+							<li><a href="upload">Upload</a></li>
+							<li><a href="profile_photos">Profile photos</a></li>
+							<li><a href="profile_galleries">Profile galleries</a></li>
+							<li><a href="login">Login</a></li>
+							<li><a href="about">About</a></li>
+							<li><a href="popular">Popular</a></li>
+							<li><a href="upload">Upload</a></li>
+							<li><a href="profile_photos">Profile photos</a></li>
+							<li><a href="profile_galleries">Profile galleries</a></li>
+							<li><a href="login">Login</a></li>
+							<li><a href="about">About</a></li>
+							<li><a href="popular">Popular</a></li>
+							<li><a href="upload">Upload</a></li>
+							<li><a href="profile_photos">Profile photos</a></li>
+							<li><a href="profile_galleries">Profile galleries</a></li>
+							<li><a href="login">Login</a></li>
+							<li><a href="about">About</a></li>
+							<li><a href="popular">Popular</a></li>
+							<li><a href="upload">Upload</a></li>
+							<li><a href="profile_photos">Profile photos</a></li>
+							<li><a href="profile_galleries">Profile galleries</a></li>
+							<li><a href="login">Login</a></li>
+							<li><a href="about">About</a></li>
+							<li><a href="popular">Popular</a></li>
+							<li><a href="upload">Upload</a></li>
+							<li><a href="profile_photos">Profile photos</a></li>
+							<li><a href="profile_galleries">Profile galleries</a></li>
+							<li><a href="login">Login</a></li>
+							<li><a href="about">About</a></li>
+							<li><a href="popular">Popular</a></li>
+							<li><a href="upload">Upload</a></li>
+							<li><a href="profile_photos">Profile photos</a></li>
+							<li><a href="profile_galleries">Profile galleries</a></li>
+							<li><a href="login">Login</a></li>
+							<li><a href="about">About</a></li>
+							<li><a href="popular">Popular</a></li>
+							<li><a href="upload">Upload</a></li>
+							<li><a href="profile_photos">Profile photos</a></li>
+							<li><a href="profile_galleries">Profile galleries</a></li>
+							<li><a href="login">Login</a></li>
+							<li><a href="about">About</a></li>
+							<li><a href="popular">Popular</a></li>
+							<li><a href="upload">Upload</a></li>
+							<li><a href="profile_photos">Profile photos</a></li>
+							<li><a href="profile_galleries">Profile galleries</a></li>
+							<li><a href="login">Login</a></li>
+							<li><a href="about">About</a></li>
+							<li><a href="popular">Popular</a></li>
+							<li><a href="upload">Upload</a></li>
+							<li><a href="profile_photos">Profile photos</a></li>
+							<li><a href="profile_galleries">Profile galleries</a></li>
 							<li><a href="login">Login</a></li>
 							<li><a href="about">About</a></li>
 							<li><a href="popular">Popular</a></li>
