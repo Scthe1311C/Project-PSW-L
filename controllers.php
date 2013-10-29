@@ -12,6 +12,9 @@ function about(){
 	return render_template( "about.php");
 }
 
+function popular(){
+	return render_template( "gallery-view.php");
+}
 
 function render_template( $path, array $args = NULL){
 	if ( $args === NULL || !in_array('title', $args)){
