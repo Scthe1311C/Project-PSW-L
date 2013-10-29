@@ -12,7 +12,12 @@ function login(){
 }
 
 function about(){
-	return render_template( "about.php");
+	return render_template( "about.php", array(
+		"css_stylesheets" => array("src/css/about.css", "vendor/onepage-scroll/onepage-scroll.css"),
+		"js_scripts" => array("vendor/onepage-scroll/jquery.onepage-scroll.js"),
+		"title" => "AAa",
+		"minimal_navbar" => true
+	));
 }
 
 function popular(){

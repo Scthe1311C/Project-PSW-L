@@ -13,14 +13,15 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<?php if( isset($js_scripts) ){
 			foreach( $js_scripts as $script){?>
-				<script src="<?php echo script; ?>"></script>
+				<script src="<?php echo $script; ?>"></script>
 		<?php }} ?>
 	</head>
 	
 	<?php // read all variables ?>
 	<?php $main_url = ((!empty($_SERVER["HTTPS"])) ? "https" : "http") . "://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]; ?>
 	<?php $is_logged = isset($user_name); ?>
-	<?php $is_fullscreeen = isset($fullscreen) && $fullscreen; ?>
+	<?php $is_fullscreeen = isset($fullscreen) && $fullscreen; //remove navbar ?>
+	<?php //$minimal_navbar  //does not display big image behind ?>
 		
 	<body id="page-main">
 		

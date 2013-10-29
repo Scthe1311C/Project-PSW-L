@@ -1,3 +1,5 @@
+<?php $minimal_navbar = isset($minimal_navbar) && $minimal_navbar;?>
+
 <script>
 $( document ).ready(function() {
 	document.getElementById('navigation-bar').scrollIntoView();
@@ -5,6 +7,11 @@ $( document ).ready(function() {
 	var navBar = $('#navigation-bar');
 	var navBarH = $(navBar).height();
 	$(navBar).css("height", navBarH);
+	
+	<?php if( $minimal_navbar){?>
+			//$(navBar).addClass("navbar-fixed-top");
+			$(navBar).css("position","relative");
+	<?php } ?>
 });
 
 /*
@@ -17,6 +24,7 @@ function isScrolledIntoView(elem){
 }
 */
 
+<?php if( $minimal_navbar){?>
 $(window).scroll(function() {
 	var elem = $('#navigation-bar-image');
 	var navBar = $('#navigation-bar');
@@ -34,10 +42,16 @@ $(window).scroll(function() {
 		$(navBar).css("position","absolute");
 	}
 });
+<?php } ?>
 </script>
 
-<div id="navigation-bar-image">
+<?php if( !$minimal_navbar){?>
+	<div id="navigation-bar-image">
+		<div class="navbar navbar-default align-parent-bottom" role="navigation" id="navigation-bar">
+<?php }else{ ?>
 	<div class="navbar navbar-default" role="navigation" id="navigation-bar">
+<?php } ?>
+	
 	
 		<!-- 
 			TODO provide home url
@@ -94,5 +108,7 @@ $(window).scroll(function() {
 		
 	</div>
 
-<!-- background end -->
-</div>
+<?php if( !$minimal_navbar){?>
+	<!-- background end -->
+	</div>
+<?php } ?>
