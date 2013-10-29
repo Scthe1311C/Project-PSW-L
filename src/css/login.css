@@ -20,6 +20,9 @@
 	 filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
 }
 
+.form-control{
+	margin-bottom:8px !important;
+}
 
 #sign-in{
 	float:right;

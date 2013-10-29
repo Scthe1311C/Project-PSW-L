@@ -23,13 +23,11 @@
                     </h1>
                 </header>
 				<div class="dialog-content" id="login-dialog-content">
-					<form formmethod="post" style="margin-bottom:0px">
-						<fieldset>
-							<input type="text" placeholder="Username..">
-							<input type="password" placeholder="Password..">
-								<span id="sign-in">Sign in</span>
-								<a href="#" id="forgot-password">forgot ?</a>
-						</fieldset>
+					<form formmethod="post" style="margin-bottom:0px" role="form">
+						<input type="text" class="form-control" placeholder="Username..">
+						<input type="password" class="form-control" placeholder="Password..">
+						<span id="sign-in">Sign in</span>
+						<a href="#" id="forgot-password">forgot ?</a>
 					</form>
 				</div>
 			</div>

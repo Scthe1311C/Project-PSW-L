@@ -1,5 +1,4 @@
-<div class="navbar navbar-static-top" id="navigation-bar">
-	<div class="navbar-inner" id="navigation-bar-inner">
+<div class="navbar navbar-default" role="navigation" id="navigation-bar">
 	
 		<!-- 
 			TODO provide home url
@@ -12,8 +11,8 @@
 		<?php $active_user_name = "user1"; ?>
 		<?php if( !isset( $user_avatar) ) $user_avatar = "src/img/user-icon.jpg"; ?>
 		
-		<ul class="nav pull-left">
-			<a class="brand" id="brand" href="<?php echo $main_url; ?>">Dropbox App</a>
+		<ul class="nav navbar-nav">
+			<a class="navbar-brand" id="brand" href="<?php echo $main_url; ?>">Dropbox App</a>
 			<?php if( !$is_logged) { ?>
 				<li><a href="#" class="navigation-bar-item">Sign Up</a></li>
 			<?php } ?>
@@ -28,7 +27,8 @@
 				<li><a href="#" class="navigation-bar-item">Upload</a></li>
 			<?php } ?>
 		</ul>
-		<ul class="nav pull-right">
+		
+		<ul class="nav navbar-nav navbar-right">
 			<!-- 
 			<input class="navbar-search" id="navigation-bar-search" type="text"> </input>
 			<div class="navigation-bar-search-icon">
@@ -53,7 +53,6 @@
 			<?php } ?>
 		</ul>
 		
-	</div>
 </div>
 
 

@@ -32,15 +32,26 @@
 					
 					<!-- image info -->
 					<div class="image-info views-count">
-						<i class="icon-eye-open icon-white"></i><span>&nbsp;2k</span>
+						<span class="glyphicon glyphicon-eye-open"></span><span>&nbsp;2k</span>
 					</div>
 					<div class="image-info favorite-count">
-						<i class="icon-heart icon-white"></i><span>&nbsp;1k</span>
+						<span class="glyphicon glyphicon-heart"></span><span>&nbsp;1k</span>
+					</div>
+					<div class="image-info image-data">
+						<span class="glyphicon glyphicon-question-sign"></span>
+						<div class="image-data-popup">
+							<label>Resolution:</label>1600x1050<br/>
+							<label>Camera:</label>Canon EOS 5D Mark II<br/>
+							<label>Software:</label>Adobe Photoshop CS5<br/>
+							<label>Date:</label>2012-11-26 16:04:45<br/>
+							<label>Exposure time:</label>1/200 sec<br/>
+							<label>F number:</label>F2.8
+						</div>
 					</div>
 					<?php if( $is_logged || true){ ?>
 						<!-- quick mark as favorite -->
 						<div class="image-info favorite-mark-up">
-							<i class="icon-heart icon-white" width="40px" height="40px"></i>
+							<span class="glyphicon glyphicon-heart"></span>
 						</div>
 					<?php } ?>
 					
@@ -48,6 +59,7 @@
 					<a href="#">
 						<img src="src/img/img<?php echo $i; ?>.jpg" class="file"/>
 					</a>
+					
 				</div>
 			<?php } ?>
 			

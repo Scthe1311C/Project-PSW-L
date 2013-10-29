@@ -16,8 +16,8 @@
 			<div class="dialog-content" style="margin-top:10px;">
 				<table style="margin:10px auto">
 					<tr>
-						<td style="text-align: center; width:50%">D:</td>
-						<td style="text-align: center; width:50%">M:</td>
+						<td style="text-align: center; width:150px">D:</td>
+						<td style="text-align: center; width:150px">M:</td>
 					</tr>
 					<tr>
 						<td style="vertical-align:top">
