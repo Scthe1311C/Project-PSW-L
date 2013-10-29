@@ -1,0 +1,30 @@
+#about-section-1{
+	position:absolute;
+	top:0;right:0;left:0;bottom:0;
+	background:url('../img/img2.jpg') no-repeat center;
+	background-size: cover;
+}
+
+#about-section-2{
+	position:relative;
+	top:0;right:0;left:0;bottom:0;
+	background:url('../img/img4.jpg') no-repeat center ;
+	background-size: cover;
+}
+
+#about-section-3{
+	position:absolute;
+	top:0;right:0;left:0;bottom:0;
+	background:url('../img/img5.jpg') no-repeat center;
+	background-size: cover;
+}
+
+section > h1{
+	width:50%;
+	color:white;
+}
+
+#about-section-2>h1{
+	position:absolute;
+	bottom:0px;
+}

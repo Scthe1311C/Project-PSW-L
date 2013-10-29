@@ -8,6 +8,9 @@ function login(){
 	return render_template( "login.php");
 }
 
+function about(){
+	return render_template( "about.php");
+}
 
 
 function render_template( $path, array $args = NULL){
