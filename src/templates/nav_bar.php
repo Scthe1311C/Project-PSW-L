@@ -41,13 +41,10 @@ $(window).scroll(function() {
 	
 		<!-- 
 			TODO provide home url
-			TODO provide $is_logged, user name, user avater etc.
+			TODO provide user avatar
 		-->
 		
 		<!-- TODO check if this uri is ok for every page -->
-		<?php $main_url = ((!empty($_SERVER["HTTPS"])) ? "https" : "http") . "://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]; ?>
-		<?php $is_logged = false; ?>
-		<?php $active_user_name = "user1"; ?>
 		<?php if( !isset( $user_avatar) ) $user_avatar = "src/img/user-icon.jpg"; ?>
 		
 		
@@ -82,7 +79,7 @@ $(window).scroll(function() {
 					<li class="dropdown">
 						<a href="#" class="navigation-bar-item dropdown-toggle" data-toggle="dropdown">
 							<img src="<?php echo $user_avatar; ?>" width="20" height="20"/>
-							<?php echo $active_user_name; ?>
+							<?php echo $user_name; ?>
 						</a>
 						<ul class="dropdown-menu">
 							<li><a href="#" class="navigation-bar-dropdown-item">Settings</a></li>

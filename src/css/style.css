@@ -3,6 +3,11 @@
 	src: url('../fonts/AlexBrushRegular.ttf');
 }
 
+#page-main{
+	background-color:#d0d0d0;
+	height:100%
+}
+
 .dialog{
 	padding:0px;
 	border-radius: 4px;
@@ -56,6 +61,7 @@
 	background-size: cover;
 	height:500px;
 	position:relative;
+	margin-bottom:10px;
 }
 
 #navigation-bar{

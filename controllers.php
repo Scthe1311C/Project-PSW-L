@@ -5,7 +5,10 @@ function home(){
 }
 
 function login(){
-	return render_template( "login.php");
+	return render_template( "login.php", array(
+		"css_stylesheets" => array("src/css/login.css"),
+		"fullscreen" => true
+	));
 }
 
 function about(){
@@ -13,7 +16,11 @@ function about(){
 }
 
 function popular(){
-	return render_template( "gallery-view.php");
+	return render_template( "gallery-view.php", array(
+		"css_stylesheets" => array("src/css/gallery-view.css"),
+		//"user_name" => NULL
+		"user_name" => "Adam Smith"
+	));
 }
 
 function render_template( $path, array $args = NULL){
@@ -21,8 +28,10 @@ function render_template( $path, array $args = NULL){
 		$args["title"] = "app";
 	}
     extract($args);
+	$content = $path;
     ob_start();
-    require "src/templates/" . $path;
+    //require "src/templates/" . $path;
+	require "src/templates/app-layout.php";
     $html = ob_get_clean();
     return $html;
 }
