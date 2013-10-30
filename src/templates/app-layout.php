@@ -17,11 +17,13 @@
 		<?php }} ?>
 	</head>
 	
-	<?php // read all variables ?>
-	<?php $main_url = ((!empty($_SERVER["HTTPS"])) ? "https" : "http") . "://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]; ?>
-	<?php $is_logged = isset($user_name); ?>
-	<?php $is_fullscreeen = isset($fullscreen) && $fullscreen; //remove navbar ?>
-	<?php //$minimal_navbar  //does not display big image behind ?>
+	<?php
+		// read auxiliary variables
+		$main_url = ((!empty($_SERVER["HTTPS"])) ? "https" : "http") . "://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+		$is_logged = isset($user_name);
+		$is_fullscreeen = isset($fullscreen) && $fullscreen; //remove navbar
+		//$minimal_navbar  //does not display big image behind
+	?>
 		
 	<body id="page-main">
 		

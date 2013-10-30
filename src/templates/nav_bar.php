@@ -24,7 +24,7 @@ function isScrolledIntoView(elem){
 }
 */
 
-<?php if( $minimal_navbar){?>
+<?php if( !$minimal_navbar){?>
 $(window).scroll(function() {
 	var elem = $('#navigation-bar-image');
 	var navBar = $('#navigation-bar');
