@@ -34,7 +34,12 @@
 		
 		<?php include $content; ?>
 			
-		<?php if( !$is_fullscreeen){?></div><?php } ?>
+		<?php if( !$is_fullscreeen){?>
+			</div>
+			<?php 
+			include 'footer.php';
+		}
+		?>
 		
 	</body>
 </html>

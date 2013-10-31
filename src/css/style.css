@@ -4,7 +4,7 @@
 }
 
 #page-main{
-	background-color:#d0d0d0;
+	background-color:#ffffff;
 	height:100%
 }
 
@@ -64,11 +64,11 @@
 
 #navigation-bar{
 	width:100%;
-	border-width:0 1px 1px !important;
+	border-width:1px 0px !important;
 	border-style:solid;
-	border-color:#A4BACA;
+	border-color:#A4A4A4;
 	background-image:none !important;
- 	background-color: rgba(81, 127, 164, 0.8) !important; /* #517FA4 */
+ 	background-color: rgba( 35,38,44,0.8) !important; /* #23262C */
 	margin-bottom:0px !important;
 	border-radius:0px !important;
 }
@@ -88,13 +88,13 @@
 
 .navigation-bar-item{
 	text-shadow:0 0 !important;
-	color: #e8e8e8 !important;
+	color: #888 !important;
 	font-size:14px;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
 .navigation-bar-item:hover{
-	color: white !important;
+	color: rgba(255,64,64,0.8) !important;
 }
 
 ul.nav li.dropdown:hover > ul.dropdown-menu {
@@ -123,3 +123,94 @@ div.navigation-bar-search-icon > input {
 	border: none;
 }
 */
+
+/*
+  footer
+*/
+#footer{
+	width:100%;
+	height:150px;
+	position:relative;
+	padding:10px 5px;
+	margin-top:10px;
+ 	background-color: rgba( 35,38,44,1); /* #23262C */
+	color:white;
+	border-width:1px 0px 0px 0px;
+	border-style:solid;
+	border-color:#A4A4A4;
+}
+
+#footer-about{
+	margin:5px auto 15px;
+	width:80px;
+	font-size:2em;
+	color:#888;
+	margin-bottom:10px;
+}
+
+#footer-about:hover{
+	color: rgba(255,64,64,0.8);
+}
+
+#footer li{
+	opacity:0.5;
+	display:inline-block;
+}
+
+#footer li:hover{
+	opacity:1;
+}
+
+.caption{
+	position:absolute;
+	display:none;
+}
+
+#footer li:hover span{
+/*display:block;*/
+}
+
+#footer-copyright{
+	position:absolute;
+	bottom:2px;
+	left:5px;
+	float:left;
+}
+
+#footer-designed{
+	position:absolute;
+	bottom:2px;
+	right:5px;
+	float:right;
+}
+
+/*
+footer-social
+*/
+#footer-social{
+	padding-left:0px;
+	margin:0px auto;
+	width:240px;
+}
+
+.social-icon{
+	display:block;
+	width:30px;
+	height:25px;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	background-size: 25px 25px;
+	line-height: 20px;
+}
+
+.be{background-image:url('../img/be.png');}
+.dr{background-image:url('../img/dr.png');}
+.fb{background-image:url('../img/fb.png');}
+.in{background-image:url('../img/in.png');}
+.pi{background-image:url('../img/pi.png');}
+.tw{background-image:url('../img/tw.png');}
+.vi{background-image:url('../img/vi.png');}
+
+
+
+
