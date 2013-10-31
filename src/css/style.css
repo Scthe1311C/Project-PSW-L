@@ -93,6 +93,7 @@
 	font-size:15px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-weight:600;
+	transition: color 0.2s linear;
 }
 
 .navigation-bar-item:hover{
@@ -148,24 +149,23 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
 	margin-left:60px; /* should be the same as #navigation-bar-avatar->width */
 }
 
-
-/*
-#navigation-bar-search{
-	border-radius:0px;
-	position: relative;
-	display:inline-block;
+.back-to-top {
+    position: fixed;
+    bottom: 2em;
+    right: 0px;
+    text-decoration: none;
+    color: #000000;
+    background-color: rgba(235, 235, 235, 0.80);
+    font-size: 12px;
+    padding: 1em;
+    display: none;
+	z-index:6;
 }
 
-div.navigation-bar-search-icon > input {
-	position: absolute;
-	background:url('http://l.yimg.com/g/images/sprites/icons-s9157f2a5d4.png') no-repeat;
-	background-position: 0 -134px;
-	cursor:pointer;
-	width: 20px;
-	height: 30px;
-	border: none;
+.back-to-top:hover {    
+    background-color: rgba(135, 135, 135, 0.50);
 }
-*/
+
 
 /*
   breadcrumbs
@@ -233,10 +233,6 @@ div.navigation-bar-search-icon > input {
 #breadcrumb li:last-child a:after {
 	border-right-color:white !important;
 }
-/*
-#breadcrumb li a:hover { background: hsla(34,85%,25%,1); }
-#breadcrumb li a:hover:after { border-right-color: hsla(34,85%,25%,1) !important; }
-*/
 
 /*
   footer
@@ -260,6 +256,7 @@ div.navigation-bar-search-icon > input {
 	font-size:2em;
 	color:#888;
 	margin-bottom:10px;
+	transition: color 0.2s linear;
 }
 
 #footer-about:hover{

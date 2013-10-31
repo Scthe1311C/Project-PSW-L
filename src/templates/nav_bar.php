@@ -17,10 +17,23 @@ $( document ).ready(function() {
 	<?php if( $minimal_navbar){?>
 		$(navBar).css("position","relative");
 	<?php } ?>
+	
+	// scroll to the top button
+	<?php if( !$minimal_navbar){?>
+		var elem = $('#navigation-bar-image');
+		var elemBottom = $(elem).offset().top + $(elem).height();
+		var scrollToTopTarget = elemBottom - navBarH;
+	<?php } else {?>
+		var scrollToTopTarget = 0;
+	<?php } ?>
+	$('.back-to-top').click(function(event) {
+        event.preventDefault();
+        $('html, body').animate({scrollTop: scrollToTopTarget}, 500);
+        return false;
+    })
 });
 
 /* script to fix the nav bar to scroll to the top if the main image is not visible */
-<?php if( !$minimal_navbar){?>
 	$(window).scroll(function() {
 		var elem = $('#navigation-bar-image');
 		var navBar = $('#navigation-bar');
@@ -29,14 +42,21 @@ $( document ).ready(function() {
 		var navBarH = $(navBar).height();
 		var isTopImageVisible = docViewTop < elemBottom - navBarH;
 		if( !isTopImageVisible && !$(navBar).hasClass("navbar-fixed-top")){
-			$(navBar).addClass("navbar-fixed-top");
-			$(navBar).css("position","fixed");
+			$('.back-to-top').fadeIn(500);
+			
+			<?php if( !$minimal_navbar){?>
+				$(navBar).addClass("navbar-fixed-top");
+				$(navBar).css("position","fixed");
+			<?php } ?>
 		}else if( isTopImageVisible && $(navBar).hasClass("navbar-fixed-top")){
-			$(navBar).removeClass("navbar-fixed-top");
-			$(navBar).css("position","absolute");
+			$('.back-to-top').fadeOut(500);
+			
+			<?php if( !$minimal_navbar){?>
+				$(navBar).removeClass("navbar-fixed-top");
+				$(navBar).css("position","absolute");
+			<?php } ?>
 		}
 	});
-<?php } ?>
 </script>
 
 <?php if( !$minimal_navbar){?>
@@ -122,3 +142,5 @@ $( document ).ready(function() {
 	<!-- background end -->
 	</div>
 <?php } ?>
+
+<a href="#" class="back-to-top">Back to Top</a>
