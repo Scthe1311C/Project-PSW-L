@@ -58,7 +58,7 @@
 }
 
 /*
-	navigation bar
+  navigation bar
 */
 #navigation-bar-image{
 	background:url('../img/img8.jpg') no-repeat center center fixed;
@@ -168,6 +168,68 @@ div.navigation-bar-search-icon > input {
 */
 
 /*
+  breadcrumbs
+  http://css-tricks.com/triangle-breadcrumbs/
+*/
+#breadcrumb{
+	list-style: none; 
+	overflow: hidden; 
+	font: 16px Helvetica, Arial, Sans-Serif;
+}
+
+#breadcrumb li a span{
+	padding-left:15px;
+}
+#breadcrumb li { 
+	float: left; 
+}
+#breadcrumb li a {
+	float: left;
+	position: relative; 
+	display: block;
+	padding: 10px 20px 10px 15px;
+	text-decoration: none; 
+	color: black;
+}
+#breadcrumb li a:after { 
+	content: " ";
+	display: block;
+	width: 0;
+	height: 0;
+	border-top: 50px solid rgba(0, 0, 0, 0);
+	border-bottom: 50px solid rgba(0, 0, 0, 0);
+	border-right-style:solid;
+	border-right-width:30px;
+	position: absolute;
+	top: 50%;
+	margin-top: -50px;
+	right: 0;
+	margin-right: -17px;
+	z-index: 2;
+}
+#breadcrumb li:first-child a 		{ background:        	hsl(360,65%,75%); }
+#breadcrumb li:first-child a:after 	{ border-right-color:	hsl(120,65%,75%); }
+#breadcrumb li:nth-child(2) a       { background:       	hsl(120,65%,75%); }
+#breadcrumb li:nth-child(2) a:after { border-right-color: 	hsl(207,65%,75%); }
+#breadcrumb li:nth-child(3) a       { background:      		hsl(207,65%,75%); }
+#breadcrumb li:nth-child(3) a:after { border-right-color:	hsl(50,65%,75%); }
+#breadcrumb li:nth-child(4) a       { background:        	hsl(50,65%,75%); }
+#breadcrumb li:nth-child(4) a:after { border-right-color: 	hsl(80,65%,75%); }
+#breadcrumb li:nth-child(5) a       { background:        	hsl(80,65%,75%); }
+#breadcrumb li:nth-child(5) a:after { border-right-color: 	hsl(10,65%,75%); }/* srsly ?! */
+#breadcrumb li:last-child a {
+	pointer-events: none;
+	cursor: default;
+}
+#breadcrumb li:last-child a:after {
+	border-right-color:white !important;
+}
+/*
+#breadcrumb li a:hover { background: hsla(34,85%,25%,1); }
+#breadcrumb li a:hover:after { border-right-color: hsla(34,85%,25%,1) !important; }
+*/
+
+/*
   footer
 */
 #footer{
@@ -228,7 +290,7 @@ div.navigation-bar-search-icon > input {
 }
 
 /*
-footer-social
+  footer-social
 */
 #footer-social{
 	padding-left:0px;

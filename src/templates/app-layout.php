@@ -28,7 +28,8 @@
 	<body id="page-main">
 		
 		<?php if( !$is_fullscreeen) {
-			include 'nav_bar.php';?>
+			include 'nav_bar.php';
+			include 'breadcrumbs.php';?>
 			<div class="container">
 		<?php }  ?>
 		
