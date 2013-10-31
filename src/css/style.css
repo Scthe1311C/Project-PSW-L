@@ -189,7 +189,12 @@ div.navigation-bar-search-icon > input {
 	display: block;
 	padding: 10px 20px 10px 15px;
 	text-decoration: none; 
-	color: black;
+	color:#23262C;
+	transition: color 0.5s ease-in;
+	font-weight:600;
+}
+#breadcrumb li:hover a {
+	color:white;
 }
 #breadcrumb li a:after { 
 	content: " ";
@@ -208,12 +213,16 @@ div.navigation-bar-search-icon > input {
 	z-index: 2;
 }
 #breadcrumb li:first-child a 		{ background:        	hsl(360,65%,75%); }
+
 #breadcrumb li:first-child a:after 	{ border-right-color:	hsl(120,65%,75%); }
 #breadcrumb li:nth-child(2) a       { background:       	hsl(120,65%,75%); }
+
 #breadcrumb li:nth-child(2) a:after { border-right-color: 	hsl(207,65%,75%); }
 #breadcrumb li:nth-child(3) a       { background:      		hsl(207,65%,75%); }
+
 #breadcrumb li:nth-child(3) a:after { border-right-color:	hsl(50,65%,75%); }
 #breadcrumb li:nth-child(4) a       { background:        	hsl(50,65%,75%); }
+
 #breadcrumb li:nth-child(4) a:after { border-right-color: 	hsl(80,65%,75%); }
 #breadcrumb li:nth-child(5) a       { background:        	hsl(80,65%,75%); }
 #breadcrumb li:nth-child(5) a:after { border-right-color: 	hsl(10,65%,75%); }/* srsly ?! */
