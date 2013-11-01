@@ -8,14 +8,14 @@ function login(){
 	return render_template( "login.php", array(
 		"css_stylesheets" => array("src/css/login.css"),
 		"fullscreen" => true,
-		"title" => "login",
+		"title" => "login"
 	));
 }
 
 function about(){
 	return render_template( "about.php", array(
 		"css_stylesheets" => array("src/css/about.css"),
-		"title" => "AAa",
+		"title" => "AAa"
 	));
 }
 
@@ -23,6 +23,14 @@ function popular(){
 	return render_template( "gallery-view.php", array(
 		"css_stylesheets" => array("src/css/gallery-view.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
 		//"user_name" => NULL
+		"user_name" => "Adam Smith"
+	));
+}
+
+function user(){
+	return render_template( "user-view.php", array(
+		"css_stylesheets" => array("src/css/user-view.css"),
+		"title" => "User",
 		"user_name" => "Adam Smith"
 	));
 }

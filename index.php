@@ -31,9 +31,13 @@
 		$content = login();
 
 	}else if( $page_name=="/register"){
-		/* register new user */
+		/* register new user TODO remove this, use combined login-register page*/
 		$content = '<html><body><h1>Register</h1></body></html>';
 
+	}else if( $page_name=="/user"){
+		/* user page*/
+		$content = user();
+		
 	}else if( $page_name=="/settings"){
 		/* change user's settings */
 		$content = '<html><body><h1>Settings</h1></body></html>';

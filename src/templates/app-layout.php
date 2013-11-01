@@ -32,16 +32,12 @@
 			include 'nav_bar.php';
 			include 'breadcrumbs.php';?>
 			<div class="container">
-		<?php }  ?>
-		
-		<?php include $content; ?>
-			
-		<?php if( !$is_fullscreeen){?>
+				<?php include $content; ?>
 			</div>
-			<?php 
-			include 'footer.php';
-		}
-		?>
+			<?php include 'footer.php'; ?>
+		<?php } else{
+			include $content;
+		}?>
 		
 	</body>
 </html>
