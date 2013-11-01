@@ -7,7 +7,8 @@ function home(){
 function login(){
 	return render_template( "login.php", array(
 		"css_stylesheets" => array("src/css/login.css"),
-		"fullscreen" => true
+		"fullscreen" => true,
+		"title" => "login",
 	));
 }
 
