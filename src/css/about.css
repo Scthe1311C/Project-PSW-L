@@ -1,30 +1,99 @@
-#about-section-1{
-	position:absolute;
-	top:0;right:0;left:0;bottom:0;
-	background:url('../img/img2.jpg') no-repeat center;
-	background-size: cover;
+#about-page{
+	max-width:700px;
+	margin:0px auto;
 }
 
-#about-section-2{
+.post-header>h1{
+	font-size:45px;
+	line-height:1;
+	outline: 0px none currentColor;
+	overflow-wrap: break-word;
+	letter-spacing: -1px;
+}
+
+.post-header>h2{
+	color: #333332;
+	font-style: italic;
+	font-weight: 400;
+	line-height: 1.2;
+	margin: 20px 0px;
+}
+
+.post-body{
+	margin-bottom: 30px;
+	margin-top: 25px;
+	outline: 0px none currentColor;
+	overflow-wrap: break-word;
+	font-size:22px;
+	font-weight: 400;
+	line-height: 1.45;
+	color: #333332;
+}
+
+.post-body section:before{
+	border: 1px solid #DEDEDC;
+	content: "";
+	display: block;
+	margin: 50px auto 40px;
+	width: 20%;
+}
+
+.post-body section:first-child:before{
+	border-style:none;
+}
+
+.image-with-desc{
 	position:relative;
-	top:0;right:0;left:0;bottom:0;
-	background:url('../img/img4.jpg') no-repeat center ;
-	background-size: cover;
 }
 
-#about-section-3{
+.image-with-desc .image-caption{
+	left:-172px;
 	position:absolute;
-	top:0;right:0;left:0;bottom:0;
-	background:url('../img/img5.jpg') no-repeat center;
-	background-size: cover;
+	text-align:right;
+	width:150px;
+	top:0px;
+	
+	color: #666665;
+	font-size: 14px;
+	font-style: italic;
+	font-weight: 400;
+	line-height: 1.4;
+	outline: 0px none currentColor;
+	z-index: 300;
 }
 
-section > h1{
-	width:50%;
-	color:white;
+.image-with-desc .image-caption:before{
+	border: 1px solid #DEDEDC;
+	content: "";
+	display: block;
+	margin-bottom: 10px;
+	margin-left: 75%;
+	width: 25%;
+}
+.post-body p{
+	margin-bottom: 31px;
 }
 
-#about-section-2>h1{
-	position:absolute;
-	bottom:0px;
+.quote{
+	margin: 48px -50px;
+	font-size: 32px;
+	padding: 0px;
+	text-align: center;
+	display: block;
+}
+
+@media (max-width:900px) {
+	.image-with-desc .image-caption{
+		position:relative;
+		text-align: center;
+		margin:0px auto;
+		left: 0px;
+		margin-top: 10px;
+		width: 100%;
+		display: block;
+	}
+	
+	.image-with-desc .image-caption:before{
+		display: none;
+	}
 }
