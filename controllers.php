@@ -58,8 +58,8 @@ function person_info(){
  //static data input
        include './class/userData.php';
     $personData =  new UserData("adam.smith@gmail.com", "asm123!", "adam.smith@gmail.com", "Adam","Smith", "M", "New York", new DateTime('1992-10-07'), "src/img/img2.jpg");
-     return render_template( 'app_layout.php',array(
-		"content" => "public-person-view.php",
+     return render_template( 'public-person-view.php',array(
+		"css_stylesheets" => array("src/css/settings.css"),
         "personData" => $personData
 	)); 
 }

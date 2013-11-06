@@ -10,6 +10,7 @@
 			<li><a href="galleries">Galleries</a></li>
 			<li><a href="photo">Photo</a></li>
 			<li><a href="user"><strong>User page ( NEW)</strong></a></li>
+			<li><a href="profile">Public profile</a></li>
 		</td>
 		<td>
 			<li><a href="login">Login</a></li>
@@ -18,7 +19,6 @@
 			<li><a href="upload">Upload</a></li>
 			<li><a href="profile_photos">Profile photos</a></li>
 			<li><a href="profile_galleries">Profile galleries</a></li>
-			
 			<br/>
 			<br/>
 			<li><a href="login">Login</a></li>

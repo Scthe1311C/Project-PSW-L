@@ -68,9 +68,17 @@
 		$content = single_photo();
 	
 	} else if( $page_name=="/person"){
-            		$content = person_info();
-        }
-        else {
+        $content = person_info();
+    
+	} else if( $page_name=="/user"){
+		/* user page*/
+		$content = user();
+	
+	} else if( $page_name=="/profile"){
+		/* user page*/
+		$content = person_info();
+		
+    } else {
 		$content =  '<html><body><h1>Page Not Found</h1></body></html>';
 		header('Status: 404 Not Found');
 	}
