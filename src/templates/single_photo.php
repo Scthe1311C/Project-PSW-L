@@ -3,6 +3,7 @@
 <div  id="myCarousel" class="carousel slide">
 
            <!-- Indicators -->
+	<!--	   
     <ol class="carousel-indicators">
         <?php
         echo '<li data-target="#myCarousel" data-slide-to="0" class="active"></li>';
@@ -11,6 +12,7 @@
         }
         ?> 
     </ol> 
+	-->
     
 
     <div  class="carousel-inner">

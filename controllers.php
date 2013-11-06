@@ -60,16 +60,19 @@ function person_info(){
     $personData =  new UserData("adam.smith@gmail.com", "asm123!", "adam.smith@gmail.com", "Adam","Smith", "M", "New York", new DateTime('1992-10-07'), "src/img/img2.jpg");
      return render_template( 'app_layout.php',array(
 		"content" => "public-person-view.php",
-                "personData" => $personData
+        "personData" => $personData
 	)); 
 }
 
 function single_photo(){
-$photos = ["src/img/img1.jpg","src/img/img2.jpg","src/img/img3.jpg","src/img/img4.jpg","src/img/img5.jpg","src/img/img6.jpg","src/img/img7.jpg", "src/img/img8.jpg"];
-     return render_template( "photo_layout.php",array(
-		"content" => "single_photo.php",
-                "photos" => $photos
-	));      
+	$photos = ["src/img/img1.jpg","src/img/img2.jpg","src/img/img3.jpg","src/img/img4.jpg","src/img/img5.jpg","src/img/img6.jpg","src/img/img7.jpg", "src/img/img8.jpg"];
+	return render_template( "single_photo.php", array(
+        "css_stylesheets" => array(
+			"src/css/carousel.css",
+			"src/css/photo_style.css"
+			),
+		"photos" => $photos
+	));
 }
 function render_template( $path, array $args = NULL){
 	if ( $args === NULL || !in_array('title', $args)){
