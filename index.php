@@ -31,25 +31,21 @@
 		$content = login();
 
 	}else if( $page_name=="/register"){
-		/* register new user TODO remove this, use combined login-register page*/
-		$content = '<html><body><h1>Register</h1></body></html>';
+		/* register new user */
+		$content = register();
 
-	}else if( $page_name=="/user"){
-		/* user page*/
-		$content = user();
-		
 	}else if( $page_name=="/settings"){
 		/* change user's settings */
-		$content = '<html><body><h1>Settings</h1></body></html>';
+		$content = settings();
 
 	}else if( $page_name=="/about"){
 		/* about the website */
-		$content = about();
+		$content = '<html><body><h1>About</h1></body></html>';
 
 	}else if( $page_name=="/popular"){
 		/* photos with biggest number of views */
 		/* TODO : popular this week/month/..*/
-		$content =  popular();
+		$content = '<html><body><h1>Popular</h1></body></html>';
 
 	}else if( $page_name=="/galleries"){
 		/* galleries ( photo sets) created by users f.e. flowers */
@@ -69,12 +65,16 @@
 		
 	}else if( $page_name=="/photo"){
 		/* single photo view */
-		$content = '<html><body><h1>Photo</h1></body></html>';
+		$content = single_photo();
 	
-	} else {
+	} else if( $page_name=="/person"){
+            		$content = person_info();
+        }
+        else {
 		$content =  '<html><body><h1>Page Not Found</h1></body></html>';
 		header('Status: 404 Not Found');
 	}
+        
 	
 	/*
 	TODO:
