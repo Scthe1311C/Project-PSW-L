@@ -40,12 +40,12 @@
 
 	}else if( $page_name=="/about"){
 		/* about the website */
-		$content = '<html><body><h1>About</h1></body></html>';
+		$content = about();
 
 	}else if( $page_name=="/popular"){
 		/* photos with biggest number of views */
 		/* TODO : popular this week/month/..*/
-		$content = '<html><body><h1>Popular</h1></body></html>';
+		$content =  popular();
 
 	}else if( $page_name=="/galleries"){
 		/* galleries ( photo sets) created by users f.e. flowers */
