@@ -26,7 +26,13 @@
 		/* home page */
 		$content = home();
 	
-	}else if( $page_name=="/login"){
+	}
+        else if( $page_name=="/index.php"){
+		/* login as user providing login and password */
+		$content = home();
+
+	}
+        else if( $page_name=="/login"){
 		/* login as user providing login and password */
 		$content = login();
 
