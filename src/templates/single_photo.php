@@ -28,7 +28,7 @@
                         <img class="image"src="' . $photos[$i] . '">
                         <div>
                         <div class="photo_name">
-                            <span>' . getNameFromPath($photos[$i]) . '</span>
+                            <p>' . getNameFromPath($photos[$i]) . '</p>
                         </div>
                         <div><a  class="btn btn-large btn-primary" href="#">Browse gallery</a></div>
                     </div>

@@ -2,30 +2,30 @@
 .image{
     position:relative; 
     width: 100%;
-    height: 84%;
-    top: -20px;
+    height: 90%;
+    top: -30px;
 }
 .photo_container {
     position:static; 
     top:0%;
-    left:10%; 
-    right: 10%
+    left:13%; 
+    right: 13%
 }
 
 .carousel-caption{
     position: absolute;
-    left: 15%;
-    right: 15%;
+    left: 13%;
+    right: 13%;
     padding: 0;
     top: 80px;
 }
 
 .photo_name {
-    position:absolute;  
+    position:relative;  
     text-align: left;
     float: left;
-    bottom: 4em;
-
+    bottom: 25px;
+    width: 0px;
 }
 .carousel-inner{
     position: relative;
@@ -55,7 +55,7 @@
     width: 10%
 }
 .carousel-indicators{
-    bottom: 15px;
+    bottom: 8vh;
     margin-bottom: 0;
 }
 
@@ -82,6 +82,6 @@
     
 .btn-primary{
  position: relative;
-     bottom: 15px;
+     bottom: 25px;
 }
 
