@@ -30,7 +30,7 @@
                         <div class="photo_name">
                             <p>' . getNameFromPath($photos[$i]) . '</p>
                         </div>
-                        <div><a  class="btn btn-large btn-primary" href="#">Browse gallery</a></div>
+                        <div><a  class="btn btn-large btn-primary" href="gallery?galleryId='.$galleryId.'">Browse gallery</a></div>
                     </div>
                     </div>
                 </div>

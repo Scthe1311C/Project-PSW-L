@@ -41,7 +41,7 @@ foreach ($galleryIndex as $index) {
             </div>
     <?php } ?>
         <!--title-->
-        <h4 style="text-align: center;padding-bottom: 0">Tree gallery</h4>
+        <h4 style="text-align: center;padding-bottom: 0"><?php echo $gallery->name ?></h4>
         <!-- image -->
         <a href="gallery?galleryId=<?php echo $gallery->id?>">
             <img  src="src/img/galleries_folder.png"/>

@@ -78,7 +78,8 @@ function galleries(){
 }
 function single_photo($photos_Params) {
     include './model/gallery.php';
-    $gallery = Galleries::getInstance()->getGallery($photos_Params["galleryId"]);
+    $galleryId = $photos_Params["galleryId"];
+    $gallery = Galleries::getInstance()->getGallery($galleryId);
     $photos = $gallery->photos;
     $chosen_photo = $photos_Params["photo"];
     return render_template("single_photo.php", array(
@@ -91,7 +92,8 @@ function single_photo($photos_Params) {
             "src/js/holder.js"       
          ),
             "photos" => $photos,
-            "chosen_photo" =>$chosen_photo
+            "chosen_photo" =>$chosen_photo,
+            "galleryId" => $galleryId
     ));
 }
 
