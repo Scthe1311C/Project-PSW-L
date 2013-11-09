@@ -9,7 +9,7 @@ TODO scale favorite-mark-up icon, make red on hover
 		
 		<!-- gradients -->
 		<div class="image-info gallery-thumbnail-bottom-gradient"></div>
-		<div class="image-info gallery-thumbnail-top-gradient"></div>
+		<div style="height:30px !important;" class="image-info gallery-thumbnail-top-gradient"></div>
 		
 		<!-- image info -->
 		<div class="image-info views-count">

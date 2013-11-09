@@ -2,7 +2,6 @@
     <li>Profile info</li>
     <li>Galleries</li>
 </ul>-->
-<?php $data = $personData->getPersonalData(); ?>
 
 <div class="masthead">
     <ul style="
@@ -30,10 +29,10 @@
                 <table>
                     <table>
                         <tr>
-                            <td>Name</td> <td><?php echo $data["name"] ?></td >
+                            <td>Name</td> <td><?php echo $person->name ?></td >
                         </tr>
                         <tr>
-                            <td>Surname</td> <td><?php echo $data["surname"] ?>"</td >
+                            <td>Surname</td> <td><?php echo $person->surname ?></td >
                         </tr>
         <!--                <tr>
                             <td>Adres e-mail</td><td><input type="email" name="userMail" autocomplete="on" required
@@ -44,7 +43,7 @@
                             <td>Gender</td> 
                             <td>
                                 <?php
-                                if ($data["gender"] == "M") {
+                                if ($person->gender == "M") {
                                     echo "Male";
                                 } else {
                                     echo "Famale";
@@ -55,10 +54,10 @@
 
 
                         <tr>
-                            <td>City</td><td><?php echo $data["city"] ?></td>
+                            <td>City</td><td><?php echo $person->city ?></td>
                         </tr>
                         <tr>
-                            <td>Birth date</td><td><?php echo date_format($data["birthDate"], 'Y-m-d'); ?></td> 
+                            <td>Birth date</td><td><?php echo date_format($person->birthDate, 'Y-m-d'); ?></td> 
                         </tr>
                     </table>
             </div>
@@ -66,7 +65,7 @@
     </div>
     <div class="col-left">
         <figure class="image-div">
-            <img src="<?php echo $data["avatar"] ?>" class="img-thumbnail"  alt="No image found"/>
+            <img src="<?php echo $person->avatar ?>" class="img-thumbnail"  alt="No image found"/>
         </figure> 
         
 

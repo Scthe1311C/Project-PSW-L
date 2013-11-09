@@ -55,7 +55,7 @@
 
 	}else if( $page_name=="/galleries"){
 		/* galleries ( photo sets) created by users f.e. flowers */
-		$content = '<html><body><h1>Galleries</h1></body></html>';
+		$content = galleries();
 
 	}else if( $page_name=="/upload"){
 		/* view my photos and select ones to upload for public viewership */

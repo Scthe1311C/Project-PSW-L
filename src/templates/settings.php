@@ -1,4 +1,4 @@
-<?php $data = $userData->getPersonalData(); ?>
+
 <section style="float: left; width:800px">
     <h2>User settings</h2>
     <form>
@@ -11,7 +11,7 @@
                 <div class="panel-body">
                     <table>
                         <tr>
-                            <td>Dropbox email</td> <td><input type="text" name="dropboxEmail" value ="<?php echo $data["dropboxEmail"] ?>"></td>
+                            <td>Dropbox email</td> <td><input type="text" name="dropboxEmail" value ="<?php echo $userData->dropboxEmail?>"></td>
                         </tr>
                     </table>
                 </div>
@@ -25,7 +25,7 @@
                 <div class="panel-body">
                     <table>
                         <tr>
-                            <td>Email</td> <td><?php echo $data["loginEmail"] ?></td>
+                            <td>Email</td> <td><?php echo $userData->loginEmail ?></td>
                         </tr>
                         <tr>
                             <td>Password</td> <td><a href="#">change password</a></td>
@@ -42,10 +42,10 @@
                     <table>
                         <table>
                             <tr>
-                                <td>Name</td> <td><input type="text" name="userName" autocomplete="on" value ="<?php echo $data["name"] ?>"></td >
+                                <td>Name</td> <td><input type="text" name="userName" autocomplete="on" value ="<?php echo $userData->name ?>"></td >
                             </tr>
                             <tr>
-                                <td>Surname</td> <td><input type="text" name="userSurname" autocomplete="on" value ="<?php echo $data["surname"] ?>"></td >
+                                <td>Surname</td> <td><input type="text" name="userSurname" autocomplete="on" value ="<?php echo $userData->surname ?>"></td >
                             </tr>
             <!--                <tr>
                                 <td>Adres e-mail</td><td><input type="email" name="userMail" autocomplete="on" required
@@ -57,7 +57,7 @@
                             </tr>
                             <tr>
                                 <?php
-                                if ($data["gender"] == "M") {
+                                if ($userData->gender == "M") {
                                     echo '<td><input type="radio" name="userSex" id="userFamale" value="M" checked>Male</td>     
                               <td><input type="radio" name="userSex" id="userMale" value="F">Female</td>   ';
                                 } else {
@@ -68,10 +68,10 @@
 
                             </tr>
                             <tr>
-                                <td>City</td><td> <input type="text" name="city" value ="<?php echo $data["city"] ?>"></td>
+                                <td>City</td><td> <input type="text" name="city" value ="<?php echo $userData->city ?>"></td>
                             </tr>
                             <tr>
-                                <td>Birth date</td><td><input type="date" name="birthDate" value ="<?php echo date_format($data["birthDate"], 'Y-m-d'); ?>"></td> 
+                                <td>Birth date</td><td><input type="date" name="birthDate" value ="<?php echo date_format($userData->birthDate, 'Y-m-d'); ?>"></td> 
                             </tr>
                         </table>
                 </div>
@@ -79,7 +79,7 @@
         </div>
         <div class="col-left">
              <figure class="image-div">
-        <img src="<?php echo $data["avatar"] ?>" class="img-thumbnail"  alt="No image found"/>
+        <img src="<?php echo $userData->avatar ?>" class="img-thumbnail"  alt="No image found"/>
         <form action="" method="post" enctype="multipart/form-data">
             <div style=" margin: 0 auto;" class="upload">
                 <input type="file" name="Change"/>

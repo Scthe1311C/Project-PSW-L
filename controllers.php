@@ -46,8 +46,8 @@ function user() {
 
 function settings() {
     //static data input
-    include './class/userData.php';
-    $userData = new UserData("adam.smith@gmail.com", "asm123!", "adam.smith@gmail.com", "Adam", "Smith", "M", "New York", new DateTime('1992-10-07'), "src/img/img1.jpg");
+    include './model/userData.php';
+    $userData =  $personData = Users::getInstance()->getUser(1);
     return render_template('settings.php', array(
         "css_stylesheets" => array("src/css/settings.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
         "userData" => $userData
@@ -56,14 +56,26 @@ function settings() {
 
 function person_info() {
     //static data input
-    include './class/userData.php';
-    $personData = new UserData("adam.smith@gmail.com", "asm123!", "adam.smith@gmail.com", "Adam", "Smith", "M", "New York", new DateTime('1992-10-07'), "src/img/img2.jpg");
+    include './model/userData.php';
+    $person = Users::getInstance()->getUser(2);
     return render_template('public-person-view.php', array(
         "css_stylesheets" => array("src/css/settings.css"),
-        "personData" => $personData
+        "person" => $person
     ));
 }
-
+function galleries(){
+    include './model/gallery.php';
+    $g1 = new Gallery(1,["src/img/img1.jpg", "src/img/img2.jpg", "src/img/img3.jpg"], "Gallery1", "Test gallery1", "src/img/img1.jpg",1);
+    $g2 = new Gallery(2,["src/img/img4.jpg", "src/img/img5.jpg", "src/img/img6.jpg"], "Gallery2", "Test gallery2", "src/img/img4.jpg",2);
+    $galleries=new Galleries([$g1,$g2]);
+    
+    return render_template("galleries.php", array(
+        "css_stylesheets" => array("src/css/gallery-view.css","src/css/galleries.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
+        "galleries" => [$g1, $g2],
+        "user_name" => "Adam Smith"
+    ));
+    
+}
 function single_photo() {
     $photos = ["src/img/img1.jpg", "src/img/img2.jpg", "src/img/img3.jpg", "src/img/img4.jpg", "src/img/img5.jpg", "src/img/img6.jpg", "src/img/img7.jpg", "src/img/img8.jpg"];
     return render_template("single_photo.php", array(

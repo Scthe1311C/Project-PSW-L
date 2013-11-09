@@ -1,0 +1,28 @@
+/* 
+    Document   : galleries
+    Created on : 2013-11-09, 10:41:12
+    Author     : Daniel
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.gallery-thumbnail:hover > .gallery-thumbnail-top-gradient{
+    height:43px !important;
+}
+
+.gallery-thumbnail:hover > .gallery-thumbnail-bottom-gradient{
+    height:43px !important;
+}
+
+h4{
+    margin-bottom: 3px !important;
+}
+.foreground-image{
+
+    height: 99px;
+    width: 151px;
+    position: relative;
+    bottom: 151;
+    left: 52;
+
+}
