@@ -2,11 +2,11 @@
 //class included gallery discription and content
 class Gallery {
     private $id;
-    private $photos;
-    private $name;
-    private $description;
-    private $tumbnail;
     private $designer;
+    public $photos;
+    public $name;
+    public $description;
+    public $tumbnail;
     
     function __construct($id,$photos, $name, $description, $tumbnail, $designer) {
         $this->id = $id;
@@ -16,65 +16,52 @@ class Gallery {
         $this->tumbnail = $tumbnail;
         $this->designer = $designer;
     }
-    
-    public function getId() {
-        return $this->id;
+  public function __get($name) {
+        switch ($name) {
+            case "id": return $this->id; break;
+            case "designer": return $this->designer; break;
+            default: throw new InvalidArgumentException('Invalid property: ' . $name);
+        }
     }
 
-    public function getPhotos() {
-        return $this->photos;
-    }
-
-    public function getName() {
-        return $this->name;
-    }
-
-    public function getDescription() {
-        return $this->description;
-    }
-
-    public function getTumbnail() {
-        return $this->tumbnail;
-    }
-    
-    public function getDesigner(){
-        return $this->designer;
-    }
-
-    public function __toString() {
-        return $this->id." ";
-    }
-
+    public function __set($name, $value) {
+        switch ($name) {
+//            case "password": $this->password = $value; break;
+            default: throw new InvalidArgumentException('Invalid property: ' . $name);
+        }
+    }  
 }
 
-class Galleries{
+// Singleton class represent all galleries aviable
+class Galleries {
     private $galeries;
-        
-    public function __construct($galleries) {
+    private static $instance;
+    private function __clone() { } //not provide to make kopy of object
+
+    private function __construct() {
         $this->galeries=[];
+        $g1 = new Gallery(1,["src/img/img1.jpg", "src/img/img2.jpg", "src/img/img3.jpg"], "Gallery1", "Test gallery1", "src/img/img1.jpg",1);
+        $g2 = new Gallery(2,["src/img/img4.jpg", "src/img/img5.jpg", "src/img/img6.jpg"], "Gallery2", "Test gallery2", "src/img/img4.jpg",2);
+        $g3 = new Gallery(3,["src/img/img1.jpg", "src/img/img2.jpg", "src/img/img3.jpg","src/img/img4.jpg", "src/img/img5.jpg", "src/img/img6.jpg","src/img/img7.jpg", "src/img/img8.jpg"], "Popular", "Test gallery2", "src/img/img4.jpg",NULL);
+        $galleries = [$g1, $g2, $g3];
         foreach ($galleries as $gallery) {
             $this->addGallery($gallery);
         }
     }
-    
-    public function getAllGalleries(){
-        return $this->galeries;
+
+    public static function getInstance() {
+        return (self::$instance === null) ? self::$instance = new Galleries() : self::$instance;
     }
 
     public function addGallery($gallery){
-        $this->galeries[$gallery->getId()] = $gallery;              
+        $this->galeries[$gallery->id] = $gallery;              
     }
     public function getGallery($id){
         return $this->galeries[$id];
     }
+    
 }
+
 ?>
-<?php  
-
-$g1 = new Gallery(1,["src/img/img1.jpg", "src/img/img2.jpg", "src/img/img3.jpg"], "Gallery1", "Test gallery1", "src/img/img1.jpg",1);
-$g2 = new Gallery(2,["src/img/img4.jpg", "src/img/img5.jpg", "src/img/img6.jpg"], "Gallery2", "Test gallery2", "src/img/img4.jpg",2);
-$gall=new Galleries([$g1,$g2]);
 
 
-echo $gall->getGallery(1);
-?>

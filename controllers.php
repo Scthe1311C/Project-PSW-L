@@ -20,9 +20,11 @@ function about() {
 }
 
 function popular() {
+    include './model/gallery.php';
+    $gallery = Galleries::getInstance()->getGallery(3);
     return render_template("gallery-view.php", array(
         "css_stylesheets" => array("src/css/gallery-view.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
-        //"user_name" => NULL
+            "gallery" => $gallery,
         "user_name" => "Adam Smith"
     ));
 }
@@ -35,14 +37,15 @@ function user() {
     ));
 }
 
-/*
-  function register(){
-  return render_template( 'app_layout.php',
-  array(
-  "content" => "register.php"
-  ));
-  }
- */
+function gallery($id){
+    include './model/gallery.php';
+    $gallery = Galleries::getInstance()->getGallery($id["galleryId"]);
+    return render_template("gallery-view.php", array(
+        "css_stylesheets" => array("src/css/gallery-view.css"),
+            "gallery" => $gallery,
+        "user_name" => "Adam Smith"
+    ));
+}
 
 function settings() {
     //static data input
@@ -65,28 +68,30 @@ function person_info() {
 }
 function galleries(){
     include './model/gallery.php';
-    $g1 = new Gallery(1,["src/img/img1.jpg", "src/img/img2.jpg", "src/img/img3.jpg"], "Gallery1", "Test gallery1", "src/img/img1.jpg",1);
-    $g2 = new Gallery(2,["src/img/img4.jpg", "src/img/img5.jpg", "src/img/img6.jpg"], "Gallery2", "Test gallery2", "src/img/img4.jpg",2);
-    $galleries=new Galleries([$g1,$g2]);
-    
+    $galleryIndex = [1,2,3];   
     return render_template("galleries.php", array(
         "css_stylesheets" => array("src/css/gallery-view.css","src/css/galleries.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
-        "galleries" => [$g1, $g2],
+        "galleryIndex" => $galleryIndex,
         "user_name" => "Adam Smith"
     ));
     
 }
-function single_photo() {
-    $photos = ["src/img/img1.jpg", "src/img/img2.jpg", "src/img/img3.jpg", "src/img/img4.jpg", "src/img/img5.jpg", "src/img/img6.jpg", "src/img/img7.jpg", "src/img/img8.jpg"];
+function single_photo($photos_Params) {
+    include './model/gallery.php';
+    $gallery = Galleries::getInstance()->getGallery($photos_Params["galleryId"]);
+    echo "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX".$photos_Params["galleryId"];
+    $photos = $gallery->photos;
+    $chosen_photo = $photos_Params["photo"];
     return render_template("single_photo.php", array(
         "css_stylesheets" => array(
             "src/css/carousel.css",
-            "src/css/photo_style.css"
+            "src/css/photo_style.css",
         ),
         js_scripts => array(
             "src/js/bootstrap.min.js",
             "src/js/holder.js"),
-        "photos" => $photos
+            "photos" => $photos,
+            "chosen_photo" =>$chosen_photo
     ));
 }
 

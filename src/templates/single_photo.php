@@ -7,9 +7,9 @@
 	   
     <ol class="carousel-indicators">
         <?php
-        echo '<li data-target="#myCarousel" data-slide-to="0" class="active"></li>';
-        for ($i = 1; $i < count($photos); $i++) {
-            echo '<li data-target="#myCarousel" data-slide-to="' . $i . '"></li>';
+        for ($i = 0; $i < count($photos); $i++) {
+            echo ($photos[$i] == $chosen_photo)? '<li data-target="#myCarousel" data-slide-to="' . $i .'" class="active"></li>' 
+                                                : '<li data-target="#myCarousel" data-slide-to="' . $i . '"></li>';
         }
         ?> 
     </ol> 
@@ -17,36 +17,21 @@
     
 
     <div  class="carousel-inner">
-        <div class="item active">
-            <div  class="container">
-                <div class="photo_container">
-                    <div class="carousel-caption">
-                        <img class="image"src="<?php echo $photos[0] ?>">
-                  
-                            <div class="photo_name">
-                       
-                           <p> <?php echo getNameFromPath($photos[0]) ?></p>
-                              </div>
-                        <div >
-                            <p><a  style="font-size: 70%" class="btn btn-large btn-primary" href="#">Browse gallery</a></p>
-                        </div>                                   
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <?php
-        for ($i = 1; $i < count($photos); $i++) {
-            echo '
-              <div class="item">
-            <div class="container">
+        for ($i = 0; $i < count($photos); $i++) {
+             echo ($photos[$i] == $chosen_photo)? '<div class="item active">' : '<div class="item">';
+            echo   
+            
+            '<div class="container">
                 <div class="photo_container">
                     <div class="carousel-caption">
                         <img class="image"src="' . $photos[$i] . '">
+                        <div>
                         <div class="photo_name">
-                            <p>' . getNameFromPath($photos[$i]) . '</p>
+                            <span>' . getNameFromPath($photos[$i]) . '</span>
                         </div>
-                        <p><a  class="btn btn-large btn-primary" href="#">Browse gallery</a><p>
+                        <div><a  class="btn btn-large btn-primary" href="#">Browse gallery</a></div>
+                    </div>
                     </div>
                 </div>
             </div>
