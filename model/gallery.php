@@ -26,7 +26,6 @@ class Gallery {
 
     public function __set($name, $value) {
         switch ($name) {
-//            case "password": $this->password = $value; break;
             default: throw new InvalidArgumentException('Invalid property: ' . $name);
         }
     }  

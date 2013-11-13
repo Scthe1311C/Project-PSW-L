@@ -80,8 +80,30 @@
     z-index: 2;
 }
     
-.btn-primary{
+#browse{
  position: relative;
      bottom: 25px;
+}
+#textArea{
+    width: 100%;
+}
+.img-thumbnail{
+    width: 100px;
+    height:100px;
+}
+.person-comment{
+        width: 120px;
+        height:100%;
+        float: left
+}
+
+.well{
+    margin-left: 20px;
+    margin-right: 20px
+}
+
+hr{
+    margin-top: 0;
+    margin-bottom: 5px;
 }
 
