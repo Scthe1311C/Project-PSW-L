@@ -3,13 +3,17 @@ TODO provide variables !
 TODO scale favorite-mark-up icon, make red on hover
 -->
 
-<?php for( $i = 1; $i < 8; $i++){ ?>
+<?php 
+    include './model/photos.php';
+    foreach($gallery->photos as $photoRef){
+    $photo = Photos::getInstance()->getPhoto($photoRef);
+    ?>
 	<!-- single image element -->
 	<div class="gallery-thumbnail" style="width:188px; height:141">
 		
 		<!-- gradients -->
 		<div class="image-info gallery-thumbnail-bottom-gradient"></div>
-		<div class="image-info gallery-thumbnail-top-gradient"></div>
+		<div style="height:30px !important;" class="image-info gallery-thumbnail-top-gradient"></div>
 		
 		<!-- image info -->
 		<div class="image-info views-count">
@@ -21,12 +25,17 @@ TODO scale favorite-mark-up icon, make red on hover
 		<div class="image-info image-data">
 			<span class="glyphicon glyphicon-question-sign"></span>
 			<div class="image-data-popup">
-				<label>Resolution:</label>1600x1050<br/>
+                                <?php 
+                                    foreach ($photo->data as $key => $value){
+                                        echo '<label>'.$key.':</label>'.$value.'<br/>';
+                                    }
+                                ?>
+<!--				<label>Resolution:</label>1600x1050<br/>
 				<label>Camera:</label>Canon EOS 5D Mark II<br/>
 				<label>Software:</label>Adobe Photoshop CS5<br/>
 				<label>Date:</label>2012-11-26 16:04:45<br/>
 				<label>Exposure time:</label>1/200 sec<br/>
-				<label>F number:</label>F2.8
+				<label>F number:</label>F2.8-->
 			</div>
 		</div>
 		<?php if( $is_logged){ ?>
@@ -37,8 +46,8 @@ TODO scale favorite-mark-up icon, make red on hover
 		<?php } ?>
 		
 		<!-- image -->
-		<a href="#">
-			<img src="src/img/img<?php echo $i; ?>.jpg" class="file"/>
+		<a href="<?php echo 'photo?galleryId='.$gallery->id.'&photo='.$photo->href?>">
+			<img src="<?php echo $photo->href; ?>" class="file"/>
 		</a>
 		
 	</div>

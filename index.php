@@ -21,26 +21,29 @@
 	$request_uri = $_SERVER["REQUEST_URI"];
 	$page_name = substr( $request_uri, 0, strrpos( $request_uri, "?")===FALSE ? strlen($request_uri): strrpos( $request_uri, "?")); // remove GET params
 	$page_name = substr( $page_name, strrpos( $page_name, "/")); // get all after last '/'
-
+        $GET=  substr( $request_uri, strrpos( $request_uri, "?")===FALSE ? strlen($request_uri): strrpos( $request_uri, "?")+1, strlen($request_uri)); // remove GET params
+       
 	if( $page_name=="/"){
 		/* home page */
 		$content = home();
 	
-	}else if( $page_name=="/login"){
+	}
+        else if( $page_name=="/index.php"){
+		/* login as user providing login and password */
+		$content = home();
+
+	}
+        else if( $page_name=="/login"){
 		/* login as user providing login and password */
 		$content = login();
 
 	}else if( $page_name=="/register"){
-		/* register new user TODO remove this, use combined login-register page*/
-		$content = '<html><body><h1>Register</h1></body></html>';
+		/* register new user */
+		$content = register();
 
-	}else if( $page_name=="/user"){
-		/* user page*/
-		$content = user();
-		
 	}else if( $page_name=="/settings"){
 		/* change user's settings */
-		$content = '<html><body><h1>Settings</h1></body></html>';
+		$content = settings();
 
 	}else if( $page_name=="/about"){
 		/* about the website */
@@ -53,7 +56,7 @@
 
 	}else if( $page_name=="/galleries"){
 		/* galleries ( photo sets) created by users f.e. flowers */
-		$content = '<html><body><h1>Galleries</h1></body></html>';
+		$content = galleries();
 
 	}else if( $page_name=="/upload"){
 		/* view my photos and select ones to upload for public viewership */
@@ -67,14 +70,31 @@
 		/* view my galleries */
 		$content = '<html><body><h1>Profile galleries</h1></body></html>';
 		
-	}else if( $page_name=="/photo"){
-		/* single photo view */
-		$content = '<html><body><h1>Photo</h1></body></html>';
+	}else if( $page_name=="/gallery"){
+		/* view of chosen gallery */
+                $get_params = queryToArray($request_uri);
+		$content = gallery($get_params);
+		
+	}else if( $page_name=="/photo"){            
+		$photos_Params = queryToArray($request_uri);
+		$content = single_photo($photos_Params);
 	
-	} else {
+	} else if( $page_name=="/person"){
+        $content = person_info();
+    
+	} else if( $page_name=="/user"){
+		/* user page*/
+		$content = user();
+	
+	} else if( $page_name=="/profile"){
+		/* user page*/
+		$content = person_info();
+		
+    } else {
 		$content =  '<html><body><h1>Page Not Found</h1></body></html>';
 		header('Status: 404 Not Found');
 	}
+        
 	
 	/*
 	TODO:
@@ -90,4 +110,20 @@
 	
 	// render content
 	echo $content;
+        
+        
+   function queryToArray($url) {
+    $remove_http = str_replace('http://', '', $url);
+    $split_url = explode('?', $remove_http);
+    $get_page_name = explode('/', $split_url[0]);
+   
+    $split_parameters = explode('&', $split_url[1]);
+    $split_complete;
+    for ($i = 0; $i < count($split_parameters); $i++) {
+        $final_split = explode('=', $split_parameters[$i]);
+        $split_complete[$final_split[0]] = $final_split[1];
+    }
+    return $split_complete;
+   }
+
 ?>

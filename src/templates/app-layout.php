@@ -10,7 +10,7 @@
 				<link rel="stylesheet" type="text/css" href="<?php echo $sheet; ?>"/>
 		<?php }} ?>
 		
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="vendor/jquery-min.js"></script>
 		<?php if( isset($js_scripts) ){
 			foreach( $js_scripts as $script){?>
 				<script src="<?php echo $script; ?>"></script>

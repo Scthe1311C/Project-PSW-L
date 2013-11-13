@@ -115,9 +115,10 @@ $( document ).ready(function() {
 						<?php echo $user_name; ?>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="#" class="navigation-bar-dropdown-item">Settings</a></li>
+						<li><a href="settings" class="navigation-bar-dropdown-item">Settings</a></li>
 						<li><a href="#" class="navigation-bar-dropdown-item">My photos</a></li>
 						<li><a href="#" class="navigation-bar-dropdown-item">My galleries</a></li>
+                                                <li><a href="index.php" class="navigation-bar-dropdown-item">TODO</a></li>
 					</ul>
 				</li>
 			<?php } ?>
