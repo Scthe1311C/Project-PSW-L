@@ -21,10 +21,13 @@ function about() {
 
 function popular() {
     include './model/gallery.php';
+    include './model/photos.php';
     $gallery = Galleries::getInstance()->getGallery(3);
+    $photos = $gallery->allPhotos();
     return render_template("gallery-view.php", array(
         "css_stylesheets" => array("src/css/gallery-view.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
-            "gallery" => $gallery,
+        "photos" => $photos,
+        "gallery" => $gallery,
         "user_name" => "Adam Smith"
     ));
 }
@@ -37,12 +40,16 @@ function user() {
     ));
 }
 
-function gallery($id){
+function gallery() {
     include './model/gallery.php';
-    $gallery = Galleries::getInstance()->getGallery($id["galleryId"]);
+    include './model/photos.php';
+    $galleryId = $_GET["galleryId"];
+    $gallery = Galleries::getInstance()->getGallery($galleryId);
+    $photos = $gallery->allPhotos();
     return render_template("gallery-view.php", array(
         "css_stylesheets" => array("src/css/gallery-view.css"),
-            "gallery" => $gallery,
+        "photos" => $photos,
+        "gallery" => $gallery,
         "user_name" => "Adam Smith"
     ));
 }
@@ -66,30 +73,34 @@ function person_info() {
         "person" => $person
     ));
 }
+
 function galleries(){
     include './model/gallery.php';
-    $galleryIndex = [1,2,3];   
+    $gallery1 = Galleries::getInstance()->getGallery(1);
+    $gallery2 = Galleries::getInstance()->getGallery(2);
+    $gallery3 = Galleries::getInstance()->getGallery(3);
+    $galleries = [$gallery1, $gallery2, $gallery3];
     return render_template("galleries.php", array(
         "css_stylesheets" => array("src/css/gallery-view.css","src/css/galleries.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
-        "galleryIndex" => $galleryIndex,
+        "galleries" => $galleries,
         "user_name" => "Adam Smith"
-    ));
-    
+    ));   
 }
-function single_photo($photos_Params) {
+
+function single_photo() {
     include './model/gallery.php';
-    $galleryId = $photos_Params["galleryId"];
+    $galleryId = $_GET["galleryId"];
     $gallery = Galleries::getInstance()->getGallery($galleryId);
-    $photos = $gallery->photos;
-    $chosen_photo = $photos_Params["photo"];
+    $photos = $gallery->photosRef;
+    $chosen_photo = $_GET["photo"];
     return render_template("single_photo.php", array(
         "css_stylesheets" => array(
             "src/css/carousel.css",
             "src/css/photo_style.css",
         ),
         "js_scripts" => array(
-            "src/js/bootstrap.min.js",
-            "src/js/holder.js"       
+            "vendor/bootstrap/js/bootstrap.min.js",
+            "vendor/bootstrap/js/holder.js"       
          ),
             "photos" => $photos,
             "chosen_photo" =>$chosen_photo,

@@ -1,16 +1,15 @@
 <?php
-//class included gallery discription and content
 class Gallery {
     private $id;
     private $designer;
-    public $photos;
+    public $photosRef;
     public $name;
     public $description;
     public $tumbnail;
     
-    function __construct($id,$photos, $name, $description, $tumbnail, $designer) {
+    function __construct($id,$photosRef, $name, $description, $tumbnail, $designer) {
         $this->id = $id;
-        $this->photos = $photos;
+        $this->photosRef = $photosRef;
         $this->name = $name;
         $this->description = $description;
         $this->tumbnail = $tumbnail;
@@ -29,6 +28,14 @@ class Gallery {
             default: throw new InvalidArgumentException('Invalid property: ' . $name);
         }
     }  
+    
+    function allPhotos(){
+        $photos = array();
+        foreach ($this->photosRef as $ref){
+            $photos[] = Photos::getInstance()->getPhoto($ref);                  
+        }
+        return $photos;
+    }
 }
 
 // Singleton class represent all galleries aviable
@@ -57,8 +64,7 @@ class Galleries {
     }
     public function getGallery($id){
         return $this->galeries[$id];
-    }
-    
+    }    
 }
 
 ?>

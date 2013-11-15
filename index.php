@@ -72,15 +72,13 @@
 		
 	}else if( $page_name=="/gallery"){
 		/* view of chosen gallery */
-                $get_params = queryToArray($request_uri);
-		$content = gallery($get_params);
+		$content = gallery();
 		
 	}else if( $page_name=="/photo"){            
-		$photos_Params = queryToArray($request_uri);
-		$content = single_photo($photos_Params);
+                $content = single_photo();
 	
 	} else if( $page_name=="/person"){
-        $content = person_info();
+                $content = person_info();
     
 	} else if( $page_name=="/user"){
 		/* user page*/
@@ -90,7 +88,7 @@
 		/* user page*/
 		$content = person_info();
 		
-    } else {
+        } else {
 		$content =  '<html><body><h1>Page Not Found</h1></body></html>';
 		header('Status: 404 Not Found');
 	}
@@ -111,19 +109,4 @@
 	// render content
 	echo $content;
         
-        
-   function queryToArray($url) {
-    $remove_http = str_replace('http://', '', $url);
-    $split_url = explode('?', $remove_http);
-    $get_page_name = explode('/', $split_url[0]);
-   
-    $split_parameters = explode('&', $split_url[1]);
-    $split_complete;
-    for ($i = 0; $i < count($split_parameters); $i++) {
-        $final_split = explode('=', $split_parameters[$i]);
-        $split_complete[$final_split[0]] = $final_split[1];
-    }
-    return $split_complete;
-   }
-
 ?>

@@ -4,9 +4,7 @@ TODO scale favorite-mark-up icon, make red on hover
 -->
 
 <?php 
-    include './model/photos.php';
-    foreach($gallery->photos as $photoRef){
-    $photo = Photos::getInstance()->getPhoto($photoRef);
+    foreach($photos as $photo){
     ?>
 	<!-- single image element -->
 	<div class="gallery-thumbnail" style="width:188px; height:141">
@@ -48,7 +46,6 @@ TODO scale favorite-mark-up icon, make red on hover
 		<!-- image -->
 		<a href="<?php echo 'photo?galleryId='.$gallery->id.'&photo='.$photo->href?>">
 			<img src="<?php echo $photo->href; ?>" class="file"/>
-		</a>
-		
+		</a>		
 	</div>
 <?php } ?>
