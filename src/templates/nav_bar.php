@@ -1,7 +1,7 @@
 <?php
 $minimal_navbar = isset($minimal_navbar) && $minimal_navbar;
 if( !isset( $user_avatar) ) $user_avatar = "src/img/user-icon.jpg";
-$is_logged=true;
+//$is_logged=true;
 ?>
 
 

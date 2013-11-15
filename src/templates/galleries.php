@@ -1,13 +1,7 @@
-<!-- 
-TODO provide variables !
-TODO scale favorite-mark-up icon, make red on hover
--->
-
-<?php include './model/userData.php';
-foreach ($galleryIndex as $index) {
-    $gallery = Galleries::getInstance()->getGallery($index);
+<?php
+foreach ($galleries as $gallery) {
     ?>
-    
+
     <!-- single image element -->
     <div class="gallery-thumbnail" style="width:256px; height:246px">
 
@@ -27,23 +21,23 @@ foreach ($galleryIndex as $index) {
             <div class="image-data-popup">
                 <?php
                 $designerId = $gallery->designer;
-                $designer = Users::getInstance()->getUser($designerId);
-                echo '<label>Designed by:</label><a href="person?id=' . $designer->id . '">' . $designer->name .' '.$designer->surname.'</a>'
+//                $designer = Users::getInstance()->getUser($designerId);
+//                echo '<label>Designed by:</label><a href="person?id=' . $designer->id . '">' . $designer->name .' '.$designer->surname.'</a>'
                 ?><br/>
                 <label>Description:</label><?php echo $gallery->description ?> <br/>
 
             </div>
         </div>
-    <?php if ($is_logged) { ?>
+        <?php if ($is_logged) { ?>
             <!-- quick mark as favorite -->
             <div class="image-info favorite-mark-up">
                 <span  class="glyphicon glyphicon-heart"></span>
             </div>
-    <?php } ?>
+        <?php } ?>
         <!--title-->
         <h4 style="text-align: center;padding-bottom: 0"><?php echo $gallery->name ?></h4>
         <!-- image -->
-        <a href="gallery?galleryId=<?php echo $gallery->id?>">
+        <a href="gallery?galleryId=<?php echo $gallery->id ?>">
             <img  src="src/img/galleries_folder.png"/>
     <!--                    <img src="<?php echo $gallery->tumbnail ?>" class="file"/>-->
             <div class="foreground-image">
