@@ -21,25 +21,18 @@
 	$request_uri = $_SERVER["REQUEST_URI"];
 	$page_name = substr( $request_uri, 0, strrpos( $request_uri, "?")===FALSE ? strlen($request_uri): strrpos( $request_uri, "?")); // remove GET params
 	$page_name = substr( $page_name, strrpos( $page_name, "/")); // get all after last '/'
-        $GET=  substr( $request_uri, strrpos( $request_uri, "?")===FALSE ? strlen($request_uri): strrpos( $request_uri, "?")+1, strlen($request_uri)); // remove GET params
        
 	if( $page_name=="/"){
 		/* home page */
 		$content = home();
 	
-	}
-        else if( $page_name=="/index.php"){
+	}else if( $page_name=="/index.php"){
 		/* login as user providing login and password */
 		$content = home();
 
-	}
-        else if( $page_name=="/login"){
+	}else if( $page_name=="/login"){
 		/* login as user providing login and password */
 		$content = login();
-
-	}else if( $page_name=="/register"){
-		/* register new user */
-		$content = register();
 
 	}else if( $page_name=="/settings"){
 		/* change user's settings */
@@ -72,12 +65,10 @@
 		
 	}else if( $page_name=="/gallery"){
 		/* view of chosen gallery */
-                $get_params = queryToArray($request_uri);
-		$content = gallery($get_params);
+		$content = gallery($_GET["galleryId"]);
 		
 	}else if( $page_name=="/photo"){            
-		$photos_Params = queryToArray($request_uri);
-		$content = single_photo($photos_Params);
+		$content = single_photo($_GET["galleryId"], $_GET["photo"]);
 	
 	} else if( $page_name=="/person"){
         $content = person_info();
@@ -110,20 +101,4 @@
 	
 	// render content
 	echo $content;
-        
-        
-   function queryToArray($url) {
-    $remove_http = str_replace('http://', '', $url);
-    $split_url = explode('?', $remove_http);
-    $get_page_name = explode('/', $split_url[0]);
-   
-    $split_parameters = explode('&', $split_url[1]);
-    $split_complete;
-    for ($i = 0; $i < count($split_parameters); $i++) {
-        $final_split = explode('=', $split_parameters[$i]);
-        $split_complete[$final_split[0]] = $final_split[1];
-    }
-    return $split_complete;
-   }
-
 ?>

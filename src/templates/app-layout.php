@@ -30,7 +30,7 @@
 		
 		<?php if( !$is_fullscreeen) {
 			include 'nav_bar.php';
-			include 'breadcrumbs.php';?>
+			/*include 'breadcrumbs.php';*/?>
 			<div class="container">
 				<?php include $content; ?>
 			</div>

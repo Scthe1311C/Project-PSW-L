@@ -24,7 +24,7 @@ function popular() {
     $gallery = Galleries::getInstance()->getGallery(3);
     return render_template("gallery-view.php", array(
         "css_stylesheets" => array("src/css/gallery-view.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
-            "gallery" => $gallery,
+        "gallery" => $gallery,
         "user_name" => "Adam Smith"
     ));
 }
@@ -39,10 +39,10 @@ function user() {
 
 function gallery($id){
     include './model/gallery.php';
-    $gallery = Galleries::getInstance()->getGallery($id["galleryId"]);
+    $gallery = Galleries::getInstance()->getGallery($id);
     return render_template("gallery-view.php", array(
         "css_stylesheets" => array("src/css/gallery-view.css"),
-            "gallery" => $gallery,
+        "gallery" => $gallery,
         "user_name" => "Adam Smith"
     ));
 }
@@ -76,12 +76,10 @@ function galleries(){
     ));
     
 }
-function single_photo($photos_Params) {
+function single_photo($galleryId, $chosen_photo) {
     include './model/gallery.php';
-    $galleryId = $photos_Params["galleryId"];
     $gallery = Galleries::getInstance()->getGallery($galleryId);
     $photos = $gallery->photos;
-    $chosen_photo = $photos_Params["photo"];
     return render_template("single_photo.php", array(
         "css_stylesheets" => array(
             "src/css/carousel.css",
