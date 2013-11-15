@@ -21,25 +21,18 @@
 	$request_uri = $_SERVER["REQUEST_URI"];
 	$page_name = substr( $request_uri, 0, strrpos( $request_uri, "?")===FALSE ? strlen($request_uri): strrpos( $request_uri, "?")); // remove GET params
 	$page_name = substr( $page_name, strrpos( $page_name, "/")); // get all after last '/'
-        $GET=  substr( $request_uri, strrpos( $request_uri, "?")===FALSE ? strlen($request_uri): strrpos( $request_uri, "?")+1, strlen($request_uri)); // remove GET params
        
 	if( $page_name=="/"){
 		/* home page */
 		$content = home();
 	
-	}
-        else if( $page_name=="/index.php"){
+	}else if( $page_name=="/index.php"){
 		/* login as user providing login and password */
 		$content = home();
 
-	}
-        else if( $page_name=="/login"){
+	}else if( $page_name=="/login"){
 		/* login as user providing login and password */
 		$content = login();
-
-	}else if( $page_name=="/register"){
-		/* register new user */
-		$content = register();
 
 	}else if( $page_name=="/settings"){
 		/* change user's settings */

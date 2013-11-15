@@ -28,12 +28,6 @@ TODO scale favorite-mark-up icon, make red on hover
                                         echo '<label>'.$key.':</label>'.$value.'<br/>';
                                     }
                                 ?>
-<!--				<label>Resolution:</label>1600x1050<br/>
-				<label>Camera:</label>Canon EOS 5D Mark II<br/>
-				<label>Software:</label>Adobe Photoshop CS5<br/>
-				<label>Date:</label>2012-11-26 16:04:45<br/>
-				<label>Exposure time:</label>1/200 sec<br/>
-				<label>F number:</label>F2.8-->
 			</div>
 		</div>
 		<?php if( $is_logged){ ?>
