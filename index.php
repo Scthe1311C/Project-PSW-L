@@ -73,7 +73,7 @@
 	} else if( $page_name=="/person"){
                 $content = person_info();
     
-	} else if( $page_name=="/user"){
+	} else if( $page_name=="/user-profile"){
 		/* user page*/
 		$content = user();
 	

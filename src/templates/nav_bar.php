@@ -77,26 +77,22 @@
 			<li class="dropdown">
 				<a href="#" class="navigation-bar-item dropdown-toggle" data-toggle="dropdown">Explore</a>
 				<ul class="dropdown-menu">
-					<li><a href="#" class="navigation-bar-dropdown-item">Galleries</a></li>
-					<li><a href="#" class="navigation-bar-dropdown-item">Popular</a></li>
+					<li><a href="popular" class="navigation-bar-dropdown-item">Popular</a></li>
+					<li><a href="galleries" class="navigation-bar-dropdown-item">Galleries</a></li>
 				</ul>
 			</li>
 		
 			<!-- Upload -->
 			<?php if( $is_logged) { ?>
-				<li><a href="#" class="navigation-bar-item">Upload</a></li>
+				<li><a href="upload" class="navigation-bar-item">Upload</a></li>
 			<?php } ?>
 			
-			<!-- About -->
-			<li><a href="#" class="navigation-bar-item">About</a></li>
-		
 			<!-- Spacer -->
 			<li><span id="navigation-bar-spacer">|</span></li>
 		
 			<!-- Sign In/Up ; user -->
 			<?php if( ! $is_logged) { ?>
-				<li><a href="#" class="navigation-bar-item">Sign Up</a></li>
-				<li><a href="#" class="navigation-bar-item">Sign in</a></li>
+				<li><a href="login" class="navigation-bar-item">Sign in / Register</a></li>
 			<?php } else { ?>
 				<!-- user avatar-->
 				<li>
@@ -106,14 +102,13 @@
 				</li>
 				<!-- user pages -->
 				<li class="dropdown" id="navigation-bar-user">
-					<a href="#" class="navigation-bar-item dropdown-toggle" data-toggle="dropdown">
+					<a href="user-profile" class="navigation-bar-item dropdown-toggle" data-toggle="dropdown">
 						<?php echo $user_name; ?>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="settings" class="navigation-bar-dropdown-item">Settings</a></li>
-						<li><a href="#" class="navigation-bar-dropdown-item">My photos</a></li>
-						<li><a href="#" class="navigation-bar-dropdown-item">My galleries</a></li>
-                                                <li><a href="index.php" class="navigation-bar-dropdown-item">TODO</a></li>
+						<li><a href="user-profile?page=settings" class="navigation-bar-dropdown-item">Settings</a></li>
+						<li><a href="user-profile?page=my-photos" class="navigation-bar-dropdown-item">My photos</a></li>
+						<li><a href="user-profile?page=my-galleries" class="navigation-bar-dropdown-item">My galleries</a></li>
 					</ul>
 				</li>
 			<?php } ?>

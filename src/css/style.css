@@ -207,17 +207,23 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
 	border-color:#A4A4A4;
 }
 
+
 #footer-about{
+text-align: center;
+}
+
+#footer-about a{
 	margin:5px auto 15px;
 	width:80px;
 	font-size:2em;
-	color:#888;
+	color:#888 !important;
 	margin-bottom:10px;
 	transition: color 0.2s linear;
+	text-decoration: none !important;
 }
 
-#footer-about:hover{
-	color: rgba(255,64,64,0.8);
+#footer-about a:hover{
+	color: rgba(255,64,64,0.8) !important;
 }
 
 #footer li{

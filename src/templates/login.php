@@ -23,7 +23,7 @@ TODO tabs on the side ?
 
 	<div class="dialog" id="login-dialog">
 		<header>
-			<h1>Dropbox App</h1>
+			<a href="<?php echo $main_url; ?>"><h1>Dropbox App</h1></a>
 		</header>
 		 
 		<h2 id="login-section1-title">Sign In</h2>
@@ -31,7 +31,7 @@ TODO tabs on the side ?
 			<input type="text" class="form-control" placeholder="Username..">
 			<input type="password" class="form-control" placeholder="Password..">
 			<div style="position:relative">
-				<span class="submit-button">Sign in</span>
+				<a href="user-profile"><span class="submit-button">Sign in</span></a>
 				<a href="#" id="forgot-password">forgot ?</a>
 			</div>
 			
@@ -44,7 +44,7 @@ TODO tabs on the side ?
 			<input type="text" class="form-control" placeholder="Mail">
 			<input type="password" class="form-control" placeholder="Password">
 			<input type="password" class="form-control" placeholder="Confirm password">
-			<span class="submit-button">Register</span>
+			<a href="user-profile"><span class="submit-button">Register</span></a>
 			<!-- 
 				TODO add fields: gender, age segment
 			-->

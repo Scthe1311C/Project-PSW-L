@@ -1,3 +1,29 @@
+<table style="margin:50px auto 10px">
+	<tr>
+		<td style="text-align: center; width:150px">D:</td>
+		<td style="text-align: center; width:150px">M:</td>
+	</tr>
+	<tr>
+		<td style="vertical-align:top">
+			<li><a href="register" style="text-decoration: line-through;">Register</a>( in login)</li>
+			<li><a href="settings">_Settings</a></li>
+			<li><a href="galleries"># Galleries</a></li>
+			<li><a href="photo?galleryId=3&photo=src/img/img2.jpg">Photo</a></li>
+			<li><a href="user-profile">#User page ( NEW)</a></li>
+			<li><a href="user">Public profile</a></li>
+		</td>
+		<td>
+			<li><a href="login"># Login</a></li>
+			<li><a href="about"># About</a></li>
+			<li><a href="popular"># Popular</a></li>
+			<li><a href="upload"># Upload</a></li>
+			<li><a href="profile_photos"># Profile photos</a></li>
+			<li><a href="profile_galleries"># Profile galleries</a></li>
+		</td>
+	</tr>
+
+</table>
+
 <script>
 /* script to scroll to the nav bar at page load */
 $( document ).ready(function() {
@@ -19,7 +45,7 @@ $( document ).ready(function() {
 			<p class="text-center-horizontal section-link"><a href="#Easy">Easy</a> quick</p>
 			<p class="text-center-horizontal section-link"><a href="#Impressive">Impressive</a> big spectacular</p>
 			<p class="text-center-horizontal section-link"><a href="#Mobile">Mobile</a> anywhere</p>
-			<p class="text-center-horizontal section-link" style="margin-top:30px"><a href="#Mobile">Sign In</a></p>
+			<p class="text-center-horizontal section-link" style="margin-top:30px"><a href="login">Sign In</a></p>
 		</section>
 		
 		<a id="Easy" /></a>
@@ -40,7 +66,6 @@ $( document ).ready(function() {
 			<p class="text-left-horizontal">Share on the go directly from Your phone</p>
 		</section>
 	</div>
-	
 	<!-- 
 	TODO some images on the bottom ?
 	<div id="body-images">
@@ -50,28 +75,4 @@ $( document ).ready(function() {
 
 
 
-<table style="margin:10px auto">
-	<tr>
-		<td style="text-align: center; width:150px">D:</td>
-		<td style="text-align: center; width:150px">M:</td>
-	</tr>
-	<tr>
-		<td style="vertical-align:top">
-			<li><a href="register" style="text-decoration: line-through;">Register</a>( in login)</li>
-			<li><a href="settings">Settings</a></li>
-			<li><a href="galleries">Galleries</a></li>
-			<li><a href="photo?galleryId=3&photo=src/img/img2.jpg">Photo</a></li>
-			<li><a href="user"><strong>User page ( NEW)</strong></a></li>
-			<li><a href="profile">Public profile</a></li>
-		</td>
-		<td>
-			<li><a href="login">Login</a></li>
-			<li><a href="about">About</a></li>
-			<li><a href="popular">Popular</a></li>
-			<li><a href="upload">Upload</a></li>
-			<li><a href="profile_photos">Profile photos</a></li>
-			<li><a href="profile_galleries">Profile galleries</a></li>
-		</td>
-	</tr>
 
-</table>
