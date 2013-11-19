@@ -114,7 +114,7 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
     background-color: rgba(235, 235, 235, 0.80);
     font-size: 12px;
     padding: 1em;
-    display: none;
+    /*display: none;*/
 	z-index:6;
 }
 

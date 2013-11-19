@@ -1,7 +1,11 @@
 <?php
 
 function home() {
-    return render_template("home.php");
+    return render_template("home.php", array(
+			"css_stylesheets" => array("src/css/home.css"),
+			"minimal_navbar" => true,
+			"content_width100" => true
+		));
 }
 
 function login() {
