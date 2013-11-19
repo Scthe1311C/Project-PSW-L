@@ -77,8 +77,8 @@
 			<li class="dropdown">
 				<a href="#" class="navigation-bar-item dropdown-toggle" data-toggle="dropdown">Explore</a>
 				<ul class="dropdown-menu">
-					<li><a href="popular" class="navigation-bar-dropdown-item">Popular</a></li>
-					<li><a href="galleries" class="navigation-bar-dropdown-item">Galleries</a></li>
+					<li class="navigation-bar-dropdown-item"><a href="popular">Popular</a></li>
+					<li class="navigation-bar-dropdown-item"><a href="galleries">Galleries</a></li>
 				</ul>
 			</li>
 		
@@ -106,9 +106,11 @@
 						<?php echo $user_name; ?>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="user-profile?page=settings" class="navigation-bar-dropdown-item">Settings</a></li>
-						<li><a href="user-profile?page=my-photos" class="navigation-bar-dropdown-item">My photos</a></li>
-						<li><a href="user-profile?page=my-galleries" class="navigation-bar-dropdown-item">My galleries</a></li>
+						<li class="navigation-bar-dropdown-item"><a href="user-profile?page=friends">Friends</a></li>
+						<li class="navigation-bar-dropdown-item"><a href="user-profile?page=galleries">My photos</a></li>
+						<li class="navigation-bar-dropdown-item"><a href="user-profile?page=groups">My galleries</a></li>
+						<li class="navigation-bar-dropdown-item"><a href="user-profile?page=settings">Settings</a></li>
+						<li class="navigation-bar-dropdown-item"><a href="logout">Logout</a></li>
 					</ul>
 				</li>
 			<?php } ?>

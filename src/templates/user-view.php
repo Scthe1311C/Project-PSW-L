@@ -2,7 +2,12 @@
 	
 	<!-- TODO avatar and name on the navbar ? get rid of them on this page -->
 	<!-- TODO fill navbar background image with the last-activity images -->
-	<!-- TODO swap 'upload' and 'myPhotos' in navbar ? -->
+	<?php 
+		$friends_identifier = "friends";
+		$galleries_identifier = "galleries";
+		$groups_identifier = "groups";
+		$settings_identifier = "settings";
+	?>
 	
 	<div class="user-header">
 		<!-- avatar -->
@@ -17,17 +22,20 @@
 		<!-- tabs -->
 		<ul class="user-tabs">
 			
-			<!-- all user's photos grouped by galleries -->
-			<li>My photos</li>
+			<!-- user's main profile page -->
+			<li><a href="user-profile">Profile</a></li>
 			
 			<!-- last photos from friend's galleries -->
-			<li>Friends</li>
+			<li><a href="user-profile?page=friends">Friends</a></li>
+			
+			<!-- all user's photos grouped by galleries -->
+			<li><a href="user-profile?page=galleries">My photos</a></li>
 			
 			<!-- last photos from followed groups galleries -->
-			<li>My groups</li>
+			<li><a href="user-profile?page=groups">My groups</a></li>
 			
 			<!--
-				settings: should allow to change ( no spec. order):
+				settings: should allow to change ( in no spec. order):
 					* avatar
 					* input real name
 					* password
@@ -36,25 +44,51 @@
 					* link dropbox account
 					* read only email info !!!
 			-->
-			<li>Settings</li>
+			<li><a href="user-profile?page=settings">Settings</a></li>
 		</ul>
-		<div style="clear:both"/>
+		<div style="clear:both"></div>
 		
 		
-		<!-- fill page code here -->
+		<!-- page code -->
+		<?php if($page === $settings_identifier){?>
+			<!-- settings -->
+			<?php include "settings.php"; ?>
+			
+			
+		<?php }else if($page === $friends_identifier){ ?>
+			fr<br/>
+			<!-- friends page -->
+			TODO: friends, whatever can be placed here<br/><br/>
+			<br/><br/>
+			<br/><br/>
+			<br/><br/>
+		<?php }else if($page === $galleries_identifier){ ?>
+			gal<br/>
+			<!-- my galleries page -->
+			TODO: my galleries, manage my photos etc.<br/><br/>
+			<br/><br/>
+			<br/><br/>
+			<br/><br/>
+		<?php }else if($page === $groups_identifier){ ?>
+			gr<br/>
+			<!-- groups the user belongs to -->
+			TODO: groups the user belongs to<br/><br/>
+			<br/><br/>
+			<br/><br/>
+			<br/><br/>
+		<?php }else{ ?>
+			<!-- profile page -->
+			TODO: last friends activites, last followed activities etc.<br/><br/>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac volutpat magna. Vestibulum semper dignissim diam, eget auctor diam feugiat vitae. Integer suscipit orci at nisl ultricies dignissim. Donec elementum leo est, at rhoncus elit pellentesque id. Aenean euismod dolor tellus, porttitor facilisis elit tempus quis. Mauris accumsan risus magna, vitae vehicula massa tempor pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec in purus nisl. Aliquam hendrerit tortor non felis lobortis egestas. Donec risus diam, consequat vitae varius quis, convallis a nunc. Integer vel dui augue. Ut non sapien pulvinar, commodo risus at, porttitor urna. Duis massa nunc, aliquet in aliquet pulvinar, luctus nec eros. Morbi vel cursus risus. Vestibulum posuere tempus augue non adipiscing.
+			<br/><br/>
+			<br/><br/>
+			<br/><br/>
+		<?php } ?>
 		
 		
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac volutpat magna. Vestibulum semper dignissim diam, eget auctor diam feugiat vitae. Integer suscipit orci at nisl ultricies dignissim. Donec elementum leo est, at rhoncus elit pellentesque id. Aenean euismod dolor tellus, porttitor facilisis elit tempus quis. Mauris accumsan risus magna, vitae vehicula massa tempor pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec in purus nisl. Aliquam hendrerit tortor non felis lobortis egestas. Donec risus diam, consequat vitae varius quis, convallis a nunc. Integer vel dui augue. Ut non sapien pulvinar, commodo risus at, porttitor urna. Duis massa nunc, aliquet in aliquet pulvinar, luctus nec eros. Morbi vel cursus risus. Vestibulum posuere tempus augue non adipiscing.
+		<!-- end of 'page code' -->
 		
-		
-		<!-- end of 'fill page code here' -->
-		
-		<hr/>
-		
-	</div>
-	<br/><br/>
-	<br/><br/>
-	<br/><br/>
+		</div>
 	
-</div>
+	
 </div>

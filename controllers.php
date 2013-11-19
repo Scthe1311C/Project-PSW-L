@@ -36,11 +36,15 @@ function popular() {
     ));
 }
 
-function user() {
-    return render_template("user-view.php", array(
-        "css_stylesheets" => array("src/css/user-view.css"),
+function user_profile( $page) {
+    include './model/userData.php';
+	$userData =  $personData = Users::getInstance()->getUser(1);
+	return render_template("user-view.php", array(
+        "css_stylesheets" => array("src/css/user-view.css","src/css/settings.css"),
         "title" => "User",
-        "user_name" => "Adam Smith"
+		"page" => $page,
+        "user_name" => "Adam Smith",
+		"userData" => $userData
     ));
 }
 
@@ -55,16 +59,6 @@ function gallery() {
         "photos" => $photos,
         "gallery" => $gallery,
         "user_name" => "Adam Smith"
-    ));
-}
-
-function settings() {
-    //static data input
-    include './model/userData.php';
-    $userData =  $personData = Users::getInstance()->getUser(1);
-    return render_template('settings.php', array(
-        "css_stylesheets" => array("src/css/settings.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
-        "userData" => $userData
     ));
 }
 
@@ -113,7 +107,7 @@ function single_photo() {
 }
 
 function render_template($path, array $args = NULL) {
-    if ($args === NULL || !in_array('title', $args)) {
+    if ($args === NULL || !isset($args['title'])) {
         $args["title"] = "app";
     }
     extract($args);
