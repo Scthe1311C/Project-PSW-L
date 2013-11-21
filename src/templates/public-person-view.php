@@ -14,7 +14,7 @@
 <section style="float: left; width:800px">
     <div class="col-left">
         <section style="height: 300px" class="panel panel-primary">
-            
+
             <div class="panel-heading">
                 <h3 class="panel-title">Personal info
                     <a href="#"  class="glyphicon glyphicon-heart" title="Add to favourite"></a>
@@ -22,7 +22,7 @@
                     <a href="#"  class="glyphicon glyphicon-envelope" title="Send "></a>
                 </h3>             
             </div>
-                
+
             <div class="panel-body">
                 <table>
                     <table>
@@ -36,10 +36,13 @@
                             <td>Gender</td> 
                             <td>
                                 <?php
-                                if ($person->gender == "M") {
-                                    echo "Male";
-                                } else {
-                                    echo "Famale";
+                                //if user define gender
+                                if ($person->gender != NULL) {
+                                    if ($person->gender == "M") {
+                                        echo "Male";
+                                    } else {
+                                        echo "Famale";
+                                    }
                                 }
                                 ?>
                             </td>
@@ -48,13 +51,13 @@
                             <td>City</td><td><?php echo $person->city ?></td>
                         </tr>
                         <tr>
-                            <td>Birth date</td><td><?php echo date_format($person->birthDate, 'Y-m-d'); ?></td> 
+                            <td>Birth date</td><td><?php echo $person->birth_date; ?></td> 
                         </tr>
                     </table>
             </div>
         </section>
     </div>
-    
+
     <div class="col-left">
         <figure class="image-div">
             <img src="<?php echo $person->avatar ?>" class="img-thumbnail"  alt="No image found"/>

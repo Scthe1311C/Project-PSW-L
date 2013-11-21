@@ -74,9 +74,9 @@ function person_info() {
     include './model/userData.php';
     
     $sql = "SELECT * FROM `users` WHERE id = ".$_GET["userId"];
-    $data = mysql_query($sql, $sql_conn);
+    $resource = mysql_query($sql, $sql_conn);
+    $data = mysql_fetch_assoc($resource);
     $person = new User($data);
-//    $person = Users::getInstance()->getUser(2);
     return render_template('public-person-view.php', array(
         "css_stylesheets" => array("src/css/settings.css"),
         "person" => $person

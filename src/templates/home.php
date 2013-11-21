@@ -10,7 +10,7 @@
 			<li><a href="galleries">Galleries</a></li>
 			<li><a href="photo?galleryId=3&photo=src/img/img2.jpg">Photo</a></li>
 			<li><a href="user"><strong>User page ( NEW)</strong></a></li>
-			<li><a href="profile">Public profile</a></li>
+			<li><a href="profile?userId=2">Public profile</a></li>
 		</td>
 		<td>
 			<li><a href="login">Login</a></li>
