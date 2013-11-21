@@ -6,7 +6,7 @@
 	<tr>
 		<td style="vertical-align:top">
 			<li><a href="register" style="text-decoration: line-through;">Register</a>( in login)</li>
-			<li><a href="settings">Settings</a></li>
+			<li><a href="settings?userId=1">Settings</a></li>
 			<li><a href="galleries">Galleries</a></li>
 			<li><a href="photo?galleryId=3&photo=src/img/img2.jpg">Photo</a></li>
 			<li><a href="user"><strong>User page ( NEW)</strong></a></li>

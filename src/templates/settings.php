@@ -24,7 +24,7 @@
                 <div class="panel-body">
                     <table>
                         <tr>
-                            <td>Email</td> <td><?php echo $userData->loginEmail ?></td>
+                            <td>Email</td> <td><?php echo $user->email?></td>
                         </tr>
                         <tr>
                             <td>Password</td> <td><a href="#">change password</a></td>
@@ -41,31 +41,31 @@
                     <table>
                         <table>
                             <tr>
-                                <td>Name</td> <td><input type="text" name="userName" autocomplete="on" value ="<?php echo $userData->name ?>"></td >
+                                <td>Name</td> <td><input type="text" name="userName" autocomplete="on" value ="<?php echo $user->name ?>"></td >
                             </tr>
                             <tr>
-                                <td>Surname</td> <td><input type="text" name="userSurname" autocomplete="on" value ="<?php echo $userData->surname ?>"></td >
+                                <td>Surname</td> <td><input type="text" name="userSurname" autocomplete="on" value ="<?php echo $user->surname ?>"></td >
                             </tr>
                             <tr>
                                 <td>Gender</td> <td></td>
                             </tr>
                             <tr>
                                 <?php
-                                if ($userData->gender == "M") {
-                                    echo '<td><input type="radio" name="userSex" id="userFamale" value="M" checked>Male</td>     
-                              <td><input type="radio" name="userSex" id="userMale" value="F">Female</td>   ';
+                                if ($user->gender == "M") {
+                                    echo '<td><input type="radio" name="userSex" id="userFamale" value="M" checked>Male</td>'
+                                        .'<td><input type="radio" name="userSex" id="userMale" value="F">Female</td>   ';
                                 } else {
-                                    echo '<td><input type="radio" name="userSex" id="userFamale" value="M">Male</td>     
-                              <td><input type="radio" name="userSex" id="userMale" value="F" checked>Female</td>   ';
+                                    echo '<td><input type="radio" name="userSex" id="userFamale" value="M">Male</td>     '
+                                        . '<td><input type="radio" name="userSex" id="userMale" value="F" checked>Female</td>   ';
                                 }
                                 ?>
 
                             </tr>
                             <tr>
-                                <td>City</td><td> <input type="text" name="city" value ="<?php echo $userData->city ?>"></td>
+                                <td>City</td><td> <input type="text" name="city" value ="<?php echo $user->city ?>"></td>
                             </tr>
                             <tr>
-                                <td>Birth date</td><td><input type="date" name="birthDate" value ="<?php echo date_format($userData->birthDate, 'Y-m-d'); ?>"></td> 
+                                <td>Birth date</td><td><input type="date" name="birthDate" value ="<?php echo $user->birth_date; ?>"></td> 
                             </tr>
                         </table>
                 </div>
@@ -73,7 +73,7 @@
         </div>
         <div class="col-left">
             <figure class="image-div">
-                <img src="<?php echo $userData->avatar ?>" class="img-thumbnail"  alt="No image found"/>
+                <img src="<?php echo $user->avatar ?>" class="img-thumbnail"  alt="No image found"/>
                 <form action="" method="post" enctype="multipart/form-data">
                     <div style=" margin: 0 auto;" class="upload">
                         <input type="file" name="Change"/>

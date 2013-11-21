@@ -55,19 +55,28 @@ function gallery() {
 }
 
 function settings() {
-    //static data input
+    include './model/connection.php';
     include './model/userData.php';
-    $userData =  $personData = Users::getInstance()->getUser(1);
+    
+    $sql = "SELECT * FROM `users` WHERE id = ".$_GET["userId"];
+    $resource = mysql_query($sql, $sql_conn);
+    $data = mysql_fetch_assoc($resource);
+    $user  = new User($data);
+    
     return render_template('settings.php', array(
         "css_stylesheets" => array("src/css/settings.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
-        "userData" => $userData
+        "user" => $user
     ));
 }
 
 function person_info() {
-    //static data input
+    include './model/connection.php';
     include './model/userData.php';
-    $person = Users::getInstance()->getUser(2);
+    
+    $sql = "SELECT * FROM `users` WHERE id = ".$_GET["userId"];
+    $data = mysql_query($sql, $sql_conn);
+    $person = new User($data);
+//    $person = Users::getInstance()->getUser(2);
     return render_template('public-person-view.php', array(
         "css_stylesheets" => array("src/css/settings.css"),
         "person" => $person
