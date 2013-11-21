@@ -84,11 +84,18 @@ function person_info() {
 }
 
 function galleries(){
+    include './model/connection.php';
     include './model/gallery.php';
-    $gallery1 = Galleries::getInstance()->getGallery(1);
-    $gallery2 = Galleries::getInstance()->getGallery(2);
-    $gallery3 = Galleries::getInstance()->getGallery(3);
-    $galleries = [$gallery1, $gallery2, $gallery3];
+    include './model/photos.php';
+    
+    
+    $sql = "SELECT * FROM `galleries` WHERE 1";
+    $resource = mysql_query($sql, $sql_conn);
+    $galleries = [];
+        while($data = mysql_fetch_assoc($resource)){
+            $galleries[]=new Gallery($data);
+        }
+            print_r($galleries);
     return render_template("galleries.php", array(
         "css_stylesheets" => array("src/css/gallery-view.css","src/css/galleries.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
         "galleries" => $galleries,

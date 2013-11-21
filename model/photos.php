@@ -1,20 +1,14 @@
 <?php
 
 class Photo {
-    private $href;
-    public $data;
+    private $data;
 
-    function __construct($href, $data) {
+    function __construct($data) {
         $this->data = $data;
-        $this->href = $href;
     }
 
     public function __get($name) {
-        switch ($name) {
-            case "href": return $this->href;
-                break;
-            default: throw new InvalidArgumentException('Invalid property: ' . $name);
-        }
+        return $this->data[$name];
     }
 
 }

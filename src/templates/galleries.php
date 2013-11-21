@@ -11,18 +11,21 @@ foreach ($galleries as $gallery) {
 
         <!-- image info -->
         <div class="image-info views-count">
-            <span class="glyphicon glyphicon-eye-open"></span><span>&nbsp;2k</span>
+            <span class="glyphicon glyphicon-eye-open"></span><span>&nbsp;<?php echo $gallery->views<1000?
+                                                                                     $gallery->views:
+                                                                                     ($gallery->views/1000)."k"?></span>
         </div>
         <div class="image-info favorite-count">
-            <span class="glyphicon glyphicon-heart"></span><span>&nbsp;1k</span>
+            <span class="glyphicon glyphicon-heart"></span><span>&nbsp;<?php echo $gallery->favourites<1000?
+                                                                                  $gallery->favourites:
+                                                                                  ($gallery->favourites/1000)."k" ?></span>
         </div>
         <div class="image-info image-data">
             <span class="glyphicon glyphicon-question-sign"></span>
             <div class="image-data-popup">
                 <?php
-                $designerId = $gallery->designer;
-//                $designer = Users::getInstance()->getUser($designerId);
-//                echo '<label>Designed by:</label><a href="person?id=' . $designer->id . '">' . $designer->name .' '.$designer->surname.'</a>'
+                $signature = $gallery->getDesignerSignature();
+                echo '<label>Designed by:</label><a href="person?userId=' . $gallery->user_id. '">' . $signature["name"] .' '.$signature["surname"].'</a>'
                 ?><br/>
                 <label>Description:</label><?php echo $gallery->description ?> <br/>
 
@@ -39,9 +42,8 @@ foreach ($galleries as $gallery) {
         <!-- image -->
         <a href="gallery?galleryId=<?php echo $gallery->id ?>">
             <img  src="src/img/galleries_folder.png"/>
-    <!--                    <img src="<?php echo $gallery->tumbnail ?>" class="file"/>-->
             <div class="foreground-image">
-                <img src="<?php echo $gallery->tumbnail ?>" class="file"/>
+                <img src="<?php echo $gallery->tumbnail_href ?>" class="file"/>
             </div>
         </a>		
     </div>
