@@ -48,7 +48,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>City</td><td><?php echo $person->city ?></td>
+                            <td>City</td><td><?php echo $person->address->city ?></td>
                         </tr>
                         <tr>
                             <td>Birth date</td><td><?php echo $person->birth_date; ?></td> 
