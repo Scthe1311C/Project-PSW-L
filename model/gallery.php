@@ -20,7 +20,6 @@ class Gallery {
     
     public function allPhotos(){
         include './model/connection.php';
-        include './model/photos.php';
         
         $sql = "Select * from photos\n"
              . "where id in\n"

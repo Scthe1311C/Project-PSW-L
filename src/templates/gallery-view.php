@@ -15,18 +15,25 @@ TODO scale favorite-mark-up icon, make red on hover
 		
 		<!-- image info -->
 		<div class="image-info views-count">
-			<span class="glyphicon glyphicon-eye-open"></span><span>&nbsp;2k</span>
+			<span class="glyphicon glyphicon-eye-open"></span><span>&nbsp;<?php echo $photo->views<1000?
+                                                                                                 $photo->views:
+                                                                                                ($photo->views/1000)."k"?></span>
 		</div>
 		<div class="image-info favorite-count">
-			<span class="glyphicon glyphicon-heart"></span><span>&nbsp;1k</span>
+			<span class="glyphicon glyphicon-heart"></span><span><?php echo $photo->favourites<1000?
+                                                                                                 $photo->favourites:
+                                                                                                ($photo->favourites/1000)."k"?></span>
 		</div>
 		<div class="image-info image-data">
 			<span class="glyphicon glyphicon-question-sign"></span>
 			<div class="image-data-popup">
                                 <?php 
-                                    foreach ($photo->data as $key => $value){
-                                        echo '<label>'.$key.':</label>'.$value.'<br/>';
-                                    }
+                                        echo '<label>Resolution:</label>'.$photo->width.'x'.$photo->height.'<br/>';
+                                        echo '<label>Camera:</label>'.$photo->camera.'<br/>';
+                                        echo '<label>Software:</label>'.$photo->software.'<br/>';
+                                        echo '<label>Date:</label>'.$photo->date.'<br/>';
+                                        echo '<label>Exposure time:</label>'.$photo->exposure_time.'<br/>';
+                                        echo '<label>F number:</label>'.$photo->f_number.'<br/>';
                                 ?>
 			</div>
 		</div>

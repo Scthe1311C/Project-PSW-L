@@ -1,10 +1,11 @@
 CREATE TABLE Galleries (
-  id          int(10) NOT NULL AUTO_INCREMENT, 
-  user_id     int(10) NOT NULL, 
-  name        varchar(32) NOT NULL, 
-  views       int(10) DEFAULT 0, 
-  favourites  int(10) DEFAULT 0, 
-  description varchar(255), 
+  id            int(10) NOT NULL AUTO_INCREMENT, 
+  user_id       int(10) NOT NULL, 
+  name          varchar(32) NOT NULL, 
+  views         int(10) DEFAULT 0, 
+  favourites    int(10) DEFAULT 0, 
+  description   varchar(255), 
+  tumbnail_href varchar(255), 
   PRIMARY KEY (id)) CHARACTER SET UTF8;
 CREATE TABLE Users (
   id         int(10) NOT NULL AUTO_INCREMENT, 
@@ -25,10 +26,10 @@ CREATE TABLE Photos (
   name          varchar(32), 
   views         int(10) DEFAULT 0, 
   favourites    int(10) DEFAULT 0, 
-  width         int(5), 
-  height        int(5), 
-  Camera        varchar(32), 
-  Software      varchar(32), 
+  width         int(5) NOT NULL, 
+  height        int(5) NOT NULL, 
+  camera        varchar(32), 
+  software      varchar(32), 
   `date`        datetime NULL, 
   add_date      datetime NOT NULL, 
   exposure_time varchar(32), 
@@ -82,41 +83,41 @@ INSERT INTO Users
 VALUES 
   (2, 'logBlack', 'John', 'Black', 'john.black@gmail.com', 'secret2', null, null, null, 'src/img/default_user_avatar.png');
 INSERT INTO Galleries
-  (id, user_id, name, views, favourites, description) 
+  (id, user_id, name, views, favourites, description, tumbnail_href) 
 VALUES 
-  (1, 1, 'Galleria 1', 0, 0, 'test gallery 1');
+  (1, 1, 'Galleria 1', 0, 0, 'test gallery 1', 'src/img/img1.jpg');
 INSERT INTO Galleries
-  (id, user_id, name, views, favourites, description) 
+  (id, user_id, name, views, favourites, description, tumbnail_href) 
 VALUES 
-  (2, 2, 'Galleria 2', 0, 0, 'test gallery 2');
+  (2, 2, 'Galleria 2', 0, 0, 'test gallery 2', 'src/img/img2.jpg');
 INSERT INTO Photos
-  (id, href, tumbnail_href, name, views, favourites, width, height, Camera, Software, `date`, add_date, exposure_time, f_number) 
+  (id, href, tumbnail_href, name, views, favourites, width, height, camera, software, `date`, add_date, exposure_time, f_number) 
 VALUES 
-  (1, 'src\img\img1.jpg', 'src\img\img1.jpg', 'foto_1', 0, 0, 1060, 1050, 'Canon EOS 5D Mark II', 'Adobe Photoshop CS5', '2012-11-26 16:04:45', '2013-11-26 16:04:45', '1/200 sec', 'F2.8');
+  (1, 'src/img/img1.jpg', 'src/img/img1.jpg', 'foto_1', 0, 0, 1060, 1050, 'Canon EOS 5D Mark II', 'Adobe Photoshop CS5', '2012-11-26 16:04:45', '2013-11-26 16:04:45', '1/200 sec', 'F2.8');
 INSERT INTO Photos
-  (id, href, tumbnail_href, name, views, favourites, width, height, Camera, Software, `date`, add_date, exposure_time, f_number) 
+  (id, href, tumbnail_href, name, views, favourites, width, height, camera, software, `date`, add_date, exposure_time, f_number) 
 VALUES 
-  (2, 'src\img\img2.jpg', 'src\img\img2.jpg', 'foto_2', 0, 0, 1060, 1050, 'Canon EOS 5D Mark II', 'Adobe Photoshop CS5', '2011-11-26 16:04:45', '2013-10-26 16:04:45', '1/200 sec', 'F2.8');
+  (2, 'src/img/img2.jpg', 'src/img/img2.jpg', 'foto_2', 0, 0, 1060, 1050, 'Canon EOS 5D Mark II', 'Adobe Photoshop CS5', '2011-11-26 16:04:45', '2013-10-26 16:04:45', '1/200 sec', 'F2.8');
 INSERT INTO Photos
-  (id, href, tumbnail_href, name, views, favourites, width, height, Camera, Software, `date`, add_date, exposure_time, f_number) 
+  (id, href, tumbnail_href, name, views, favourites, width, height, camera, software, `date`, add_date, exposure_time, f_number) 
 VALUES 
-  (3, 'src\img\img3.jpg', 'src\img\img3.jpg', 'foto_3', 0, 0, null, null, null, null, null, '2013-10-26 16:04:45', null, null);
+  (3, 'src/img/img3.jpg', 'src/img/img3.jpg', 'foto_3', 0, 0, 1060, 1050, null, null, null, '2013-10-26 16:04:45', null, null);
 INSERT INTO Photos
-  (id, href, tumbnail_href, name, views, favourites, width, height, Camera, Software, `date`, add_date, exposure_time, f_number) 
+  (id, href, tumbnail_href, name, views, favourites, width, height, camera, software, `date`, add_date, exposure_time, f_number) 
 VALUES 
-  (4, 'src\img\img4.jpg', 'src\img\img4.jpg						', 'foto_4', 0, 0, null, null, null, null, null, '2013-10-26 16:04:45', null, null);
+  (4, 'src/img/img4.jpg', 'src/img/img4.jpg						', 'foto_4', 0, 0, 1060, 1050, null, null, null, '2013-10-26 16:04:45', null, null);
 INSERT INTO Photos
-  (id, href, tumbnail_href, name, views, favourites, width, height, Camera, Software, `date`, add_date, exposure_time, f_number) 
+  (id, href, tumbnail_href, name, views, favourites, width, height, camera, software, `date`, add_date, exposure_time, f_number) 
 VALUES 
-  (5, 'src\img\img5.jpg', 'src\img\img5.jpg							', 'foto_5', 0, 0, null, null, null, null, null, '2013-10-26 16:04:45', null, null);
+  (5, 'src/img/img5.jpg', 'src/img/img5.jpg							', 'foto_5', 0, 0, 1060, 1050, null, null, null, '2013-10-26 16:04:45', null, null);
 INSERT INTO Photos
-  (id, href, tumbnail_href, name, views, favourites, width, height, Camera, Software, `date`, add_date, exposure_time, f_number) 
+  (id, href, tumbnail_href, name, views, favourites, width, height, camera, software, `date`, add_date, exposure_time, f_number) 
 VALUES 
-  (6, 'src\img\img6.jpg', 'src\img\img6.jpg', 'foto_6', 0, 0, null, null, null, null, null, '2013-10-26 16:04:45', null, null);
+  (6, 'src/img/img6.jpg', 'src/img/img6.jpg', 'foto_6', 0, 0, 1060, 1050, null, null, null, '2013-10-26 16:04:45', null, null);
 INSERT INTO Photos
-  (id, href, tumbnail_href, name, views, favourites, width, height, Camera, Software, `date`, add_date, exposure_time, f_number) 
+  (id, href, tumbnail_href, name, views, favourites, width, height, camera, software, `date`, add_date, exposure_time, f_number) 
 VALUES 
-  (7, 'src\img\img7.jpg', 'src\img\img7.jpg', 'foto_7', 0, 0, null, null, null, null, null, '2013-10-26 16:04:45', null, null);
+  (7, 'src/img/img7.jpg', 'src/img/img7.jpg', 'foto_7', 0, 0, 1060, 1050, null, null, null, '2013-10-26 16:04:45', null, null);
 INSERT INTO Comments
   (user_id, photo_id, title, body, add_date) 
 VALUES 

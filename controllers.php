@@ -41,10 +41,16 @@ function user() {
 }
 
 function gallery() {
+    include './model/connection.php';
     include './model/gallery.php';
     include './model/photos.php';
+    
     $galleryId = $_GET["galleryId"];
-    $gallery = Galleries::getInstance()->getGallery($galleryId);
+    $sql = "SELECT * FROM `galleries` WHERE id=".$galleryId;
+    
+    $resource = mysql_query($sql, $sql_conn);
+    $data = mysql_fetch_assoc($resource);
+    $gallery = new Gallery($data);
     $photos = $gallery->allPhotos();
     return render_template("gallery-view.php", array(
         "css_stylesheets" => array("src/css/gallery-view.css"),
@@ -88,14 +94,12 @@ function galleries(){
     include './model/gallery.php';
     include './model/photos.php';
     
-    
     $sql = "SELECT * FROM `galleries` WHERE 1";
     $resource = mysql_query($sql, $sql_conn);
     $galleries = [];
         while($data = mysql_fetch_assoc($resource)){
             $galleries[]=new Gallery($data);
         }
-            print_r($galleries);
     return render_template("galleries.php", array(
         "css_stylesheets" => array("src/css/gallery-view.css","src/css/galleries.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
         "galleries" => $galleries,

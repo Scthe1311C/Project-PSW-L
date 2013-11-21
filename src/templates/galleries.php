@@ -28,7 +28,6 @@ foreach ($galleries as $gallery) {
                 echo '<label>Designed by:</label><a href="person?userId=' . $gallery->user_id. '">' . $signature["name"] .' '.$signature["surname"].'</a>'
                 ?><br/>
                 <label>Description:</label><?php echo $gallery->description ?> <br/>
-
             </div>
         </div>
         <?php if ($is_logged) { ?>
