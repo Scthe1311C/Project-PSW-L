@@ -45,7 +45,7 @@ TODO scale favorite-mark-up icon, make red on hover
 		<?php } ?>
 		
 		<!-- image -->
-		<a href="<?php echo 'photo?galleryId='.$gallery->id.'&photo='.$photo->link?>">
+		<a href="<?php echo 'photo?galleryId='.$gallery->id.'&photoId='.$photo->id?>">
 			<img src="<?php echo $photo->thumbnail_link; ?>" class="file"/>
 		</a>		
 	</div>

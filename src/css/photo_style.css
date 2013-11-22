@@ -54,8 +54,8 @@
     width: 10%
 }
 .carousel-indicators{
-    bottom: 8vh;
-    margin-bottom: 0;
+    bottom: 1%;
+    margin-bottom: 1vh;
 }
 
 #myCarousel{

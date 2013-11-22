@@ -20,7 +20,7 @@
 	<?php
 		// read auxiliary variables
 		$main_url = ((!empty($_SERVER["HTTPS"])) ? "https" : "http") . "://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
-		$is_logged = false;// isset($user_name);
+		$is_logged = true;// isset($user_name);
 		if(!isset($user_name)) $user_name = "Adam Smith";
 		$is_fullscreeen = isset($fullscreen) && $fullscreen; //remove navbar
 		//$minimal_navbar  //does not display big image behind
@@ -30,7 +30,7 @@
 		
 		<?php if( !$is_fullscreeen) {
 			include 'nav_bar.php';
-			/*include 'breadcrumbs.php';*/?>
+			include 'breadcrumbs.php';?>
 			<div class="container">
 				<?php include $content; ?>
 			</div>

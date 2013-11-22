@@ -108,11 +108,19 @@ function galleries(){
 }
 
 function single_photo() {
+    include './model/connection.php';
     include './model/gallery.php';
+    include './model/photos.php';
+    
     $galleryId = $_GET["galleryId"];
-    $gallery = Galleries::getInstance()->getGallery($galleryId);
-    $photos = $gallery->photosRef;
-    $chosen_photo = $_GET["photo"];
+    print_r($galleryId);
+    $sql = "SELECT * FROM `galleries` WHERE id=".$galleryId;
+    
+    $resource = mysql_query($sql, $sql_conn);
+    $data = mysql_fetch_assoc($resource);
+    $gallery = new Gallery($data);
+    $photos = $gallery->allPhotos();
+    $chosen_photo = $photos[$_GET["photoId"]];
     return render_template("single_photo.php", array(
         "css_stylesheets" => array(
             "src/css/carousel.css",

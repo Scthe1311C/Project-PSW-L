@@ -29,7 +29,8 @@ class Gallery {
         $resource = mysql_query($sql, $sql_conn);
         $allPhotos = [];
         while($data = mysql_fetch_assoc($resource)){
-            $allPhotos[]=new Photo($data);
+	    $photo = new Photo($data);
+            $allPhotos[$photo->id]=$photo;
         }
         return $allPhotos;
     }

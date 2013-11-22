@@ -6,24 +6,26 @@
     <!-- Indicators -->
     <ol class="carousel-indicators">
         <?php
-        for ($i = 0; $i < count($photos); $i++) {
-            echo ($photos[$i] == $chosen_photo) ? '<li data-target="#myCarousel" data-slide-to="' . $i . '" class="active"></li>' : '<li data-target="#myCarousel" data-slide-to="' . $i . '"></li>';
+	$i = 0;
+        foreach ($photos as $photo) {
+            echo ($photo == $chosen_photo) ? '<li data-target="#myCarousel" data-slide-to="' . $i . '" class="active"></li>' : '<li data-target="#myCarousel" data-slide-to="' . $i . '"></li>';
+	    $i++;
         }
         ?> 
     </ol> 
     
     <div  class="carousel-inner">
         <?php
-        for ($i = 0; $i < count($photos); $i++) {
-           echo ($photos[$i] == $chosen_photo) ? '<div class="item active">' : '<div class="item">';
+        foreach ($photos as $photo) {
+           echo ($photo == $chosen_photo) ? '<div class="item active">' : '<div class="item">';
            echo
             '<div class="container">
                 <div class="photo_container">
                     <div class="carousel-caption">
-                        <img class="image"src="' . $photos[$i] . '">
+                        <img class="image"src="' . $photo->link . '">
                      <div>
                         <div class="photo_name">
-                          <p>' . getNameFromPath($photos[$i]) . '</p>
+                          <p>' . $photo->name . '</p>
                          </div>
                         <div>
                           <a id="browse" class="btn btn-large btn-primary" href="gallery?galleryId=' . $galleryId . '">Browse gallery</a>
