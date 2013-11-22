@@ -16,9 +16,9 @@ foreach ($galleries as $gallery) {
                                                                                      ($gallery->views/1000)."k"?></span>
         </div>
         <div class="image-info favorite-count">
-            <span class="glyphicon glyphicon-heart"></span><span>&nbsp;<?php echo $gallery->favourites<1000?
-                                                                                  $gallery->favourites:
-                                                                                  ($gallery->favourites/1000)."k" ?></span>
+            <span class="glyphicon glyphicon-heart"></span><span>&nbsp;<?php echo $gallery->favorites<1000?
+                                                                                  $gallery->favorites:
+                                                                                  ($gallery->favorites/1000)."k" ?></span>
         </div>
         <div class="image-info image-data">
             <span class="glyphicon glyphicon-question-sign"></span>
