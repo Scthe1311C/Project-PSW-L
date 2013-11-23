@@ -1,10 +1,7 @@
-.panel-primary{
-    width: 30em;
-    margin-bottom: 10px;
-}
-
-td{
-    padding-right: 10px;
+.column50{
+	float:left;
+	width:50%;
+	padding-right:15px;
 }
 
 .img-thumbnail{
@@ -12,42 +9,95 @@ td{
     height: 300px;
     margin-bottom: 10px;
 }
-.col-left{
-    float: left;
-    margin-right: 15px; 
-    height: 470px;
-}
-.col-right{
-    float: right
+
+.panel-body td{
 }
 
-.image-div{
-    float: left;
-    width: 300px;
+.settings-value{
+	width:100%;
+	text-align:right;
+}
+.settings-value input{
+	text-align:right;
+}
+.settings-value select{
+	text-align:right;
 }
 
-div.upload {
-    /*width: 157px;*/
-    height: 57px;
-    background: url(https://lh6.googleusercontent.com/-dqTIJRTqEAQ/UJaofTQm3hI/AAAAAAAABHo/w7ruR1SOIsA/s157/upload.png);
-    overflow: hidden;
-}
-div.upload input {
-    display: block !important;
-    width: 157px !important;
-    height: 57px !important;
-    opacity: 0 !important;
-    overflow: hidden !important;
-    margin: 0 auto;
+.settings-label{
+	padding-right:10px;
+	font-weight:600;
 }
 
-.glyphicon{
-    float: right;
-    padding: 3px;
+.form-read-only{
+	padding: 6px 12px;
 }
 
-
-.masthead{
-    padding-bottom: 15px;
+#avatar-image{
+	display: inline-block;
+	height: auto;
+	max-width: 100%;
+	padding: 4px;
 }
 
+#save-button{
+	float:right;
+	width:150px;
+	height:50px;
+}
+
+/* avatar upload */
+.file-container {
+	width:100%;
+	height:30px;
+	display:inline-block;
+	position:relative;
+	overflow:hidden;
+	margin-bottom:15px;
+}
+
+.file-container input[type="file"] {
+	position:absolute;
+	width:100%;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	opacity:0;
+	z-index:2;
+	height:inherit;
+	display:block;
+	cursor:pointer;
+}
+
+.file-container input[type="text"] {
+	position:relative;
+	float:left;
+	left:4px;
+	z-index:0;
+	width:80%;
+	height:inherit;
+	background:#efefef;
+	border:1px solid #aaa;
+	font:11px Tahoma;
+	color:#777;
+	padding:5px;
+}
+
+.file-container input[type="button"] {
+	position:relative;
+	float:right;
+	right:4px;
+	z-index:0;
+	width:20%;
+	height:inherit;
+	background-color: rgb(66, 139, 202);
+	text-align:center;
+	font:11px Arial;
+	color:#fff;
+	line-height:inherit;
+	overflow:hidden;
+	display:block;
+	border:0;
+	cursor:pointer;
+}
