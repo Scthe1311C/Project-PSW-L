@@ -30,8 +30,9 @@
 		$content = home();
 
 	}else if( $page_name=="/login"){
-		/* login as user providing login and password */
-		$content = login();
+		/* login as user providing login and password or register new user*/
+		$register = isset($_GET["register"])? $_GET["register"] : false;
+		$content = login( $register);
 
 	}else if( $page_name=="/about"){
 		/* about the website */

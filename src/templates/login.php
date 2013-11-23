@@ -1,13 +1,22 @@
 <script>
 $( document ).ready(function() {
-	var tab = 1;
-	var h1 = $("#login-section1-form").outerHeight();
-	var h2 = $("#login-section2-form").outerHeight();
-	var dH = h2-h1;
-	h1 = $("#dialog").outerHeight(); 	// sign in
-	h2 = h1 + dH;						// register
-	var nH = h1 + $("#invalid-auth-msg").outerHeight() + 10; // sign in + error message + padding-bottom of parent
-	//console.log(h1+" "+h2);
+	var tab =  <?php echo $register?2:1; ?>;
+	var form1H = $("#login-section1-form").outerHeight();
+	var form2H = $("#login-section2-form").outerHeight();
+	var form1ErrorMsgH = $("#invalid-auth-msg").outerHeight();
+	if(tab==1) $("#login-section2-form").hide();
+	else $("#login-section1-form").hide();
+	var dH = form2H-form1H;
+	
+	<?php if(!$register){ ?>
+		var h1 = $("#dialog").outerHeight(); 	// sign in
+		var h2 = h1 + dH;						// register
+	<?php }else{ ?>
+		var h2 = $("#dialog").outerHeight(); 	// register
+		var h1 = h2 - dH;						// sign in
+	<?php } ?>
+	var nH = h1 + form1ErrorMsgH + 10; // sign in + error message + padding-bottom of parent
+	//console.log(form1H+" "+form2H+" !" + $("#invalid-auth-msg").outerHeight());
 		
 	$("#register-tab").click(function(){
 		// change to register tab, enlarge the dialog
@@ -66,14 +75,14 @@ $( document ).ready(function() {
 </script>
 
 <!-- TODO check for different browsers -->
+
 <div id="login-page">
 
 	<div  id="login-dialog">
-		
 		<div id="login-tabs">
 			<ul id="tab">
-				<li id="register-tab" class="inactive-tab">Register</a></li>
-				<li id="sign-in-tab">Sign In</a></li>
+				<li id="register-tab" <?php if(!$register){ ?>class="inactive-tab"<?php } ?>>Register</a></li>
+				<li id="sign-in-tab" <?php if($register){ ?>class="inactive-tab"<?php } ?>>Sign In</a></li>
 			</ul>
 		</div>
 		
@@ -99,7 +108,10 @@ $( document ).ready(function() {
 				<input type="text" class="form-control" placeholder="Mail">
 				<input type="password" class="form-control" placeholder="Password">
 				<input type="password" class="form-control" placeholder="Confirm password">
-				<a href="user-profile"><span class="submit-button">Register</span></a>
+				<a href="user-profile">
+					<span class="submit-button">Register</span>
+				</a>
+				<div style="clear:both"></div>
 			</form>
 		</div>
 	</div>

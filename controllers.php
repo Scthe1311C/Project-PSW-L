@@ -2,16 +2,17 @@
 
 function home() {
     return render_template("home.php", array(
-			"css_stylesheets" => array("src/css/home.css"),
-			"minimal_navbar" => true,
-			"content_width100" => true
-		));
+		"css_stylesheets" => array("src/css/home.css"),
+		"minimal_navbar" => true,
+		"content_width100" => true
+	));
 }
 
-function login() {
+function login( $register=false) {
     return render_template("login.php", array(
         "css_stylesheets" => array("src/css/login.css"),
         "fullscreen" => true,
+		"register" => $register,
         "title" => "Log in"
     ));
 }

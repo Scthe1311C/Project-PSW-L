@@ -41,7 +41,7 @@ $( document ).ready(function() {
 		<section id="section-1">
 			<h1 class="text-center-horizontal">Share</h1>
 			<h2 class="text-center-horizontal">so every one can enjoy Your photos</h2>
-			<p class="text-center-horizontal"><a href="#" id="sign-up-button" class="btn">Sign up</a></p>
+			<p class="text-center-horizontal"><a href="login?register=true" id="sign-up-button" class="btn">Sign up</a></p>
 			<br/>
 			<p class="text-center-horizontal section-link"><a href="#Easy">Easy</a> quick</p>
 			<p class="text-center-horizontal section-link"><a href="#Impressive">Impressive</a> big spectacular</p>
