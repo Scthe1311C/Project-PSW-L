@@ -4,17 +4,21 @@ $( document ).ready(function() {
 	var h1 = $("#login-section1-form").outerHeight();
 	var h2 = $("#login-section2-form").outerHeight();
 	var dH = h2-h1;
-	h1 = $("#dialog").outerHeight();
-	h2 = h1 + dH;
+	h1 = $("#dialog").outerHeight(); 	// sign in
+	h2 = h1 + dH;						// register
+	var nH = h1 + $("#invalid-auth-msg").outerHeight() + 10; // sign in + error message + padding-bottom of parent
 	//console.log(h1+" "+h2);
 		
 	$("#register-tab").click(function(){
 		// change to register tab, enlarge the dialog
 		if(tab==1){
 			tab = 2;
+			$("#invalid-auth-msg").hide();
 			$("#dialog").animate({height: h2+"px"}, 500);
 			$("#login-section1-form").fadeOut(500).hide();
 			$("#login-section2-form").delay(500).fadeIn( 200);
+			$("#register-tab").removeClass("inactive-tab");
+			$("#sign-in-tab").addClass("inactive-tab");
 		}
 	});
 	
@@ -25,6 +29,8 @@ $( document ).ready(function() {
 			$("#dialog").animate({height: h1+"px"}, 500);
 			$("#login-section2-form").fadeOut(500).hide();
 			$("#login-section1-form").delay(500).fadeIn( 200);
+			$("#sign-in-tab").removeClass("inactive-tab");
+			$("#register-tab").addClass("inactive-tab");
 		}
 	});
 	
@@ -48,7 +54,9 @@ $( document ).ready(function() {
 				if (data === 'true') {
 					window.location = 'user-profile';
 				} else {
-					//alert('Invalid Credentials');
+					// TODO error msg slide down animation
+					$("#invalid-auth-msg").hide().slideDown(400);
+					$("#dialog").animate({height: nH+"px"}, 10);
 				}
 			}
 	   });
@@ -57,13 +65,14 @@ $( document ).ready(function() {
 });
 </script>
 
+<!-- TODO check for different browsers -->
 <div id="login-page">
 
 	<div  id="login-dialog">
 		
 		<div id="login-tabs">
 			<ul id="tab">
-				<li id="register-tab">Register</a></li>
+				<li id="register-tab" class="inactive-tab">Register</a></li>
 				<li id="sign-in-tab">Sign In</a></li>
 			</ul>
 		</div>
@@ -72,13 +81,14 @@ $( document ).ready(function() {
 			<header>
 				<a href="<?php echo $main_url; ?>"><h1>Dropbox App</h1></a>
 			</header>
-		
+			
 			<form class="login-section" id="login-section1-form" formmethod="post" role="form">
+				<div class="alert alert-danger" id="invalid-auth-msg">Please enter a correct username and password.</div>
 				<input id="username" type="text" class="form-control" placeholder="Username..">
 				<input id="password" type="password" class="form-control" placeholder="Password..">
 				<div style="position:relative">
 					<input class="submit-button" action="user-profile" type="submit" name="sign-in-submit" value="Sign in">
-					<a href="#" id="forgot-password">forgot ?</a>
+					<a href="#" id="forgot-password">forgot ?</a> <!-- TODO  forgot button -->
 				</div>
 				
 				<div style="clear:both"></div>
