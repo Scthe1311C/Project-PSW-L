@@ -98,6 +98,7 @@
 	color:rgba(128,128,128,0.5);
 	text-transform:uppercase;
 	transition: border linear 0.2s, box-shadow linear 0.2s, color linear 0.2s;
+	background-color:white;
 }
 
 .submit-button:hover{

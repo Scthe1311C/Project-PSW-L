@@ -6,11 +6,10 @@ $( document ).ready(function() {
 	var dH = h2-h1;
 	h1 = $("#dialog").outerHeight();
 	h2 = h1 + dH;
-	console.log(h1+" "+h2);
+	//console.log(h1+" "+h2);
 		
 	$("#register-tab").click(function(){
-	// change to register tab, enlarge dialog
-	console.log(h1+" "+h2);
+		// change to register tab, enlarge the dialog
 		if(tab==1){
 			tab = 2;
 			$("#dialog").animate({height: h2+"px"}, 500);
@@ -20,15 +19,41 @@ $( document ).ready(function() {
 	});
 	
 	$("#sign-in-tab").click(function(){
-		// change to sign in tab, make dialog smaller
+		// change to sign in tab, make the dialog smaller
 		if(tab==2){
 			tab =1;
-			console.log(h1+" "+h2);
 			$("#dialog").animate({height: h1+"px"}, 500);
 			$("#login-section2-form").fadeOut(500).hide();
 			$("#login-section1-form").delay(500).fadeIn( 200);
 		}
 	});
+	
+	// submit sign in
+	$('#login-section1-form').submit(function(e) {
+		e.preventDefault();
+		username = $("#username").val();
+		password = $("#password").val();
+		$.ajax({
+			type: "POST",
+			url: 'api.php', // TODO https
+			data: $(this).serialize(),
+			beforeSend: function (xhr) {
+				var creds = username + ':' + password;
+				var basicScheme = btoa(creds);
+				var hashStr = "Basic "+basicScheme;
+				xhr.setRequestHeader('Authorization', hashStr);
+				xhr.setRequestHeader('Method', "login"); // TODO handle by uri not header
+			},
+			success: function(data){
+				if (data === 'true') {
+					window.location = 'user-profile';
+				} else {
+					//alert('Invalid Credentials');
+				}
+			}
+	   });
+	 });
+	 
 });
 </script>
 
@@ -49,10 +74,10 @@ $( document ).ready(function() {
 			</header>
 		
 			<form class="login-section" id="login-section1-form" formmethod="post" role="form">
-				<input type="text" class="form-control" placeholder="Username..">
-				<input type="password" class="form-control" placeholder="Password..">
+				<input id="username" type="text" class="form-control" placeholder="Username..">
+				<input id="password" type="password" class="form-control" placeholder="Password..">
 				<div style="position:relative">
-					<a href="user-profile"><span class="submit-button">Sign in</span></a>
+					<input class="submit-button" action="user-profile" type="submit" name="sign-in-submit" value="Sign in">
 					<a href="#" id="forgot-password">forgot ?</a>
 				</div>
 				

@@ -12,7 +12,7 @@ function login() {
     return render_template("login.php", array(
         "css_stylesheets" => array("src/css/login.css"),
         "fullscreen" => true,
-        "title" => "login"
+        "title" => "Log in"
     ));
 }
 
