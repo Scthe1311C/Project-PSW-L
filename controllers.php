@@ -18,8 +18,7 @@ function login() {
 
 function about() {
     return render_template("about.php", array(
-        "css_stylesheets" => array("src/css/about.css"),
-        "title" => "AAa"
+        "css_stylesheets" => array("src/css/about.css")
     ));
 }
 
