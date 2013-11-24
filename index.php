@@ -22,7 +22,7 @@
 	$page_name = substr( $request_uri, 0, strrpos( $request_uri, "?")===FALSE ? strlen($request_uri): strrpos( $request_uri, "?")); // remove GET params
 	$page_name = substr( $page_name, strrpos( $page_name, "/")); // get all after last '/'
        
-	if( $page_name=="/"){
+	if( $page_name=="/" || $page_name=="/home"){
 		/* home page */
 		$content = home();
 	
@@ -34,6 +34,13 @@
 		$register = isset($_GET["register"])? $_GET["register"] : false;
 		$content = login( $register);
 
+	}else if( $page_name=="/logout"){
+		// TODO check user authorization before displaying user-only page
+		// ( in case f.e. someone go to the previous site in the browser)
+		session_start();
+		unset($_SESSION["user_name"]);
+		header("Location: home");
+		
 	}else if( $page_name=="/about"){
 		/* about the website */
 		$content = about();

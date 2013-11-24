@@ -4,15 +4,7 @@
 	padding-right:15px;
 }
 
-.img-thumbnail{
-    width: 300px;
-    height: 300px;
-    margin-bottom: 10px;
-}
-
-.panel-body td{
-}
-
+/* personal settings*/
 .settings-value{
 	width:100%;
 	text-align:right;
@@ -33,6 +25,7 @@
 	padding: 6px 12px;
 }
 
+/* other */
 #avatar-image{
 	display: inline-block;
 	height: auto;

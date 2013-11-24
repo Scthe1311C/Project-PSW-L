@@ -110,6 +110,7 @@ function render_template($path, array $args = NULL) {
     if ($args === NULL || !isset($args['title'])) {
         $args["title"] = "app";
     }
+	$args["session"] = $_SESSION;
     extract($args);
     $content = $path;
     ob_start();

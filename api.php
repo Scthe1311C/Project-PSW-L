@@ -18,6 +18,8 @@ function dispatchApiCall(){
 	$method = $headers["Method"];
 	if( $method === "login"){
 		$valid = validUserAuthenticationData( $headers["Authorization"]);
+		if($valid)
+			$_SESSION["user_name"] = "a";
 		return $valid ? 'true' : 'false';
 	}else{
 		return "method not found";

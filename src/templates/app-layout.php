@@ -21,7 +21,7 @@
 		// read auxiliary variables
 		$app_name = substr( $_SERVER["PHP_SELF"], 0, strrpos( $_SERVER["PHP_SELF"], "/"));
 		$main_url = ((!empty($_SERVER["HTTPS"])) ? "https" : "http") . "://" . $_SERVER["HTTP_HOST"].$app_name;
-		$is_logged = true;//isset($user_name);
+		$is_logged = isset($_SESSION["user_name"]);
 		if(!isset($user_name)) $user_name = "Adam Smith";
 		$is_fullscreeen = isset($fullscreen) && $fullscreen; //remove navbar
 		$minimal_navbar = isset($minimal_navbar) && $minimal_navbar;  // do not display the big image on top

@@ -12,7 +12,7 @@ $(function() {
 		$this.wrap($fileContainer);			
 		$this.parents('.file-container').append($text_file).append($uploadbutton);	
 		$this.bind('click', function() {
-			$this.parent().find('.input-text').val($this.val().replace("C:\\fakepath\\", ""));
+			$this.parent().find('.input-text').val($this.val());
 		});
 	});
 })
