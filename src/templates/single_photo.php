@@ -16,6 +16,7 @@
     
     <div  class="carousel-inner">
         <?php
+	$galleryLink = $galleryId == Galleries::POPULAR_GALLARY_ID? "popular" :'gallery?galleryId=' . $galleryId; 
         foreach ($photos as $photo) {
            echo ($photo == $chosen_photo) ? '<div class="item active">' : '<div class="item">';
            echo
@@ -28,7 +29,7 @@
                           <p>' . $photo->name . '</p>
                          </div>
                         <div>
-                          <a id="browse" class="btn btn-large btn-primary" href="gallery?galleryId=' . $galleryId . '">Browse gallery</a>
+                          <a id="browse" class="btn btn-large btn-primary" href="'.$galleryLink.'">Browse gallery</a>
                         </div>
                      </div>
                     </div>
@@ -38,12 +39,14 @@
         }
         ?>
     </div>
-    <a  class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+    <a  class="left carousel-control" href="#myCarousel" onclick="previous()" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <a class="right carousel-control" href="#myCarousel" onclick="next()" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 </div>
 <!-- /.carousel -->
 
 <!--comments-->
+<div class ="carousel-inner" id="comments">
+<div class="item active">
 <div class="well">
     <table>
         <tr>
@@ -63,7 +66,30 @@
         </tr>
     </table>
 </div>
+</div>
+    <div class="item">
+<div class="well">
+    <table>
+        <tr>
+            <td>
+                <figure class="person-comment">
+                    <img src="src/img/img2.jpg" class="img-thumbnail" alt="No image found">   
+                    <a href="#">Adama Smith</a>
+                </figure>
+            </td> 
+            <td>
+                <h3>Title2</h3>
+                <hr>
+                <section>
+                    <p>aaaaLorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac volutpat magna. Vestibulum semper dignissim diam, eget auctor diam feugiat vitae. Integer suscipit orci at nisl ultricies dignissim. Donec elementum leo est, at rhoncus elit pellentesque id. Aenean euismod dolor tellus, porttitor facilisis elit tempus quis. Mauris accumsan risus magna, vitae vehicula massa tempor pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec in purus nisl. Aliquam hendrerit tortor non felis lobortis egestas. Donec risus diam, consequat vitae varius quis, convallis a nunc. Integer vel dui augue. Ut non sapien pulvinar, commodo risus at, porttitor urna. Duis massa nunc, aliquet in aliquet pulvinar, luctus nec eros. Morbi vel cursus risus. Vestibulum posuere tempus augue non adipiscing.Body</p>
+                </section>    
+            </td>
+        </tr>
+    </table>
+</div>
+</div>
 
+</div>
 <!--Add comment form-->
 <div class="well">
     <h5>Add comment</h5>

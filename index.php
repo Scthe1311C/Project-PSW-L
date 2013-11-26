@@ -65,10 +65,10 @@
 		
 	}else if( $page_name=="/gallery"){
 		/* view of chosen gallery */
-		$content = gallery();
+		$content = gallery($_GET["galleryId"]);
 		
-	}else if( $page_name=="/photo"){            
-                $content = single_photo();
+	}else if( $page_name=="/photo"){
+                $content = single_photo($_GET["galleryId"], $_GET["photoId"]);
 	
 	} else if( $page_name=="/person"){
                 $content = person_info();

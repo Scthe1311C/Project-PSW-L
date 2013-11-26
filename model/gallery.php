@@ -43,9 +43,54 @@ class Gallery {
         
         $resource = mysql_query($sql, $sql_conn);
         return  mysql_fetch_assoc($resource);
+    }    
+}
+class Popular extends Gallery{
+    public function __construct($data) {
+        parent::__construct($data);
     }
     
+    public function allPhotos() {
+        include './model/connection.php';
+
+        $sql = "SELECT * FROM `photos` WHERE 1\n"
+        . "order by favorites desc \n"
+        . "Limit 0,30";
+
+        $resource = mysql_query($sql, $sql_conn);
+        $allPhotos = [];
+        while($data = mysql_fetch_assoc($resource)){
+            $photo = new Photo($data);
+            $allPhotos[$photo->id]=$photo;
+        }
+        return $allPhotos;
+    }
+    
+    public function getDesignerSignature() {
+        return null;
+    }
 }
+
+class Galleries{
+    const POPULAR_GALLARY_ID =1;
+    
+    public static function getGallery($galleryId){
+        include './model/connection.php';
+
+        $sql = "SELECT * FROM `galleries` WHERE id=".$galleryId;
+
+        $resource = mysql_query($sql, $sql_conn);
+        $data = mysql_fetch_assoc($resource);    
+        $gallery = null;
+        if($galleryId == static::POPULAR_GALLARY_ID){
+            $gallery = new Popular($data);
+        }else{
+            $gallery = new Gallery($data);
+        }
+        return $gallery;
+    }
+}
+
 ?>
 
 

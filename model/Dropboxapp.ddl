@@ -5,7 +5,7 @@ CREATE TABLE Galleries (
   favorites     int(10) DEFAULT 0, 
   description   varchar(255), 
   tumbnail_href varchar(255), 
-  user_id       int(10) NOT NULL, 
+  user_id       int(10), 
   PRIMARY KEY (id)) CHARACTER SET UTF8;
   
   
@@ -386,7 +386,7 @@ VALUES
 INSERT INTO Photos
   (id, link, thumbnail_link, width, height, name, views, address_id, favorites, manufacturer, software, date_and_time, upload_date, exposure_time, f_number, model, compression, focal_lenght) 
 VALUES 
-  (5, 'src/img/img5.jpg', 'src/img/img5.jpg		', 1060, 1050, 'foto_5', 0, null, 0, null, null, null, '2013-10-26 16:04:45', null, null, null, null, null);
+  (5, 'src/img/img5.jpg', 'src/img/img5.jpg', 1060, 1050, 'foto_5', 0, null, 0, null, null, null, '2013-10-26 16:04:45', null, null, null, null, null);
 INSERT INTO Photos
   (id, link, thumbnail_link, width, height, name, views, address_id, favorites, manufacturer, software, date_and_time, upload_date, exposure_time, f_number, model, compression, focal_lenght) 
 VALUES 
@@ -434,30 +434,22 @@ VALUES
 INSERT INTO Galleries
   (id, name, views, favorites, description, tumbnail_href, user_id) 
 VALUES 
-  (1, 'Galleria 1', 0, 0, 'test gallery 1', 'src/img/img1.jpg', 1);
+  (1, 'Popular', 0, 0, 'System gallery contains the most popular photos', null, 1);
 INSERT INTO Galleries
   (id, name, views, favorites, description, tumbnail_href, user_id) 
 VALUES 
-  (2, 'Galleria 2', 0, 0, 'test gallery 2', 'src/img/img2.jpg', 2);
+  (2, 'Galleria 1', 0, 0, 'test gallery 1', 'src/img/img1.jpg', 1);
+INSERT INTO Galleries
+  (id, name, views, favorites, description, tumbnail_href, user_id) 
+VALUES 
+  (3, 'Galleria 2', 0, 0, 'test gallery 2', 'src/img/img2.jpg', 2);
   
   
-INSERT INTO Photos_galleries
-  (gallery_id, photo_id) 
-VALUES 
-  (1, 1);
-  
-INSERT INTO Photos_galleries
-  (gallery_id, photo_id) 
-VALUES 
-  (1, 2);
-INSERT INTO Photos_galleries
-  (gallery_id, photo_id) 
-VALUES 
-  (1, 3); 
 INSERT INTO Photos_galleries
   (gallery_id, photo_id) 
 VALUES 
   (2, 1);
+  
 INSERT INTO Photos_galleries
   (gallery_id, photo_id) 
 VALUES 
@@ -465,29 +457,41 @@ VALUES
 INSERT INTO Photos_galleries
   (gallery_id, photo_id) 
 VALUES 
-  (2, 3);
+  (2, 3); 
 INSERT INTO Photos_galleries
   (gallery_id, photo_id) 
 VALUES 
-  (2, 4);
+  (3, 1);
 INSERT INTO Photos_galleries
   (gallery_id, photo_id) 
 VALUES 
-  (2, 5);
+  (3, 2);
 INSERT INTO Photos_galleries
   (gallery_id, photo_id) 
 VALUES 
-  (2, 6);
+  (3, 3);
 INSERT INTO Photos_galleries
   (gallery_id, photo_id) 
 VALUES 
-  (2, 7);
+  (3, 4);
+INSERT INTO Photos_galleries
+  (gallery_id, photo_id) 
+VALUES 
+  (3, 5);
+INSERT INTO Photos_galleries
+  (gallery_id, photo_id) 
+VALUES 
+  (3, 6);
+INSERT INTO Photos_galleries
+  (gallery_id, photo_id) 
+VALUES 
+  (3, 7);
   
   
 INSERT INTO Followed_galleries
   (user_id, gallery_id) 
 VALUES 
-  (1, 1);
+  (1, 2);
   
   
 INSERT INTO Comments

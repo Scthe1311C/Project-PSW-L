@@ -22,7 +22,8 @@ function about() {
 function popular() {
     include './model/gallery.php';
     include './model/photos.php';
-    $gallery = Galleries::getInstance()->getGallery(3);
+    	
+    $gallery = Galleries::getGallery(Galleries::POPULAR_GALLARY_ID);
     $photos = $gallery->allPhotos();
     return render_template("gallery-view.php", array(
         "css_stylesheets" => array("src/css/gallery-view.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
@@ -40,17 +41,13 @@ function user() {
     ));
 }
 
-function gallery() {
+function gallery($id) {
     include './model/connection.php';
     include './model/gallery.php';
     include './model/photos.php';
     
-    $galleryId = $_GET["galleryId"];
-    $sql = "SELECT * FROM `galleries` WHERE id=".$galleryId;
     
-    $resource = mysql_query($sql, $sql_conn);
-    $data = mysql_fetch_assoc($resource);
-    $gallery = new Gallery($data);
+    $gallery = Galleries::getGallery($id);
     $photos = $gallery->allPhotos();
     return render_template("gallery-view.php", array(
         "css_stylesheets" => array("src/css/gallery-view.css"),
@@ -107,20 +104,13 @@ function galleries(){
     ));   
 }
 
-function single_photo() {
-    include './model/connection.php';
+function single_photo($galleryId, $photoId) {
     include './model/gallery.php';
     include './model/photos.php';
     
-    $galleryId = $_GET["galleryId"];
-    print_r($galleryId);
-    $sql = "SELECT * FROM `galleries` WHERE id=".$galleryId;
-    
-    $resource = mysql_query($sql, $sql_conn);
-    $data = mysql_fetch_assoc($resource);
-    $gallery = new Gallery($data);
+    $gallery = Galleries::getGallery($galleryId);
     $photos = $gallery->allPhotos();
-    $chosen_photo = $photos[$_GET["photoId"]];
+    $chosen_photo = $photos[$photoId];
     return render_template("single_photo.php", array(
         "css_stylesheets" => array(
             "src/css/carousel.css",
@@ -128,7 +118,8 @@ function single_photo() {
         ),
         "js_scripts" => array(
             "vendor/bootstrap/js/bootstrap.min.js",
-            "vendor/bootstrap/js/holder.js"       
+            "vendor/bootstrap/js/holder.js",
+	    "src/js/commentFold.js"
          ),
             "photos" => $photos,
             "chosen_photo" =>$chosen_photo,
