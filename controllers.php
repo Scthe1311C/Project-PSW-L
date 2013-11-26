@@ -57,14 +57,10 @@ function gallery($id) {
     ));
 }
 
-function settings() {
-    include './model/connection.php';
+function settings($userId) {
     include './model/userData.php';
     
-    $sql = "SELECT * FROM `users` WHERE id = ".$_GET["userId"];
-    $resource = mysql_query($sql, $sql_conn);
-    $data = mysql_fetch_assoc($resource);
-    $user  = new User($data);
+    $user  = Users::getUser($userId);
     
     return render_template('settings.php', array(
         "css_stylesheets" => array("src/css/settings.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
@@ -90,6 +86,7 @@ function galleries(){
     include './model/connection.php';
     include './model/gallery.php';
     include './model/photos.php';
+    include './model/userData.php';
     
     $sql = "SELECT * FROM `galleries` WHERE 1";
     $resource = mysql_query($sql, $sql_conn);
@@ -107,6 +104,8 @@ function galleries(){
 function single_photo($galleryId, $photoId) {
     include './model/gallery.php';
     include './model/photos.php';
+    include './model/userData.php';
+    include './model/comment.php';
     
     $gallery = Galleries::getGallery($galleryId);
     $photos = $gallery->allPhotos();

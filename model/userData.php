@@ -35,6 +35,39 @@ class User{
             default: $this->data[$name] = $value;
         }
     }
+    
+    public function getSignature(){
+        $signature = isset($this->data["name"]) || isset($this->data["surname"])?
+                                            $this->data["name"]." ".$this->data["surname"] :
+                                            $this->data["login"];                                       
+        return $signature;
+    }
+}
+
+class Users{
+    public static function getUser($userId){
+        include './model/connection.php';
+    
+        $sql = "SELECT * FROM `users` WHERE id = ".$userId;
+        $resource = mysql_query($sql, $sql_conn);
+        $data = mysql_fetch_assoc($resource);
+        $user  = new User($data);
+        return $user;
+    }
+    
+    public static function getUserSignature($userId){
+        include './model/connection.php';
+        
+        $sql = "Select login ,name, surname from users\n"
+             . "where users.id = ".$userId;
+        
+        $resource = mysql_query($sql, $sql_conn);
+        $data = mysql_fetch_assoc($resource);
+        $signature = isset($data["name"]) || isset($data["surname"])?
+                                            $data["name"]." ".$data["surname"] :
+                                            $data["login"];                                       
+        return $signature;
+    }   
 }
 ?>
 

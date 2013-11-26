@@ -45,49 +45,42 @@
 <!-- /.carousel -->
 
 <!--comments-->
+
+<!--TODO Fix bug with not sinchronized comments and photos-->
+
 <div class ="carousel-inner" id="comments">
-<div class="item active">
-<div class="well">
-    <table>
-        <tr>
-            <td>
-                <figure class="person-comment">
-                    <img src="src/img/img2.jpg" class="img-thumbnail" alt="No image found">   
-                    <a href="#">Adama Smith</a>
-                </figure>
-            </td> 
-            <td>
-                <h3>Title</h3>
-                <hr>
-                <section>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac volutpat magna. Vestibulum semper dignissim diam, eget auctor diam feugiat vitae. Integer suscipit orci at nisl ultricies dignissim. Donec elementum leo est, at rhoncus elit pellentesque id. Aenean euismod dolor tellus, porttitor facilisis elit tempus quis. Mauris accumsan risus magna, vitae vehicula massa tempor pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec in purus nisl. Aliquam hendrerit tortor non felis lobortis egestas. Donec risus diam, consequat vitae varius quis, convallis a nunc. Integer vel dui augue. Ut non sapien pulvinar, commodo risus at, porttitor urna. Duis massa nunc, aliquet in aliquet pulvinar, luctus nec eros. Morbi vel cursus risus. Vestibulum posuere tempus augue non adipiscing.Body</p>
-                </section>    
-            </td>
-        </tr>
-    </table>
-</div>
-</div>
-    <div class="item">
-<div class="well">
-    <table>
-        <tr>
-            <td>
-                <figure class="person-comment">
-                    <img src="src/img/img2.jpg" class="img-thumbnail" alt="No image found">   
-                    <a href="#">Adama Smith</a>
-                </figure>
-            </td> 
-            <td>
-                <h3>Title2</h3>
-                <hr>
-                <section>
-                    <p>aaaaLorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac volutpat magna. Vestibulum semper dignissim diam, eget auctor diam feugiat vitae. Integer suscipit orci at nisl ultricies dignissim. Donec elementum leo est, at rhoncus elit pellentesque id. Aenean euismod dolor tellus, porttitor facilisis elit tempus quis. Mauris accumsan risus magna, vitae vehicula massa tempor pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec in purus nisl. Aliquam hendrerit tortor non felis lobortis egestas. Donec risus diam, consequat vitae varius quis, convallis a nunc. Integer vel dui augue. Ut non sapien pulvinar, commodo risus at, porttitor urna. Duis massa nunc, aliquet in aliquet pulvinar, luctus nec eros. Morbi vel cursus risus. Vestibulum posuere tempus augue non adipiscing.Body</p>
-                </section>    
-            </td>
-        </tr>
-    </table>
-</div>
-</div>
+    <?php {
+        foreach ($photos as $photo) {
+    ?> 
+
+            <div class="<?php echo $photo == $chosen_photo ? "item active" : "item" ?>">
+                <?php
+                $comments = $photo->allComments();
+                foreach ($comments as $comment) {
+                    $writer = Users::getUser($comment->user_id);
+                ?>
+                    <div class="well">
+                        <table>
+                            <tr>
+                                <td>
+                                    <figure class="person-comment">
+                                        <img src="<?php echo $writer->avatar ?>" class="img-thumbnail" alt="No image found">   
+                                        <a href="<?php echo 'profile?userId='.$writer->id?>"><?php echo $writer->getSignature() ?></a>
+                                    </figure>
+                                </td> 
+                                <td>
+                                    <h3><?php echo $comment->title ?></h3>
+                                    <hr>
+                                    <section>
+                                        <p><?php echo $comment->text ?></p>
+                                    </section>    
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+            <?php } ?>
+            </div>
+    <?php }} ?>
 
 </div>
 <!--Add comment form-->

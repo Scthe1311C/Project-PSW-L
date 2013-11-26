@@ -33,22 +33,13 @@ class Gallery {
             $allPhotos[$photo->id]=$photo;
         }
         return $allPhotos;
-    }
-    
-    public function getDesignerSignature(){
-        include './model/connection.php';
-        
-        $sql = "Select name, surname from users\n"
-             . "where ".$this->data["user_id"]." = users.id";
-        
-        $resource = mysql_query($sql, $sql_conn);
-        return  mysql_fetch_assoc($resource);
-    }    
+    }  
 }
+
 class Popular extends Gallery{
     public function __construct($data) {
         parent::__construct($data);
-    }
+}
     
     public function allPhotos() {
         include './model/connection.php';

@@ -36,7 +36,7 @@
 
 	}else if( $page_name=="/settings"){
 		/* change user's settings */
-		$content = settings();
+		$content = settings($_GET["userId"]);
 
 	}else if( $page_name=="/about"){
 		/* about the website */
