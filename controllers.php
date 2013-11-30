@@ -20,6 +20,7 @@ function about() {
 }
 
 function popular() {
+    include './model/DAO.php';
     include './model/gallery.php';
     include './model/photos.php';
     	
@@ -42,7 +43,7 @@ function user() {
 }
 
 function gallery($id) {
-    include './model/connection.php';
+    include './model/DAO.php';
     include './model/gallery.php';
     include './model/photos.php';
     
@@ -58,6 +59,7 @@ function gallery($id) {
 }
 
 function settings($userId) {
+    include './model/DAO.php';
     include './model/userData.php';
     
     $user  = Users::getUser($userId);
@@ -84,16 +86,11 @@ function person_info() {
 
 function galleries(){
     include './model/connection.php';
+    include './model/DAO.php';
     include './model/gallery.php';
-    include './model/photos.php';
     include './model/userData.php';
     
-    $sql = "SELECT * FROM `galleries` WHERE 1";
-    $resource = mysql_query($sql, $sql_conn);
-    $galleries = [];
-        while($data = mysql_fetch_assoc($resource)){
-            $galleries[]=new Gallery($data);
-        }
+    $galleries = Galleries::allGalleries();
     return render_template("galleries.php", array(
         "css_stylesheets" => array("src/css/gallery-view.css","src/css/galleries.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
         "galleries" => $galleries,
@@ -102,6 +99,7 @@ function galleries(){
 }
 
 function single_photo($galleryId, $photoId) {
+    include './model/DAO.php';
     include './model/gallery.php';
     include './model/photos.php';
     include './model/userData.php';

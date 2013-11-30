@@ -2,7 +2,7 @@
 interface IDAO {
     public static function selectAll($tableName);
     public static function insert($tableName, $data);
-    public static function select($tablesNames, $columns, $conditions);
+    public static function select($tablesNames, $columns, $conditions, $additionals);
     public static function update($tableName, $data, $conditions);   
 }
 
@@ -21,14 +21,17 @@ class DAO implements IDAO{
          $sql    .=")";
          $values .=")";
          $sql    .= "\n".$values; 
-         print_r($sql);
+        // print_r($sql);
          return mysql_query($sql, $sql_conn);
     } 
     
 
-    public static function select($tablesNames, $columns, $conditions) {
+    public static function select($tablesNames, $columns, $conditions, $additionals) {
         include '/connection.php';
         $tablesNames = is_array($tablesNames)? $tablesNames : [$tablesNames];
+        $columns = is_array($columns)? $columns : [$columns];
+        $conditions = is_array($conditions)? $conditions : [$conditions];
+        $additionals = is_array($additionals)? $additionals : [$additionals];
         $sql         = "SELECT ";
         foreach ($columns as $col){
             $sql .=$col.", ";
@@ -42,8 +45,12 @@ class DAO implements IDAO{
         $sql  = substr($sql, 0, -2);
         
         $sql .= DAO::generateConditions($conditions);
-        
-        print_r($sql);
+        if(isset($additionals)){
+            foreach ($additionals as $addition){
+                $sql .= "\n".$addition;
+            }
+        }
+       //print_r($sql);
         $resource   = mysql_query($sql, $sql_conn);
         $dataTable  = [];
         while($data = mysql_fetch_assoc($resource)){
@@ -53,11 +60,12 @@ class DAO implements IDAO{
     }
 
     public static function selectAll($tableName) {
-        return DAO::select($tableName,["*"], [new Condition("1","=","1")]);
+        return DAO::select($tableName,["*"], [new Condition("1","=","1")],NULL);
     }
     
     public static function update($tableName, $data, $conditions) {
          include '/connection.php';
+         $conditions = is_array($conditions)? $conditions : [$conditions];
          $sql  = "UPDATE ".$tableName;
          $sql .= "\nSET ";
          foreach ($data as $column => $value){
@@ -65,7 +73,7 @@ class DAO implements IDAO{
          }
          $sql  = substr($sql, 0, -2);
          $sql .= DAO::generateConditions($conditions);
-         print_r($sql);
+        // print_r($sql);
          return mysql_query($sql, $sql_conn);
     }
 
@@ -95,7 +103,7 @@ class Condition{
     }
 }  
 //print_r(DAO::selectAll("Users"));
-//print_r(DAO::select(["photos"],["id"], [new Condition("id",">=","1"),new Condition("id","<","3")]));
+//print_r(DAO::select(["photos"],["id"], [new Condition("id",">=","1"),new Condition("id","<","3")],NULL));
 //print_r(DAO::select(["photos", "photos_galleries"],["photos.name"], [new Condition("gallery_id","=","2"),new Condition("photos.id","=","photo_id")]));
 // $data = [
 //     "user_ida" =>1, 

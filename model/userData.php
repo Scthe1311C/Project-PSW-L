@@ -11,14 +11,13 @@ class User{
 	switch($name){
 	    case "address":{
 		if(!array_key_exists("address", $this->data)){    
-		include './model/connection.php';	    //if address is not upload download it from database
 		include './model/address.php';
-		
-		$sql = "SELECT addresses.id,`city`,`latitude`,`longitude`, code, name FROM addresses, countries
-			Where countries.id = ".$this->data["address_id"]." and addresses.id = ".$this->data["address_id"];
 
-		$resource = mysql_query($sql, $sql_conn);
-		$data = mysql_fetch_assoc($resource);
+                $data = DAO::select(
+                        ["addresses", "countries"], 
+                        ["addresses.id", "city", "latitude", "longitude", "code", "name"],
+                        [new Condition("countries.id", "=", $this->data["address_id"]), new Condition("addresses.id", "=", $this->data["address_id"])],
+                        NULL)[0];
 		$address = new Address($data);
 		$this->data["address"] = $address;
 		}
@@ -26,14 +25,6 @@ class User{
 	    }
 	    default : return $this->data[$name];
 	}
-    }
-
-    public function __set($name, $value) {
-        switch ($name) {
-            case "id": throw new Exception('Property: ' .$name.' is private!'); break;
-            case "login": throw new Exception('Property: ' .$name.' is private!'); break;
-            default: $this->data[$name] = $value;
-        }
     }
     
     public function getSignature(){
@@ -46,27 +37,15 @@ class User{
 
 class Users{
     public static function getUser($userId){
-        include './model/connection.php';
-    
-        $sql = "SELECT * FROM `users` WHERE id = ".$userId;
-        $resource = mysql_query($sql, $sql_conn);
-        $data = mysql_fetch_assoc($resource);
+        $data = DAO::select("users", "*", new Condition("id","=",$userId), NULL)[0];
         $user  = new User($data);
         return $user;
     }
     
     public static function getUserSignature($userId){
-        include './model/connection.php';
-        
-        $sql = "Select login ,name, surname from users\n"
-             . "where users.id = ".$userId;
-        
-        $resource = mysql_query($sql, $sql_conn);
-        $data = mysql_fetch_assoc($resource);
-        $signature = isset($data["name"]) || isset($data["surname"])?
-                                            $data["name"]." ".$data["surname"] :
-                                            $data["login"];                                       
-        return $signature;
+        $data = DAO::select("users", ["name", "surname", "login"], new Condition("id","=",$userId), NULL)[0];
+        $user = new User($data);                                  
+        return $user->getSignature();
     }   
 }
 ?>

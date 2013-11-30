@@ -24,7 +24,7 @@ foreach ($galleries as $gallery) {
             <span class="glyphicon glyphicon-question-sign"></span>
             <div class="image-data-popup">
                 <?php
-                $signature = Users::getUserSignature($gallery->user_id);
+                $signature = $gallery->getDesignerSignature();
                 echo '<label>Designed by:</label><a href="person?userId=' . $gallery->user_id. '">' . $signature .'</a>'
                 ?><br/>
                 <label>Description:</label><?php echo $gallery->description ?> <br/>

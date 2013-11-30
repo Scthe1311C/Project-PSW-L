@@ -12,14 +12,10 @@ class Photo {
     }
     
     public function allComments(){
-        include './model/connection.php';
-        
-        $sql = "SELECT * FROM comments\n"
-             . "WHERE ".$this->data["id"]." = comments.photo_id";
-        $resource = mysql_query($sql, $sql_conn);
+        $data = DAO::select("comments", "*",new Condition($this->data["id"], "=", "comments.photo_id"), NULL);
         $comments = [];
-        while($data = mysql_fetch_assoc($resource)){
-	    $comment = new Comment($data);
+        foreach ($data as $commentData){
+            $comment = new Comment($commentData);
             $comments[]=$comment;
         }
         return $comments;
