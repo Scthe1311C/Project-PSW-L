@@ -1,5 +1,13 @@
 <?php
 
+$app_name = substr( $_SERVER["PHP_SELF"], 0, strrpos( $_SERVER["PHP_SELF"], "/"));
+$main_url = ((!empty($_SERVER["HTTPS"])) ? "https" : "http") . "://" . $_SERVER["HTTP_HOST"].$app_name;
+
+function check_user_authorization_or_go_to_login_page(){
+	if (!isset($_SESSION["user_name"]) )
+		header("Location: login");
+}
+		
 function home() {
     return render_template("home.php", array(
 		"css_stylesheets" => array("src/css/home.css"),
@@ -37,6 +45,8 @@ function popular() {
 }
 
 function user_profile( $page) {
+	check_user_authorization_or_go_to_login_page();
+	
     include './model/userData.php';
 	$userData =  $personData = Users::getInstance()->getUser(1);
 	return render_template("user-view.php", array(
@@ -111,7 +121,11 @@ function render_template($path, array $args = NULL) {
         $args["title"] = "app";
     }
 	$args["session"] = $_SESSION;
-    extract($args);
+	global $app_name, $main_url;
+	$args["app_name"] = $app_name;
+	$args["main_url"] = $main_url;
+	
+	extract($args);
     $content = $path;
     ob_start();
     //require "src/templates/" . $path;

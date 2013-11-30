@@ -35,9 +35,6 @@
 		$content = login( $register);
 
 	}else if( $page_name=="/logout"){
-		// TODO check user authorization before displaying user-only page
-		// ( in case f.e. someone go to the previous site in the browser)
-		session_start();
 		unset($_SESSION["user_name"]);
 		header("Location: home");
 		
