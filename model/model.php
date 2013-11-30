@@ -1,5 +1,15 @@
 <?php 
 
+require_once 'utils/php_oAuth20.php';
+require_once 'utils/phpDropbox.php';
+
+function dropbox_authorize( $return_url){
+	$dropbox = new phpDropbox( $return_url, true);
+	return true;
+}
+
+
+
 ///
 /// utils functions
 ///

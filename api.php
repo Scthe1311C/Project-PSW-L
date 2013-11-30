@@ -28,7 +28,11 @@ function dispatchApiCall(){
 
 function validUserAuthenticationData( $hashStr){
 	// check user login and password
-	return strcmp($hashStr, "Basic YTph")==0; // "a:a"
+	if( strcmp($hashStr, "Basic YTph")==0){ // "a:a"
+		$_SESSION["user_name"] = "a";
+		return true;
+	}
+	return false;
 }
 
 ?>

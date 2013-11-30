@@ -71,6 +71,13 @@
 		$page = isset($_GET["page"])? $_GET["page"] : NULL;
 		$content = user_profile( $page);
 	
+	}else if( $page_name=="/dropboxAuthorize"){
+		if(isset($_GET["source"]))
+			$_SESSION["afterAuthorizeRedirect"]=urldecode($_GET["source"]);
+		
+		if(dropboxAuthorize())
+			header("Location: ".$_SESSION["afterAuthorizeRedirect"]);
+	
     }else {
 		$content =  '<html><body><h1>Page Not Found</h1></body></html>';
 		header('Status: 404 Not Found');
