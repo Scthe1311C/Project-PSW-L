@@ -53,7 +53,7 @@
 
 	}else if( $page_name=="/upload"){
 		/* view my photos and select ones to upload for public viewership */
-		$content = '<html><body><h1>Upload</h1></body></html>';
+		$content = upload();
 
 	}else if( $page_name=="/gallery"){
 		/* view of the choosen gallery */

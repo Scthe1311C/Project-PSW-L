@@ -53,7 +53,7 @@ class phpDropbox{
 	}
 	
 	private function execute( $method, $data=NULL, $type="GET", $debug=false){
-		$token = get_token();
+		$token = $this->get_token();
 
 		$curl = curl_init($method);
 		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);

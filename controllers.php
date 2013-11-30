@@ -121,6 +121,17 @@ function single_photo() {
     ));
 }
 
+function upload(){
+	//check_user_authorization_or_go_to_login_page();
+	return render_template("upload.php", array(
+        "css_stylesheets" => array("src/css/upload.css"),
+        "title" => "Upload"
+    ));
+}
+
+///
+///
+///
 function render_template($path, array $args = NULL) {
     if ($args === NULL || !isset($args['title'])) {
         $args["title"] = "app";
