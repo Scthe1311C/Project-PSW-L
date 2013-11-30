@@ -22,22 +22,22 @@
 	$page_name = substr( $request_uri, 0, strrpos( $request_uri, "?")===FALSE ? strlen($request_uri): strrpos( $request_uri, "?")); // remove GET params
 	$page_name = substr( $page_name, strrpos( $page_name, "/")); // get all after last '/'
        
-	if( $page_name=="/"){
+	if( $page_name=="/" || $page_name=="/home"){
 		/* home page */
 		$content = home();
 	
 	}else if( $page_name=="/index.php"){
-		/* login as user providing login and password */
 		$content = home();
 
 	}else if( $page_name=="/login"){
-		/* login as user providing login and password */
-		$content = login();
+		/* login as user providing login and password or register new user*/
+		$register = isset($_GET["register"])? $_GET["register"] : false;
+		$content = login( $register);
 
-	}else if( $page_name=="/settings"){
-		/* change user's settings */
-		$content = settings();
-
+	}else if( $page_name=="/logout"){
+		unset($_SESSION["user_name"]);
+		header("Location: home");
+		
 	}else if( $page_name=="/about"){
 		/* about the website */
 		$content = about();
@@ -55,33 +55,23 @@
 		/* view my photos and select ones to upload for public viewership */
 		$content = '<html><body><h1>Upload</h1></body></html>';
 
-	}else if( $page_name=="/profile_photos"){
-		/* view my photos */
-		$content = '<html><body><h1>Profile photos</h1></body></html>';
-	
-	}else if( $page_name=="/profile_galleries"){
-		/* view my galleries */
-		$content = '<html><body><h1>Profile galleries</h1></body></html>';
-		
 	}else if( $page_name=="/gallery"){
-		/* view of chosen gallery */
+		/* view of the choosen gallery */
 		$content = gallery();
 		
 	}else if( $page_name=="/photo"){            
-                $content = single_photo();
+		$content = single_photo();
 	
-	} else if( $page_name=="/person"){
-                $content = person_info();
-    
-	} else if( $page_name=="/user"){
-		/* user page*/
-		$content = user();
-	
-	} else if( $page_name=="/profile"){
-		/* user page*/
+	}else if( $page_name=="/profile"){
+		/* public profile */
 		$content = person_info();
-		
-        } else {
+    
+	}else if( $page_name=="/user-profile"){
+		/* user profile page - settings, friends, */
+		$page = isset($_GET["page"])? $_GET["page"] : NULL;
+		$content = user_profile( $page);
+	
+    }else {
 		$content =  '<html><body><h1>Page Not Found</h1></body></html>';
 		header('Status: 404 Not Found');
 	}

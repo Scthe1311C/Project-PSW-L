@@ -5,7 +5,7 @@
 	<class id="container">
 		
 		<div class="row" style="margin-left:0px;margin-right:0px;">
-			<div id="footer-about">About</div>
+			<p id="footer-about" class="text-center-horizontal"><a href="about">About</a></p>
 		</div>
 		
 		<div class="row" style="margin-left:0px;margin-right:0px;">

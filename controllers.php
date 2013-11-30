@@ -1,21 +1,33 @@
 <?php
 
+$app_name = substr( $_SERVER["PHP_SELF"], 0, strrpos( $_SERVER["PHP_SELF"], "/"));
+$main_url = ((!empty($_SERVER["HTTPS"])) ? "https" : "http") . "://" . $_SERVER["HTTP_HOST"].$app_name;
+
+function check_user_authorization_or_go_to_login_page(){
+	if (!isset($_SESSION["user_name"]) )
+		header("Location: login");
+}
+		
 function home() {
-    return render_template("home.php");
+    return render_template("home.php", array(
+		"css_stylesheets" => array("src/css/home.css"),
+		"minimal_navbar" => true,
+		"content_width100" => true
+	));
 }
 
-function login() {
+function login( $register=false) {
     return render_template("login.php", array(
         "css_stylesheets" => array("src/css/login.css"),
         "fullscreen" => true,
-        "title" => "login"
+		"register" => $register,
+        "title" => "Log in"
     ));
 }
 
 function about() {
     return render_template("about.php", array(
-        "css_stylesheets" => array("src/css/about.css"),
-        "title" => "AAa"
+        "css_stylesheets" => array("src/css/about.css")
     ));
 }
 
@@ -32,11 +44,17 @@ function popular() {
     ));
 }
 
-function user() {
-    return render_template("user-view.php", array(
-        "css_stylesheets" => array("src/css/user-view.css"),
+function user_profile( $page) {
+	check_user_authorization_or_go_to_login_page();
+	
+    include './model/userData.php';
+	$userData =  $personData = Users::getInstance()->getUser(1);
+	return render_template("user-view.php", array(
+        "css_stylesheets" => array("src/css/user-view.css","src/css/settings.css"),
         "title" => "User",
-        "user_name" => "Adam Smith"
+		"page" => $page,
+        "user_name" => "Adam Smith",
+		"userData" => $userData
     ));
 }
 
@@ -51,16 +69,6 @@ function gallery() {
         "photos" => $photos,
         "gallery" => $gallery,
         "user_name" => "Adam Smith"
-    ));
-}
-
-function settings() {
-    //static data input
-    include './model/userData.php';
-    $userData =  $personData = Users::getInstance()->getUser(1);
-    return render_template('settings.php', array(
-        "css_stylesheets" => array("src/css/settings.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
-        "userData" => $userData
     ));
 }
 
@@ -109,10 +117,15 @@ function single_photo() {
 }
 
 function render_template($path, array $args = NULL) {
-    if ($args === NULL || !in_array('title', $args)) {
+    if ($args === NULL || !isset($args['title'])) {
         $args["title"] = "app";
     }
-    extract($args);
+	$args["session"] = $_SESSION;
+	global $app_name, $main_url;
+	$args["app_name"] = $app_name;
+	$args["main_url"] = $main_url;
+	
+	extract($args);
     $content = $path;
     ob_start();
     //require "src/templates/" . $path;

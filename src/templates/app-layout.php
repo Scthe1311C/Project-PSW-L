@@ -19,11 +19,12 @@
 	
 	<?php
 		// read auxiliary variables
-		$main_url = ((!empty($_SERVER["HTTPS"])) ? "https" : "http") . "://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
-		$is_logged = false;// isset($user_name);
+		$is_logged = isset($_SESSION["user_name"]);
 		if(!isset($user_name)) $user_name = "Adam Smith";
 		$is_fullscreeen = isset($fullscreen) && $fullscreen; //remove navbar
-		//$minimal_navbar  //does not display big image behind
+		$minimal_navbar = isset($minimal_navbar) && $minimal_navbar;  // do not display the big image on top
+		$content_width100 = isset($content_width100) && $content_width100;  // span whole page from edge to edge
+		$hide_back_to_top = isset($hide_back_to_top) && $hide_back_to_top;  // do not show the 'back to the top' button
 	?>
 		
 	<body id="page-main">
@@ -31,7 +32,8 @@
 		<?php if( !$is_fullscreeen) {
 			include 'nav_bar.php';
 			/*include 'breadcrumbs.php';*/?>
-			<div class="container">
+			
+			<div class="container" <?php if($content_width100) echo 'style="width:100% !important; max-width: 100% !important; padding:0 !important"'; ?>>
 				<?php include $content; ?>
 			</div>
 			<?php include 'footer.php'; ?>
