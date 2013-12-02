@@ -27,10 +27,10 @@ $( document ).ready(function() {
 		var scrollToTopTarget = 0;
 	<?php } ?>
 	$('.back-to-top').click(function(event) {
-        event.preventDefault();
-        $('html, body').animate({scrollTop: scrollToTopTarget}, 500);
-        return false;
-    })
+		event.preventDefault();
+		$('html, body').animate({scrollTop: scrollToTopTarget}, 500);
+		return false;
+	})
 });
 
 /* script to fix the nav bar to scroll to the top if the main image is not visible */
@@ -118,7 +118,7 @@ $( document ).ready(function() {
 						<li><a href="settings" class="navigation-bar-dropdown-item">Settings</a></li>
 						<li><a href="#" class="navigation-bar-dropdown-item">My photos</a></li>
 						<li><a href="#" class="navigation-bar-dropdown-item">My galleries</a></li>
-                                                <li><a href="index.php" class="navigation-bar-dropdown-item">TODO</a></li>
+												<li><a href="index.php" class="navigation-bar-dropdown-item">TODO</a></li>
 					</ul>
 				</li>
 			<?php } ?>

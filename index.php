@@ -21,7 +21,7 @@
 	$request_uri = $_SERVER["REQUEST_URI"];
 	$page_name = substr( $request_uri, 0, strrpos( $request_uri, "?")===FALSE ? strlen($request_uri): strrpos( $request_uri, "?")); // remove GET params
 	$page_name = substr( $page_name, strrpos( $page_name, "/")); // get all after last '/'
-       
+	   
 	if( $page_name=="/"){
 		/* home page */
 		$content = home();
@@ -68,24 +68,24 @@
 		$content = gallery($_GET["galleryId"]);
 		
 	}else if( $page_name=="/photo"){
-                $content = single_photo($_GET["galleryId"], $_GET["photoId"]);
+				$content = single_photo($_GET["galleryId"], $_GET["photoId"]);
 	
 	} else if( $page_name=="/person"){
-                $content = person_info();
-    
+				$content = person_info();
+	
 	} else if( $page_name=="/user"){
 		/* user page*/
 		$content = user();
 	
 	} else if( $page_name=="/profile"){
 		/* user page*/
-		$content = person_info();
+		$content = person_info($_GET["userId"]);
 		
-        } else {
+		} else {
 		$content =  '<html><body><h1>Page Not Found</h1></body></html>';
 		header('Status: 404 Not Found');
 	}
-        
+		
 	
 	/*
 	TODO:
@@ -101,5 +101,5 @@
 	
 	// render content
 	echo $content;
-        
+		
 ?>

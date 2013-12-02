@@ -402,27 +402,17 @@ VALUES
 INSERT INTO Galleries
   (id, name, views, favorites, description, tumbnail_href, user_id) 
 VALUES 
-  (3, 'Galleria 1', 0, 0, 'test gallery 1', 'src/img/img1.jpg', 1);
+  (1, 'Popular', 0, 0, 'Contains the most popular photos', null, null);
 INSERT INTO Galleries
   (id, name, views, favorites, description, tumbnail_href, user_id) 
 VALUES 
   (2, 'Galleria 2', 0, 0, 'test gallery 2', 'src/img/img2.jpg', 2);
+
 INSERT INTO Galleries
   (id, name, views, favorites, description, tumbnail_href, user_id) 
 VALUES 
-  (1, 'Popular', 0, 0, 'Contains the most popular photos', null, null);
-INSERT INTO Photos_galleries
-  (gallery_id, photo_id) 
-VALUES 
-  (1, 1);
-INSERT INTO Photos_galleries
-  (gallery_id, photo_id) 
-VALUES 
-  (1, 2);
-INSERT INTO Photos_galleries
-  (gallery_id, photo_id) 
-VALUES 
-  (1, 3);
+  (3, 'Galleria 1', 0, 0, 'test gallery 1', 'src/img/img1.jpg', 1);
+
 INSERT INTO Photos_galleries
   (gallery_id, photo_id) 
 VALUES 
@@ -451,10 +441,22 @@ INSERT INTO Photos_galleries
   (gallery_id, photo_id) 
 VALUES 
   (2, 7);
+INSERT INTO Photos_galleries
+  (gallery_id, photo_id) 
+VALUES 
+  (3, 1);
+INSERT INTO Photos_galleries
+  (gallery_id, photo_id) 
+VALUES 
+  (3, 2);
+INSERT INTO Photos_galleries
+  (gallery_id, photo_id) 
+VALUES 
+  (3, 3);
 INSERT INTO Followed_galleries
   (user_id, gallery_id) 
 VALUES 
-  (1, 1);
+  (2, 1);
 INSERT INTO Comments
   (id, title, text, date_and_time, user_id, photo_id) 
 VALUES 
