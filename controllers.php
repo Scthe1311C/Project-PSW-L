@@ -1,4 +1,6 @@
 <?php
+include './model/data.php';
+include './model/DAO.php';
 
 function home() {
 	return render_template("home.php");
@@ -20,7 +22,6 @@ function about() {
 }
 
 function popular() {
-	include './model/DAO.php';
 	include './model/gallery.php';
 	include './model/photos.php';
 		
@@ -43,7 +44,6 @@ function user() {
 }
 
 function gallery($id) {
-	include './model/DAO.php';
 	include './model/gallery.php';
 	include './model/photos.php';
 	
@@ -58,7 +58,6 @@ function gallery($id) {
 }
 
 function settings($userId) {
-	include './model/DAO.php';
 	include './model/userData.php';
 	
 	$user  = Users::getUser($userId);
@@ -70,7 +69,6 @@ function settings($userId) {
 }
 
 function person_info($userId) {
-	include './model/DAO.php';
 	include './model/userData.php';
 	
 	$person = Users::getUser($userId);
@@ -82,7 +80,6 @@ function person_info($userId) {
 
 function galleries(){
 	include './model/connection.php';
-	include './model/DAO.php';
 	include './model/gallery.php';
 	include './model/userData.php';
 	
@@ -95,7 +92,6 @@ function galleries(){
 }
 
 function single_photo($galleryId, $photoId) {
-	include './model/DAO.php';
 	include './model/gallery.php';
 	include './model/photos.php';
 	include './model/userData.php';

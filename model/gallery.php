@@ -1,14 +1,5 @@
 <?php
-	class Gallery {
-	private $data;
-
-	function __construct($data) {
-		$this->data = $data;
-	}
-
-	public function __get($name) {
-		return $this->data[$name];
-	}
+	class Gallery extends Data {
 
 	public function allPhotos(){
 		include './model/connection.php';
