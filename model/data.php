@@ -29,15 +29,7 @@ abstract class Data {
 		return $data;
 	}
 	
-	protected function allElementsArray($data){
-		
-	} 
-	
-	protected function allElementsAssoc($data){
-		
-	}
-
 	public function __toString() {
-		return get_class()."(". http_build_query($this->data).")";
+		return  http_build_query($this->data);
 	}
 }

@@ -7,7 +7,6 @@ interface IDAO {
 }
 
 class DAO implements IDAO{
-
 	public static function insert($tableName, $data) {
 		include '/connection.php';
 		 $sql    = "INSERT INTO ".$tableName." (";
@@ -26,7 +25,7 @@ class DAO implements IDAO{
 	} 
 
 
-	public static function select($tablesNames, $columns, $conditions, $additionals) {
+	public static function select($tablesNames, $columns, $conditions, $additionals=[]) {
 		include '/connection.php';
 		$tablesNames = is_array($tablesNames)? $tablesNames : [$tablesNames];
 		$columns = is_array($columns)? $columns : [$columns];
@@ -78,20 +77,20 @@ class DAO implements IDAO{
 	}
 
 		private static function generateConditions($conditions){
-		$where ="\nWHERE ";
-		foreach ($conditions as $con){
-			$where .=$con." and ";
-		}        
-		$where = substr($where, 0, -5);
-		return $where;
-		}
+			$where ="\nWHERE ";
+			foreach ($conditions as $con){
+				$where .=$con." and ";
+			}        
+			$where = substr($where, 0, -5);
+			return $where;
+			}
 		}
 
 class Condition{
 	private $left;
 	private $oper;
 	private $right;
-
+	
 	public function __construct($left, $oper, $right) {
 		$this->left  = $left;
 		$this->oper  = $oper;
@@ -101,13 +100,14 @@ class Condition{
 	public function __toString() {
 		return $this->left." ".$this->oper." ".$this->right;
 	}
+	
 }	
 	
 //*****************
 //TESTS
 //******************
 //print_r(DAO::selectAll("Users"));
-//print_r(DAO::select(["photos"],["id"], [new Condition("id",">=","1"),new Condition("id","<","3")],NULL));
+//print_r(DAO::select(["photos"],["id"], [new Condition("id",">=","1"),new Condition("id","<","3")]));
 //print_r(DAO::select(["photos", "photos_galleries"],["photos.name"], [new Condition("gallery_id","=","2"),new Condition("photos.id","=","photo_id")]));
 // $data = [
 //     "user_ida" =>1, 

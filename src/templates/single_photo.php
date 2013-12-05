@@ -16,7 +16,7 @@
 	
 	<div  class="carousel-inner">
 		<?php
-	$galleryLink = $galleryId == Galleries::POPULAR_GALLARY_ID? "popular" :'gallery?galleryId=' . $galleryId; 
+	$galleryLink = $galleryId == DatabaseManager::POPULAR_GALLARY_ID? "popular" :'gallery?galleryId=' . $galleryId; 
 		foreach ($photos as $photo) {
 		   echo ($photo == $chosen_photo) ? '<div class="item active">' : '<div class="item">';
 		   echo
@@ -57,14 +57,14 @@
 				<?php
 				$comments = $photo->allComments();
 				foreach ($comments as $comment) {
-					$writer = Users::getUser($comment->user_id);
+					$writer = $comment->getWriter();
 				?>
 					<div class="well">
 						<table>
 							<tr>
 								<td>
 									<figure class="person-comment">
-										<img src="<?php echo $writer->avatar ?>" class="img-thumbnail" alt="No image found">   
+										<img src="<?php echo $writer->avatar ==NULL? "src/img/default_user_avatar.png" : $writer->avatar ?>" class="img-thumbnail" alt="No image found">   
 										<a href="<?php echo 'profile?userId='.$writer->id?>"><?php echo $writer->getSignature() ?></a>
 									</figure>
 								</td> 
