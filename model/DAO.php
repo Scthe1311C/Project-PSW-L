@@ -4,11 +4,11 @@ interface IDAO {
 	public static function insert($tableName, $data);
 	public static function select($tablesNames, $columns, $conditions, $additionals);
 	public static function update($tableName, $data, $conditions);   
+	public static function executeQuery($sql);
 }
 
 class DAO implements IDAO{
 	public static function insert($tableName, $data) {
-		include '/connection.php';
 		 $sql    = "INSERT INTO ".$tableName." (";
 		 $values = "VALUES(";
 		 foreach ($data as $column => $value){
@@ -21,12 +21,11 @@ class DAO implements IDAO{
 		 $values .=")";
 		 $sql    .= "\n".$values; 
 		// print_r($sql);
-		 return mysql_query($sql, $sql_conn);
+		 return DAO::executeQuery($sql);
 	} 
 
 
 	public static function select($tablesNames, $columns, $conditions, $additionals=[]) {
-		include '/connection.php';
 		$tablesNames = is_array($tablesNames)? $tablesNames : [$tablesNames];
 		$columns = is_array($columns)? $columns : [$columns];
 		$conditions = is_array($conditions)? $conditions : [$conditions];
@@ -50,7 +49,7 @@ class DAO implements IDAO{
 			}
 		}
 	   //print_r($sql);
-		$resource   = mysql_query($sql, $sql_conn);
+		$resource   = DAO::executeQuery($sql);
 		$dataTable  = [];
 		while($data = mysql_fetch_assoc($resource)){
 			$dataTable[] = $data;
@@ -63,7 +62,6 @@ class DAO implements IDAO{
 	}
 
 	public static function update($tableName, $data, $conditions) {
-		 include '/connection.php';
 		 $conditions = is_array($conditions)? $conditions : [$conditions];
 		 $sql  = "UPDATE ".$tableName;
 		 $sql .= "\nSET ";
@@ -73,7 +71,12 @@ class DAO implements IDAO{
 		 $sql  = substr($sql, 0, -2);
 		 $sql .= DAO::generateConditions($conditions);
 		// print_r($sql);
-		 return mysql_query($sql, $sql_conn);
+		 return DAO::executeQuery($sql);
+	}
+	
+	public static function executeQuery($sql){
+		include '/connection.php';
+		return mysql_query($sql, $sql_conn);
 	}
 
 		private static function generateConditions($conditions){
@@ -99,8 +102,7 @@ class Condition{
 
 	public function __toString() {
 		return $this->left." ".$this->oper." ".$this->right;
-	}
-	
+	}	
 }	
 	
 //*****************
