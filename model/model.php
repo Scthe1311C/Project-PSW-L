@@ -22,7 +22,7 @@ function requestDropboxImageThumb( $path){
 	$img_thumb_path = "media/" . $acc["uid"] . "_" . $file_name . ".jpeg";
 	
 	if( !file_exists( $img_thumb_path)){
-		$img_data = $dropbox->thumbnails("dropbox", $path, "l"); 
+		$img_data = $dropbox->thumbnails("dropbox", $path, "m"); 
 		// write image
 		$file = fopen( $img_thumb_path, "wb");
 		fwrite($file, $img_data);

@@ -60,7 +60,7 @@ function createFolderItem( target_path, name){
 
 function createImageItem( id, img_path, img_link, name){
 	requestImageThumbnail(id, img_path);
-	return '<li><img src="src/img/dropbox-logo.png" id="'+id+'"/>img:'+name+"</li>";
+	return '<li><img src="src/img/loaderb32.gif" id="'+id+'"/>img:'+name+"</li>";
 }
 
 function requestImageThumbnail( id, img_path){
