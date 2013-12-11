@@ -21,7 +21,7 @@ function about() {
 }
 
 function popular() {
-	$gallery = DatabaseManager::getClassById("Gallery", DatabaseManager::POPULAR_GALLARY_ID);		
+	$gallery = getClassById("Gallery", POPULAR_GALLARY_ID);		
 	$photos = $gallery->allPhotos();
 	return render_template("gallery-view.php", array(
 		"css_stylesheets" => array("src/css/gallery-view.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
@@ -40,7 +40,7 @@ function user() {
 }
 
 function gallery($id) {
-	$gallery = DatabaseManager::getClassById("Gallery", $id);
+	$gallery = getClassById("Gallery", $id);
 	$photos = $gallery->allPhotos();
 	return render_template("gallery-view.php", array(
 		"css_stylesheets" => array("src/css/gallery-view.css"),
@@ -52,7 +52,7 @@ function gallery($id) {
 
 function settings($userId) {
 	
-	$user  = DatabaseManager::getClassById("User", $userId);
+	$user  = getClassById("User", $userId);
 	
 	return render_template('settings.php', array(
 		"css_stylesheets" => array("src/css/settings.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
@@ -62,7 +62,7 @@ function settings($userId) {
 
 function person_info($userId) {
 	
-	$person = DatabaseManager::getClassById("User", $userId);
+	$person = getClassById("User", $userId);
 	
 	return render_template('public-person-view.php', array(
 		"css_stylesheets" => array("src/css/settings.css"),
@@ -71,7 +71,7 @@ function person_info($userId) {
 }
 
 function galleries(){	
-	$galleries = DatabaseManager::getAllClass("Gallery");
+	$galleries = getAllClass("Gallery");
 	return render_template("galleries.php", array(
 		"css_stylesheets" => array("src/css/gallery-view.css","src/css/galleries.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
 		"galleries" => $galleries,
@@ -80,7 +80,7 @@ function galleries(){
 }
 
 function single_photo($galleryId, $photoId) {	
-	$gallery = DatabaseManager::getClassById("Gallery", $galleryId);
+	$gallery = getClassById("Gallery", $galleryId);
 	$photos = $gallery->allPhotos();
 	$chosen_photo = $photos[$photoId];
 	return render_template("single_photo.php", array(

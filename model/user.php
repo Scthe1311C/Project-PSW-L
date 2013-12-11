@@ -26,6 +26,16 @@
 												$this->data["login"];
 		return $signature;
 	}
+	
+	public function checkCorrect($name, $value) {
+		$isCorrect = TRUE;
+		switch ($name){
+			case "gender": $isCorrect = ($value == "M" || $value == "F" || $value == NULL);
+		}
+		if(!$isCorrect)
+			throw new Exception("Data not correct".$name." => ".$value);
+		return $isCorrect;
+	}
 }
 ?>
 

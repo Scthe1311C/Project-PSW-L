@@ -16,7 +16,7 @@
 	
 	<div  class="carousel-inner">
 		<?php
-	$galleryLink = $galleryId == DatabaseManager::POPULAR_GALLARY_ID? "popular" :'gallery?galleryId=' . $galleryId; 
+	$galleryLink = $galleryId == POPULAR_GALLARY_ID? "popular" :'gallery?galleryId=' . $galleryId; 
 		foreach ($photos as $photo) {
 		   echo ($photo == $chosen_photo) ? '<div class="item active">' : '<div class="item">';
 		   echo
