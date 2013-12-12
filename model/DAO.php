@@ -1,4 +1,7 @@
 <?php
+
+define("TRUE_CONDITION", new Condition("1","=","1"));
+
 interface IDAO {
 	public static function selectAll($tableName);
 	public static function insert($tableName, $data);
@@ -58,7 +61,7 @@ class DAO implements IDAO{
 	}
 
 	public static function selectAll($tableName) {
-		return DAO::select($tableName,["*"], [new Condition("1","=","1")],NULL);
+		return DAO::select($tableName,["*"], TRUE_CONDITION,NULL);
 	}
 
 	public static function update($tableName, $data, $conditions) {
@@ -94,7 +97,7 @@ class Condition{
 	private $oper;
 	private $right;
 	
-	public function __construct($left, $oper, $right) {
+	public function __construct($left="1", $oper="=", $right="1") {
 		$this->left  = $left;
 		$this->oper  = $oper;
 		$this->right = $right;

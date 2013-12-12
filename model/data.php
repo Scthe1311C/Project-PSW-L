@@ -4,7 +4,6 @@ abstract class Data {
 	protected $data;
 	
 	public function __construct($data) {
-			$this->checkCorrectData($data);
 			$this->data = $data;	
 	}
 	
@@ -30,16 +29,10 @@ abstract class Data {
 		}
 		return $data;
 	}
-	
-	public function checkCorrectData($data){
-		foreach ($data as $name => $value){
-			$this->checkCorrect($name, $value);
-		}
-	}
-	
-	public function checkCorrect($name, $value){
+		
+	public static function checkCorrect($name, $value){
 		return true;
-		//throw new Exception("Data not correct".$name." => ".$value);
+		//throw new Exception("Data not correct ".$name." => ".$value);
 	}
 	
 	public function __toString() {

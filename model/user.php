@@ -27,7 +27,7 @@
 		return $signature;
 	}
 	
-	public function checkCorrect($name, $value) {
+	public static function checkCorrect($name, $value) {
 		$isCorrect = TRUE;
 		switch ($name){
 			case "gender": $isCorrect = ($value == "M" || $value == "F" || $value == NULL);
