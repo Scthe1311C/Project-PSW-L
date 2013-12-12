@@ -23,8 +23,7 @@
 	}
 
 	//Return object from selected type and id ( f.e. "Photo", 1)
-	// if selected type or type with id doesnt exist return NULL
-	
+	// if selected type or type with id doesnt exist return NULL	
 	function getObjectById($className, $id) {
 		$objectTab = getObjectsByConditions($className, new Condition("id", "=", $id));
 		return empty($objectTab)?
@@ -33,8 +32,7 @@
 	}
 	
 	//Return array of object from selected type form DB with contains conditions and addition
-	//(f.e "Photo",["id", "link"], new Condition("width",">","1024"), "Limit(0,30)")
-	
+	//(f.e "Photo",["id", "link"], new Condition("width",">","1024"), "Limit(0,30)")	
 	function getObjectsByConditions($className, $conditions, $additions = []) {
 		global $class_tables;
 		$data = DAO::select($class_tables[$className], "*", $conditions, $additions);
@@ -42,16 +40,20 @@
 				[] :
 				getAllObjectsArray($className, $data);
 	}
-	
-	
+		
 	//Check if new data are correct and update
 	//(f.e "User", ["name" => "Piter"], new Condition("surname","=","Smith"))
-	
 	function updateObjectByConditions($className, $newData, $conditions) {
 		global $class_tables;
 		foreach ($newData as $name =>$value)
 			$className::checkCorrect($name, $value);
 		DAO::update($class_tables[$className], $newData, $conditions);
+	}
+	
+	//Check if new data are correct and update
+	//(f.e "User", ["name" => "Piter"], 1)
+	function updateObjectById($className, $newData, $id){
+		updateObjectByConditions($className, $newData, new Condition("id", "=",$id));
 	}
 	
 	// if data are correct updtate insert new data in DB
@@ -65,8 +67,7 @@
 	}
 
 	//Return instace of class construct by data
-	//(f.e "Gallery", $galleryData)
-	
+	//(f.e "Gallery", $galleryData)	
 	function getInsance($className, $data) {
 		switch ($className) {
 			case "Gallery": if ($data["id"] == POPULAR_GALLARY_ID)
@@ -79,8 +80,7 @@
 
 	//array of selected type and array of data
 	//if data contains id as key associative array otherwise return simple array
-	// (f.e "Photo", [$photo1Data, $photo2Data, $photo3Data])
-	
+	// (f.e "Photo", [$photo1Data, $photo2Data, $photo3Data])	
 	function getAllObjectsArray($className, $dataTab) {
 		$class = [];
 		foreach ($dataTab as $data) {
