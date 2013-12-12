@@ -29,7 +29,7 @@ abstract class Data {
 		}
 		return $data;
 	}
-		
+	
 	public static function checkCorrect($name, $value){
 		return true;
 		//throw new Exception("Data not correct ".$name." => ".$value);

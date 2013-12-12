@@ -21,7 +21,7 @@ function about() {
 }
 
 function popular() {
-	$gallery = getClassById("Gallery", POPULAR_GALLARY_ID);		
+	$gallery = getObjectById("Gallery", POPULAR_GALLARY_ID);		
 	$photos = $gallery->allPhotos();
 	return render_template("gallery-view.php", array(
 		"css_stylesheets" => array("src/css/gallery-view.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
@@ -40,7 +40,7 @@ function user() {
 }
 
 function gallery($id) {
-	$gallery = getClassById("Gallery", $id);
+	$gallery = getObjectById("Gallery", $id);
 	$photos = $gallery->allPhotos();
 	return render_template("gallery-view.php", array(
 		"css_stylesheets" => array("src/css/gallery-view.css"),
@@ -52,7 +52,7 @@ function gallery($id) {
 
 function settings($userId) {
 	
-	$user  = getClassById("User", $userId);
+	$user  = getObjectById("User", $userId);
 	
 	return render_template('settings.php', array(
 		"css_stylesheets" => array("src/css/settings.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
@@ -62,7 +62,7 @@ function settings($userId) {
 
 function person_info($userId) {
 	
-	$person = getClassById("User", $userId);
+	$person = getObjectById("User", $userId);
 	
 	return render_template('public-person-view.php', array(
 		"css_stylesheets" => array("src/css/settings.css"),
@@ -71,7 +71,7 @@ function person_info($userId) {
 }
 
 function galleries(){	
-	$galleries = getAllClass("Gallery");
+	$galleries = getAllObjects("Gallery");
 	return render_template("galleries.php", array(
 		"css_stylesheets" => array("src/css/gallery-view.css","src/css/galleries.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
 		"galleries" => $galleries,
@@ -80,7 +80,7 @@ function galleries(){
 }
 
 function single_photo($galleryId, $photoId) {	
-	$gallery = getClassById("Gallery", $galleryId);
+	$gallery = getObjectById("Gallery", $galleryId);
 	$photos = $gallery->allPhotos();
 	$chosen_photo = $photos[$photoId];
 	return render_template("single_photo.php", array(

@@ -2,7 +2,7 @@
 class Comment extends Data{
 	
 	public function getWriter(){
-		return getClassById("User", $this->user_id);
+		return getObjectById("User", $this->user_id);
 	}
 }
 ?>
