@@ -7,7 +7,6 @@ bar with actions
 	background-color:rgba(66, 139, 202, 0.3);
 	height:37px;
 	line-height:37px;
-	/*font-size: 17px;*/
 }
 
 #browse-actions ul{
@@ -21,8 +20,10 @@ bar with actions
 	vertical-align:middle
 }
 
-.side-button{
+.action-button{
 	width:130px;
+	border: 0px none;
+	background-color: transparent;
 }
 
 #current-folder-name{
@@ -41,11 +42,6 @@ bar with actions
 	width: 16px;
 	height:16px;
 	background-image: url("../img/web_sprites.png");
-}
-
-.action-button{
-	border: 0px none;
-	background-color: transparent;
 }
 
 .sprite_upload{
@@ -73,9 +69,6 @@ gallery
 }
 
 #dropbox-folder-folders{
-	/*padding:0px;
-	margin:auto 0px;
-	display:inline-block;*/
 }
 
 .gallery-item-wrapper{
@@ -104,6 +97,8 @@ gallery
 	height:inherit;
 	background: url("../img/loaderb32.gif") no-repeat;
 	background-position:center center;
+	position:relative;
+	color:#ddd;
 }
 
 .background-cover{
@@ -117,4 +112,48 @@ gallery
 .folder-item img{
 	width:inherit;
 }
+
+/* darken the image layer */
+.gallery-image div{
+	width:inherit;
+	height:inherit;
+	opacity:0;
+	transition: opacity 0.5s;
+	background-color:black;
+	position:relative;
+}
+
+.gallery-image-darken-active{
+	opacity:0.5 !important;
+}
+
+.gallery-image:hover div{
+	opacity:0.5;
+}
+
+/* image name */
+.gallery-image div label{
+	position:absolute;
+	bottom:5px;
+	left:10px;
+	color:white;
+}
+
+/* tick */
+.gallery-image span.glyphicon{
+	position:absolute;
+	top:0px;
+	right:0px;
+	background-color:rgb(66, 139, 202);
+	width:40px;
+	height:40px;
+	line-height: 35px;
+	display:none;
+}
+
+.gallery-image-glyphicon-active{
+	display:inline !important;
+	color:white !important;
+}
+
 

@@ -1,8 +1,27 @@
+<?php 
+/*
+TODO template mechanism
+	declare-css(src/css/"a.css") // lazy buffer instantiate, write to buffer
+	declare-js(src/js/"a.js")
+TODO 'back' when in root reloads content
+TODO if (selectedPhotosCount > 0) {
+TODO when back from folder previously selected images should be visibly selected
+TODO when quickly switching folders old async. response updates new content ( unique ids should do the work)
+*/
+?> 
+ 
+ 
 <script>
 
 function isBlank(str) {
 	return (!str || /^\s*$/.test(str));
 }
+
+var selectedImages = new Array();
+var base_uri = "api.php"; // TODO https ?
+var current_folder = "/";
+
+
 
 $('document').ready(function(){
 	// 'Back' button handler
@@ -10,15 +29,29 @@ $('document').ready(function(){
 		var return_path = current_folder.substr( 0,  current_folder.lastIndexOf("/"));
 		document.getElementById("pseudo-console").innerHTML += "up pressed, current path: '"+current_folder+"' back to: '"+return_path+"'";
 		go_to_folder(return_path);
-	});
+	});	
 	
 	// place itself in root
 	go_to_folder("/");
-	//setTimeout( function(){ go_to_folder("/")}, 3000);
+	
 });
 
-var base_uri = "api.php"; // TODO https ?
-var current_folder = "/";
+function image_click( id){
+	//document.getElementById("pseudo-console").innerHTML += "   ("+id+")_["+selectedImages+"]_";
+	if( $.inArray( id, selectedImages) != -1){
+		//document.getElementById("pseudo-console").innerHTML +="r";
+		selectedImages.splice( selectedImages.indexOf( id), 1); // remove
+		// visual indicators
+		$( "#"+id+" .glyphicon").removeClass("gallery-image-glyphicon-active");
+		$( "#"+id+" div").removeClass("gallery-image-darken-active");
+	}else{
+		//document.getElementById("pseudo-console").innerHTML +="a";
+		selectedImages.splice( 0, 0, id); // add
+		// visual indicators
+		$( "#"+id+" .glyphicon").addClass("gallery-image-glyphicon-active");
+		$( "#"+id+" div").addClass("gallery-image-darken-active");
+	}
+}
 
 function go_to_folder( path){
 	if( isBlank(path))
@@ -74,10 +107,11 @@ function create_folder_content( dropbox_dir_json){
 		if( !file.is_dir && file.mime_type.indexOf("image") == 0 && file.thumb_exists){
 			var ext = file.path.substring( file.path.lastIndexOf("."));
 			var file_name = file.path.substring( file.path.lastIndexOf("/")+1, file.path.lastIndexOf("."));
-			var display_file_name = file_name.length < max_display_name_len ? file_name+ext : file_name.substr(0, max_display_name_len-1)+"~"+ext;
+			var display_file_name = file_name.length < max_display_name_len ?
+				(file_name + ext) : (file_name.substr(0, max_display_name_len-1) + "~" + ext);
 			
 			// TODO base id on image spec. data
-			imgsHTML += createImageItem( "gallery_item_"+i, file.path, "a_href=a", display_file_name);
+			imgsHTML += createImageItem( "gallery_item_"+i, file.path, display_file_name);
 		}
 	});
 	
@@ -89,25 +123,25 @@ function create_folder_content( dropbox_dir_json){
 }
 
 function createFolderItem( target_path, name){ 
-	var class_ = "folder-item";
 	var img =  "src/img/folder-img.png";
-	var on_click = "go_to_folder( \'" + target_path + "\' )";// TODO update bar
+	var on_click = "go_to_folder( \'" + target_path + "\' )";
 	return '<div class="gallery-item-wrapper gallery-item-wrapper-folder">'+
-				'<div class="'+class_+'">'+
+				'<div class="folder-item">'+
 					'<img src="' + img + '" onclick="' + on_click + '"/>' +
 				'</div><br/>'+ 
 				'<span valign="bottom">' + name + '<span>' +
 			'</div>';
 }
 
-function createImageItem( id, img_path, img_link, name){
+function createImageItem( id, img_path, name){
 	requestImageThumbnail(id, img_path);
-	var class_ = "gallery-image";
-	var on_click = "";
-	// TODO name shown after hover ?
-	return '<div class="gallery-item-wrapper gallery-item-wrapper-image">'+
-				'<div class="'+class_+'" id='+id+'>'+
-			'</div></div>';;
+	
+	var on_click = "image_click(\'" + id + "\')";
+	return '<div class="gallery-item-wrapper gallery-item-wrapper-image" onclick="'+on_click+'" >'+
+				'<div class="gallery-image" id="'+id+'" >'+
+				'<div><label>'+name+'</label></div>'+
+				'<span class="glyphicon glyphicon-ok"></span>'+
+			'</div></div>';
 }
 
 function requestImageThumbnail( id, img_path){
@@ -134,45 +168,38 @@ function requestImageThumbnail( id, img_path){
 
 </script>
 
-<!-- 
-TODO template mechanism
-	declare-css(src/css/"a.css") // lazy buffer instantiate, write to buffer
-	declare-js(src/js/"a.js")
- -->
+
+
 
 <div id="browse-actions">
-	<div class="pull-left side-button" id="up-folder">
-		<button name="action" type="submit" style="cursor: default;" class="action-button" id="folder-hierarchy-up">
-			<span style="cursor: default;">
-				<img class="sprite" src="src/img/folder-up.png" style="cursor: default;"></img>
-				Back
-			</span>
-		</button>
-	</div>
+	<button name="action" type="submit" style="text-align: left; cursor: default;" class="action-button pull-left" id="folder-hierarchy-up">
+		<span style="cursor: default;">
+			<img class="sprite" src="src/img/folder-up.png" style="cursor: default;"></img>
+			Back
+		</span>
+	</button>
+
+	<button name="action" style="cursor: default;" class="action-button pull-right">
+		<span style="cursor: default;">
+			<img class="sprite sprite_rainbow" src="src/img/sprite_spacer.gif" style="cursor: default;"></img>
+			add to gallery
+		</span>
+	</button>
 	
-	<div class="pull-right side-button">
-		<button name="action" style="cursor: default;" class="action-button">
-			<span style="cursor: default;">
-				<img class="sprite sprite_rainbow" src="src/img/sprite_spacer.gif" style="cursor: default;"></img>
-				add to gallery
-			</span>
-		</button>
-	</div>
 	<div class="" id="current-folder-name">
 		/
 	</div>
-	<div class="clearfix"></div>
 </div>
 
-<!-- style="display:none" -->
 <pre id="pseudo-console" ></pre>
-
+	
+<!-- loading screeen -->
 <table  id="dropbox-folder-loading">
 	<tr><td>
 		<img src="src/img/dots64.gif"></img>
 	</td></tr>
-</table >
-
+</table>
+ 
 <div id="dropbox-folder" style="display:none">
 	<div id="dropbox-folder-folders" style="width:100%">
 		<!-- place for the folders that have root in the current directory -->
@@ -182,3 +209,4 @@ TODO template mechanism
 		<!-- place for the folder view -->
 	</div> 
 </div>
+
