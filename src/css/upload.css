@@ -30,9 +30,10 @@ bar with actions
 	text-align:center;
 	margin-left: 100px;
 	margin-right: 100px;
-	/*
-	display:inline-block;
-	*/
+}
+
+#current-folder-name span:hover{
+	text-decoration:underline;
 }
 
 .sprite{

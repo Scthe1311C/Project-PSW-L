@@ -25,7 +25,9 @@ function go_to_folder( path){
 	document.getElementById("pseudo-console").innerHTML += "\ndirectory metadata read: '"+path+"'";
 	
 	current_folder = path;
-	document.getElementById("current-folder-name").innerHTML = path;
+	write_folder_name();
+	
+	// call for folder content
 	$.ajax({
 		type: "GET",
 		url: base_uri,
@@ -38,6 +40,18 @@ function go_to_folder( path){
 			create_folder_content( json);
 		}
 	});
+}
+
+function write_folder_name(){
+	var split_ = current_folder.substring(1).split("/");
+	var result = "";
+	var path = "";
+	for (var i = 0; i < split_.length; i++) {
+		var name = "/" + split_[i];
+		path += name;
+		result += "/<span onClick=\"go_to_folder('" + path + "');\" >" + split_[i] + "</span>";
+	}
+	document.getElementById("current-folder-name").innerHTML = result;
 }
 
 function create_folder_content( dropbox_dir_json){
@@ -95,7 +109,7 @@ function requestImageThumbnail( id, img_path){
 		success: function(data){
 			// substitute stub image
 			var json = $.parseJSON( data );
-			if(json.status=="ok") // is this string ?
+			if(json.status=="ok")
 				$("#"+id).attr("src", json.path);
 			else // TODO could not load image - raise warning
 				$("#"+id).attr("src", "src/img/be.png");
@@ -110,8 +124,6 @@ function requestImageThumbnail( id, img_path){
 TODO template mechanism
 	declare-css(src/css/"a.css") // lazy buffer instantiate, write to buffer
 	declare-js(src/js/"a.js")
-	
-	
  -->
 
 <div id="browse-actions">
