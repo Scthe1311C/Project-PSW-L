@@ -125,7 +125,8 @@ function upload(){
 	//check_user_authorization_or_go_to_login_page();
 	return render_template("upload.php", array(
         "css_stylesheets" => array("src/css/upload.css"),
-        "title" => "Upload"
+        "title" => "Upload",
+		"content_width100" => true
     ));
 }
 
