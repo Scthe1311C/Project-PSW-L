@@ -14,6 +14,7 @@ $('document').ready(function(){
 	
 	// place itself in root
 	go_to_folder("/");
+	//setTimeout( function(){ go_to_folder("/")}, 3000);
 });
 
 var base_uri = "api.php"; // TODO https ?
@@ -26,6 +27,8 @@ function go_to_folder( path){
 	
 	current_folder = path;
 	write_folder_name();
+	$("#dropbox-folder-loading").show();
+	$("#dropbox-folder").hide();
 	
 	// call for folder content
 	$.ajax({
@@ -43,6 +46,7 @@ function go_to_folder( path){
 }
 
 function write_folder_name(){
+	// TODO add dropbox icon when path != "/" ?
 	var split_ = current_folder.substring(1).split("/");
 	var result = "";
 	var path = "";
@@ -62,6 +66,8 @@ function create_folder_content( dropbox_dir_json){
 			dirsHTML += createFolderItem( file.path, file.path.substr( file.path.lastIndexOf("/")+1));
 		}
 	});
+	$("#dropbox-folder-loading").hide();
+	$("#dropbox-folder").show();
 	document.getElementById("dropbox-folder-folders").innerHTML = dirsHTML;
 	
 	/*
@@ -150,13 +156,20 @@ TODO template mechanism
 	<div class="clearfix"></div>
 </div>
 
-<pre id="pseudo-console"></pre>
+<pre id="pseudo-console" style="display:none"></pre>
 
-<div id="dropbox-folder-folders">
-	<!-- place for the folders that have root in the current directory -->
-</div> 
-<hr>
-<div id="dropbox-folder-content">
-	<!-- place for the folder view -->
-</div> 
+<table  id="dropbox-folder-loading">
+	<tr><td>
+		<img src="src/img/dots64.gif"></img>
+	</td></tr>
+</table >
 
+<div id="dropbox-folder" style="display:none">
+	<div id="dropbox-folder-folders">
+		<!-- place for the folders that have root in the current directory -->
+	</div> 
+	<hr>
+	<div id="dropbox-folder-content">
+		<!-- place for the folder view -->
+	</div> 
+</div>

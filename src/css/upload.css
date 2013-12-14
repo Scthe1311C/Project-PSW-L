@@ -60,6 +60,19 @@ bar with actions
 /*
 gallery
 */
+#dropbox-folder-loading{
+	height:500px;
+	vertical-align: middle;
+	text-align: center;
+	width:100%;
+}
+
+#dropbox-folder-loading td{
+	vertical-align: middle;
+	text-align: center;
+}
+
+
 #dropbox-folder-folders{
 	padding:0px;
 	margin:0px;
