@@ -66,12 +66,9 @@ function create_folder_content( dropbox_dir_json){
 			dirsHTML += createFolderItem( file.path, file.path.substr( file.path.lastIndexOf("/")+1));
 		}
 	});
-	$("#dropbox-folder-loading").hide();
-	$("#dropbox-folder").show();
-	document.getElementById("dropbox-folder-folders").innerHTML = dirsHTML;
 	
-	/*
 	// all images
+	var imgsHTML = "";
 	var max_display_name_len = 15;
 	$.each( dropbox_dir_json.contents, function(i, file){
 		if( !file.is_dir && file.mime_type.indexOf("image") == 0 && file.thumb_exists){
@@ -79,19 +76,23 @@ function create_folder_content( dropbox_dir_json){
 			var file_name = file.path.substring( file.path.lastIndexOf("/")+1, file.path.lastIndexOf("."));
 			var display_file_name = file_name.length < max_display_name_len ? file_name+ext : file_name.substr(0, max_display_name_len-1)+"~"+ext;
 			
-			result += createImageItem( i, file.path, "a_href=a", display_file_name);
+			// TODO base id on image spec. data
+			imgsHTML += createImageItem( "gallery_item_"+i, file.path, "a_href=a", display_file_name);
 		}
 	});
 	
-	document.getElementById("dropbox-folder-content").innerHTML = result+"</ul>";
-	*/
+	// swap
+	$("#dropbox-folder-loading").hide();
+	$("#dropbox-folder").show();
+	document.getElementById("dropbox-folder-folders").innerHTML = dirsHTML;
+	document.getElementById("dropbox-folder-content").innerHTML = imgsHTML;
 }
 
 function createFolderItem( target_path, name){ 
 	var class_ = "folder-item";
 	var img =  "src/img/folder-img.png";
 	var on_click = "go_to_folder( \'" + target_path + "\' )";// TODO update bar
-	return '<div class="gallery-item-wrapper">'+
+	return '<div class="gallery-item-wrapper gallery-item-wrapper-folder">'+
 				'<div class="'+class_+'">'+
 					'<img src="' + img + '" onclick="' + on_click + '"/>' +
 				'</div><br/>'+ 
@@ -101,7 +102,12 @@ function createFolderItem( target_path, name){
 
 function createImageItem( id, img_path, img_link, name){
 	requestImageThumbnail(id, img_path);
-	return '<li><img src="src/img/loaderb32.gif" id="'+id+'"/>img:'+name+"</li>";
+	var class_ = "gallery-image";
+	var on_click = "";
+	// TODO name shown after hover ?
+	return '<div class="gallery-item-wrapper gallery-item-wrapper-image">'+
+				'<div class="'+class_+'" id='+id+'>'+
+			'</div></div>';;
 }
 
 function requestImageThumbnail( id, img_path){
@@ -115,11 +121,13 @@ function requestImageThumbnail( id, img_path){
 		success: function(data){
 			// substitute stub image
 			var json = $.parseJSON( data );
-			if(json.status=="ok")
-				$("#"+id).attr("src", json.path);
-			else // TODO could not load image - raise warning
-				$("#"+id).attr("src", "src/img/be.png");
-			//document.getElementById("pseudo-console").innerHTML += "<br/>respond22: '"+data+"'";
+			if(json.status=="ok"){
+				img_path = "" + json.path;
+				$("#"+id).addClass("background-cover");
+			}else // TODO could not load image - raise warning
+				img_path = "src/img/be.png";
+			$("#"+id).css("background-image", "url("+img_path+")" );
+			//document.getElementById("pseudo-console").innerHTML += "respond(" +id+ "): '"+data+"'";
 		}
    });
 }
@@ -156,7 +164,8 @@ TODO template mechanism
 	<div class="clearfix"></div>
 </div>
 
-<pre id="pseudo-console" style="display:none"></pre>
+<!-- style="display:none" -->
+<pre id="pseudo-console" ></pre>
 
 <table  id="dropbox-folder-loading">
 	<tr><td>
@@ -165,7 +174,7 @@ TODO template mechanism
 </table >
 
 <div id="dropbox-folder" style="display:none">
-	<div id="dropbox-folder-folders">
+	<div id="dropbox-folder-folders" style="width:100%">
 		<!-- place for the folders that have root in the current directory -->
 	</div> 
 	<hr>

@@ -72,36 +72,44 @@ gallery
 	text-align: center;
 }
 
-
 #dropbox-folder-folders{
-	padding:0px;
-	margin:0px;
-	display:inline-block;
+	/*padding:0px;
+	margin:auto 0px;
+	display:inline-block;*/
 }
 
 .gallery-item-wrapper{
-	width:13%;
-	margin:2% 2% 0px 2%;
 	display:inline-block;
 	text-align:center;
 }
-/*
-.gallery-item{
-	width:100%;
-	background-color:gray;
-	border-radius:3px;
-	box-shadow: 0px 1px 3px rgba(34, 25, 25, 0.400);
-	padding: 5px;
+
+.gallery-item-wrapper-folder{
+	margin:2% 2% 0px 2%;
+	width:120px; /*13%*/
+	height:120px;
 }
 
-.gallery-item img{
-	width:100%;
-	opacity: 0.65;
-	-webkit-transition: all 0.3s linear;
-	-moz-transition: all 0.3s linear;
-	transition: all 0.3s linear;
+.gallery-item-wrapper-image{
+	margin:3px 3px;
+	width:180px;
+	height:180px;
 }
-*/
+
+.gallery-image{
+	/*
+	http://stackoverflow.com/questions/15167545/how-to-crop-a-rectangular-image-into-a-square-with-css
+	http://stackoverflow.com/questions/16310918/css-scale-and-square-center-crop-image
+	*/
+	width:inherit;
+	height:inherit;
+	background: url("../img/loaderb32.gif") no-repeat;
+	background-position:center center;
+}
+
+.background-cover{
+	background-size: cover;
+}
+
 .folder-item{
 	width:100%;
 }
@@ -110,6 +118,3 @@ gallery
 	width:inherit;
 }
 
-.gallery-item img:hover{
-	opacity: 1;
-}
