@@ -1,5 +1,38 @@
 <?php 
 
+require_once 'utils/php_oAuth20.php';
+require_once 'utils/phpDropbox.php';
+
+function dropbox_authorize( $return_url){
+	$dropbox = new phpDropbox( $return_url, true);
+	return true;
+}
+
+function getDropboxDirectoryInfo( $path){
+	$dropbox = new phpDropbox("dropboxAuthorize");
+	$files_list = $dropbox->metadata( "dropbox", $path);
+	return json_encode($files_list, true);
+}
+
+function requestDropboxImageThumb( $path){
+	$dropbox = new phpDropbox("dropboxAuthorize");
+	$acc = $dropbox->account_info();
+	$file_name = basename($path);
+	$file_name = substr($file_name, 0, strpos($file_name, '.'));
+	$img_thumb_path = "media/" . $acc["uid"] . "_" . $file_name . ".jpeg";
+	
+	if( !file_exists( $img_thumb_path)){
+		$img_data = $dropbox->thumbnails("dropbox", $path, "l"); 
+		// write image
+		$file = fopen( $img_thumb_path, "wb");
+		fwrite($file, $img_data);
+		fclose( $file);
+	}
+	$res = array("status" => "ok", "path" => $img_thumb_path);
+	return json_encode($res, true);
+}
+
+
 ///
 /// utils functions
 ///

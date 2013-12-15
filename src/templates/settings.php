@@ -84,7 +84,7 @@ $(function() {
 				<h3 class="panel-title">Dropbox account</h3>
 			</div>
 			<div class="panel-body">
-				<a style="width: 100%" id="browse" class="btn btn-large btn-primary" href="">Connect Dropbox account</a>
+				<a style="width: 100%" id="browse" class="btn btn-large btn-primary" href="dropboxAuthorize?source=<?php echo urlencode("user-profile?page=settings"); ?>">Connect Dropbox account</a>
 			</div>
 		</section>
 	</div>

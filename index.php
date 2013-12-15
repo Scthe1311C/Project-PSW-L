@@ -53,7 +53,7 @@
 
 	}else if( $page_name=="/upload"){
 		/* view my photos and select ones to upload for public viewership */
-		$content = '<html><body><h1>Upload</h1></body></html>';
+		$content = upload();
 
 	}else if( $page_name=="/gallery"){
 		/* view of the choosen gallery */
@@ -70,6 +70,13 @@
 		/* user profile page - settings, friends, */
 		$page = isset($_GET["page"])? $_GET["page"] : NULL;
 		$content = user_profile( $page);
+	
+	}else if( $page_name=="/dropboxAuthorize"){
+		if(isset($_GET["source"]))
+			$_SESSION["afterAuthorizeRedirect"]=urldecode($_GET["source"]);
+		
+		if(dropboxAuthorize())
+			header("Location: ".$_SESSION["afterAuthorizeRedirect"]);
 	
     }else {
 		$content =  '<html><body><h1>Page Not Found</h1></body></html>';

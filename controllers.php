@@ -7,7 +7,12 @@ function check_user_authorization_or_go_to_login_page(){
 	if (!isset($_SESSION["user_name"]) )
 		header("Location: login");
 }
-		
+
+function dropboxAuthorize(){
+	global $main_url;
+	return dropbox_authorize( $main_url."/dropboxAuthorize"); // TODO https
+}
+
 function home() {
     return render_template("home.php", array(
 		"css_stylesheets" => array("src/css/home.css"),
@@ -45,7 +50,7 @@ function popular() {
 }
 
 function user_profile( $page) {
-	check_user_authorization_or_go_to_login_page();
+	//check_user_authorization_or_go_to_login_page();
 	
     include './model/userData.php';
 	$userData =  $personData = Users::getInstance()->getUser(1);
@@ -116,6 +121,18 @@ function single_photo() {
     ));
 }
 
+function upload(){
+	//check_user_authorization_or_go_to_login_page();
+	return render_template("upload.php", array(
+        "css_stylesheets" => array("src/css/upload.css"),
+        "title" => "Upload",
+		"content_width100" => true
+    ));
+}
+
+///
+///
+///
 function render_template($path, array $args = NULL) {
     if ($args === NULL || !isset($args['title'])) {
         $args["title"] = "app";

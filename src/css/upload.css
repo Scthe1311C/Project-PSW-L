@@ -1,0 +1,159 @@
+/*
+bar with actions
+*/
+#browse-actions{
+	border:1px solid rgba(66, 139, 202, 0.7);
+	border-width:0px 0px 1px;
+	background-color:rgba(66, 139, 202, 0.3);
+	height:37px;
+	line-height:37px;
+}
+
+#browse-actions ul{
+	list-style-type:none;
+	height:inherit;
+}
+
+#browse-actions li{
+	height:inherit;
+	display:table-cell;
+	vertical-align:middle
+}
+
+.action-button{
+	width:130px;
+	border: 0px none;
+	background-color: transparent;
+}
+
+#current-folder-name{
+	font-size: 25px;
+	text-align:center;
+	margin-left: 100px;
+	margin-right: 100px;
+}
+
+#current-folder-name span:hover{
+	text-decoration:underline;
+}
+
+.sprite{
+	background-repeat: no-repeat;
+	width: 16px;
+	height:16px;
+	background-image: url("../img/web_sprites.png");
+}
+
+.sprite_upload{
+	background-position: left -12317px
+}
+
+.sprite_rainbow{
+	background-position: 0% -10613px;
+	
+}
+
+/*
+gallery
+*/
+#dropbox-folder-loading{
+	height:500px;
+	vertical-align: middle;
+	text-align: center;
+	width:100%;
+}
+
+#dropbox-folder-loading td{
+	vertical-align: middle;
+	text-align: center;
+}
+
+#dropbox-folder-folders{
+}
+
+.gallery-item-wrapper{
+	display:inline-block;
+	text-align:center;
+}
+
+.gallery-item-wrapper-folder{
+	margin:2% 2% 0px 2%;
+	width:120px; /*13%*/
+	height:120px;
+}
+
+.gallery-item-wrapper-image{
+	margin:3px 3px;
+	width:180px;
+	height:180px;
+}
+
+.gallery-image{
+	/*
+	http://stackoverflow.com/questions/15167545/how-to-crop-a-rectangular-image-into-a-square-with-css
+	http://stackoverflow.com/questions/16310918/css-scale-and-square-center-crop-image
+	*/
+	width:inherit;
+	height:inherit;
+	background: url("../img/loaderb32.gif") no-repeat;
+	background-position:center center;
+	position:relative;
+	color:#ddd;
+}
+
+.background-cover{
+	background-size: cover;
+}
+
+.folder-item{
+	width:100%;
+}
+
+.folder-item img{
+	width:inherit;
+}
+
+/* darken the image layer */
+.gallery-image div{
+	width:inherit;
+	height:inherit;
+	opacity:0;
+	transition: opacity 0.5s;
+	background-color:black;
+	position:relative;
+}
+
+.gallery-image-darken-active{
+	opacity:0.5 !important;
+}
+
+.gallery-image:hover div{
+	opacity:0.5;
+}
+
+/* image name */
+.gallery-image div label{
+	position:absolute;
+	bottom:5px;
+	left:10px;
+	color:white;
+}
+
+/* tick */
+.gallery-image span.glyphicon{
+	position:absolute;
+	top:0px;
+	right:0px;
+	background-color:rgb(66, 139, 202);
+	width:40px;
+	height:40px;
+	line-height: 35px;
+	display:none;
+}
+
+.gallery-image-glyphicon-active{
+	display:inline !important;
+	color:white !important;
+}
+
+
