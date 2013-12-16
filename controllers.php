@@ -59,7 +59,7 @@ function user_profile( $page) {
         "title" => "User",
 		"page" => $page,
         "user_name" => "Adam Smith",
-		"userData" => $userData
+		"user" => $userData
     ));
 }
 

@@ -30,7 +30,7 @@ $(function() {
 					<tr>
 						<td class="settings-label">Email</td>
 						<td class="settings-value form-read-only">
-							<span><?php echo $userData->loginEmail ?></span>
+							<span><?php echo $user->email ?></span>
 						</td>
 					</tr>
 					<tr>
@@ -43,34 +43,35 @@ $(function() {
 					<tr>
 						<td class="settings-label">Name</td>
 						<td class="settings-value">
-							<input type="text" class="form-control" name="userName" value ="<?php echo $userData->name ?>">
+							<input type="text" class="form-control" name="userName" value ="<?php echo $user->name ?>">
 						</td>
 					</tr>
 					<tr>
 						<td class="settings-label">Surname</td>
 						<td class="settings-value">
-							<input type="text"class="form-control" name="userSurname" value ="<?php echo $userData->surname ?>">
+							<input type="text"class="form-control" name="userSurname" value ="<?php echo $user->surname ?>">
 						</td >
 					</tr>
 					<tr>
 						<td class="settings-label">Gender</td>
 						<td class="settings-value">
 							<select name="userSex" class="form-control">
-								<option value="F" selected="true">Female</option>
-								<option value="M">Male</option>
+								
+								<option value="F" <?php if($user->gender == "F") echo 'selected="true"'?>>Female</option>
+								<option value="M" <?php if($user->gender == "M") echo 'selected="true"'?>>Male</option>
 							</select> 
 						</td>
 					</tr>
 					<tr>
 						<td class="settings-label">City</td>
 						<td class="settings-value">
-							<input type="text" class="form-control" name="city" value ="<?php echo $userData->city ?>">
+							<input type="text" class="form-control" name="city" value ="<?php echo $user->address->city ?>">
 						</td>
 					</tr>
 					<tr>
 						<td class="settings-label">Birth date</td>
 						<td class="settings-value">
-							<input type="date" class="form-control" name="birthDate" value ="<?php echo date_format($userData->birthDate, 'Y-m-d'); ?>">
+							<input type="date" class="form-control" name="birthDate" value ="<?php echo $user->birth_date; ?>">
 						</td> 
 					</tr>
 				</table>
@@ -95,7 +96,7 @@ $(function() {
 			<div class="panel-heading">
 				<h3 class="panel-title">Avatar</h3>
 			</div>
-			<img src="<?php echo $userData->avatar ?>" id="avatar-image"  alt="No image found"/>
+			<img src="<?php echo $user->avatar ==NULL? "src/img/default_user_avatar.png" : $user->avatar ?>" id="avatar-image"  alt="No image found"/>
 			<input type="file" value="" title="Browse" />
 		</section>
 	</div>
