@@ -2,6 +2,7 @@
 
 require_once 'utils/php_oAuth20.php';
 require_once 'utils/phpDropbox.php';
+require_once 'databaseManager.php';
 
 function dropbox_authorize( $return_url){
 	$dropbox = new phpDropbox( $return_url, true);
@@ -35,13 +36,37 @@ function requestDropboxImageThumb( $path){
 
 function userLogin( $password){
 	// check if login and password are valid and then write user to the session
-	// $user = 
-	if( strcmp($password, "Basic YTph")==0){ // "a:a"
-		$_SESSION["user_name"] = "a";
-		return "{ \"status\":\"ok\" }";
+	if( strpos($password, "Basic ") === 0){
+		$pass = '"'.substr($password, 6).'"'; // password to check excluding the 'Basic ' part
+		$user = getObjectsByConditions("User", new Condition("password","=",$pass));
+		if( count($user) == 1){
+			return "{ \"status\":\"ok\" }";
+		}
 	}
 	return "{ \"status\":\"failure\", \"cause\":\"user not found\" }";
 }
+
+
+function getPopularGallery(){
+	return getObjectById("Gallery", POPULAR_GALLARY_ID);
+}
+
+function getUser( $id){
+	return getObjectById("User", $id);
+}
+
+function getGalleriesByUser( $userId){
+	return getAllUserCreatedGalleries($userId);
+}
+
+function getAllGalleries(){
+	return getAllObjects("Gallery");
+}
+
+function getGalleryById( $id){
+	return getObjectById("Gallery", $id);
+}
+
 
 
 ///

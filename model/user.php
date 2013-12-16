@@ -5,7 +5,7 @@
 	public function __get($name) {
 		switch($name){
 			case "address":{
-				if(!array_key_exists("address", $this->data)){    					
+				if(!array_key_exists("address", $this->data)){
 				$address = getObjectById("Address", $this->data["address_id"]);
 				$this->data["address"] = $address;
 				}
@@ -22,7 +22,7 @@
 		return $signature;
 	}
 	//
-	public static function checkCorrect($name, $value) {
+	public static function checkCorrect($name, $value) { // TODO rename to validate, or create UserValidator
 		$isCorrect = TRUE;
 		switch ($name){
 			case "gender": $isCorrect = ($value == "M" || $value == "F" || $value == NULL);
