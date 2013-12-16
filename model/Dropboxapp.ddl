@@ -1,3 +1,10 @@
+-- Expected environment values:
+-- 	address:localhost
+-- 	port:3306
+-- 	user login:app_user
+-- 	user password:pswl
+-- 	database name:dropbox_app
+
 CREATE TABLE Galleries (
   id            int(10) NOT NULL AUTO_INCREMENT, 
   name          varchar(32) NOT NULL, 
@@ -7,6 +14,7 @@ CREATE TABLE Galleries (
   tumbnail_href varchar(255), 
   user_id       int(10), 
   PRIMARY KEY (id)) CHARACTER SET UTF8;
+
 CREATE TABLE Users (
   id            int(10) NOT NULL AUTO_INCREMENT, 
   login         varchar(32) NOT NULL, 
@@ -20,6 +28,7 @@ CREATE TABLE Users (
   register_date datetime NOT NULL, 
   address_id    int(11) NOT NULL, 
   PRIMARY KEY (id)) CHARACTER SET UTF8;
+
 CREATE TABLE Photos (
   id             int(10) NOT NULL AUTO_INCREMENT, 
   link           varchar(255) NOT NULL, 
@@ -40,6 +49,7 @@ CREATE TABLE Photos (
   compression    varchar(16), 
   focal_lenght   varchar(16), 
   PRIMARY KEY (id)) CHARACTER SET UTF8;
+
 CREATE TABLE Comments (
   id            int(11) NOT NULL AUTO_INCREMENT, 
   title         varchar(32), 
@@ -48,26 +58,31 @@ CREATE TABLE Comments (
   user_id       int(10) NOT NULL, 
   photo_id      int(10) NOT NULL, 
   PRIMARY KEY (id)) CHARACTER SET UTF8;
+
 CREATE TABLE Friends (
   user_id   int(10) NOT NULL, 
   friend_id int(10) NOT NULL, 
   PRIMARY KEY (user_id, 
   friend_id)) CHARACTER SET UTF8;
+
 CREATE TABLE Favorite_photos (
   user_id  int(10) NOT NULL, 
   photo_id int(10) NOT NULL, 
   PRIMARY KEY (user_id, 
   photo_id)) CHARACTER SET UTF8;
+
 CREATE TABLE Followed_galleries (
   user_id    int(10) NOT NULL, 
   gallery_id int(10) NOT NULL, 
   PRIMARY KEY (user_id, 
   gallery_id)) CHARACTER SET UTF8;
+
 CREATE TABLE Photos_galleries (
   gallery_id int(10) NOT NULL, 
   photo_id   int(10) NOT NULL, 
   PRIMARY KEY (gallery_id, 
   photo_id)) CHARACTER SET UTF8;
+
 CREATE TABLE Addresses (
   id         int(11) NOT NULL AUTO_INCREMENT, 
   city       varchar(30), 
@@ -75,11 +90,15 @@ CREATE TABLE Addresses (
   longitude  bigint(20), 
   country_id int(11) NOT NULL, 
   PRIMARY KEY (id)) CHARACTER SET UTF8;
+
 CREATE TABLE Countries (
   id   int(11) NOT NULL AUTO_INCREMENT, 
   code varchar(5) NOT NULL UNIQUE, 
   name varchar(30) NOT NULL UNIQUE, 
   PRIMARY KEY (id)) CHARACTER SET UTF8;
+
+
+
 ALTER TABLE Comments ADD INDEX have (photo_id), ADD CONSTRAINT have FOREIGN KEY (photo_id) REFERENCES Photos (id);
 ALTER TABLE Comments ADD INDEX `ADD comment` (user_id), ADD CONSTRAINT `ADD comment` FOREIGN KEY (user_id) REFERENCES Users (id);
 ALTER TABLE Friends ADD INDEX FKFriends456366 (user_id), ADD CONSTRAINT FKFriends456366 FOREIGN KEY (user_id) REFERENCES Users (id);
@@ -94,6 +113,9 @@ ALTER TABLE Photos_galleries ADD INDEX FKPhotos_gal554285 (photo_id), ADD CONSTR
 ALTER TABLE Addresses ADD INDEX FKAddresses702127 (country_id), ADD CONSTRAINT FKAddresses702127 FOREIGN KEY (country_id) REFERENCES Countries (id);
 ALTER TABLE Users ADD INDEX FKUsers629329 (address_id), ADD CONSTRAINT FKUsers629329 FOREIGN KEY (address_id) REFERENCES Addresses (id);
 ALTER TABLE Photos ADD INDEX FKPhotos565816 (address_id), ADD CONSTRAINT FKPhotos565816 FOREIGN KEY (address_id) REFERENCES Addresses (id);
+
+
+
 INSERT INTO Countries
   (id, code, name) 
 VALUES 
@@ -337,130 +359,160 @@ VALUES
 	(239, 'YEM', 'Yemen (Arab Republic)'),
 	(240, 'ZMB', 'Zambia'),
 	(241, 'ZWE', 'Zimbabwe');
-  
-  
+
+
+
 INSERT INTO Addresses
   (id, city, latitude, longitude, country_id) 
-VALUES 
-  (1, 'New York', null, null, 1);
+VALUES (1, 'New York', null, null, 1);
+
 INSERT INTO Photos
   (id, link, thumbnail_link, width, height, name, views, address_id, favorites, manufacturer, model, software, date_and_time, upload_date, exposure_time, f_number, compression, focal_lenght) 
 VALUES 
   (1, 'src/img/img1.jpg', 'src/img/img1.jpg', 1060, 1050, 'foto_1', 0, null, 0, 'Canon', ' EOS 5D Mark II', 'Adobe Photoshop CS5', '2012-11-26 16:04:45', '2013-11-26 16:04:45', '1/200 sec', 'F2.8', null, null);
+
 INSERT INTO Photos
-  (id, link, thumbnail_link, width, height, name, views, address_id, favorites, manufacturer, model, software, date_and_time, upload_date, exposure_time, f_number, compression, focal_lenght) 
-VALUES 
-  (2, 'src/img/img2.jpg', 'src/img/img2.jpg', 1060, 1050, 'foto_2', 0, null, 0, 'Canon', null, 'Adobe Photoshop CS5', '2011-11-26 16:04:45', '2013-10-26 16:04:45', '1/200 sec', 'F2.8', null, null);
+	(id, link, thumbnail_link, width, height, name, views, address_id, favorites, manufacturer, model, software, date_and_time, upload_date, exposure_time, f_number, compression, focal_lenght) 
+	VALUES 
+	(2, 'src/img/img2.jpg', 'src/img/img2.jpg', 1060, 1050, 'foto_2', 0, null, 0, 'Canon', null, 'Adobe Photoshop CS5', '2011-11-26 16:04:45', '2013-10-26 16:04:45', '1/200 sec', 'F2.8', null, null);
+
 INSERT INTO Photos
   (id, link, thumbnail_link, width, height, name, views, address_id, favorites, manufacturer, model, software, date_and_time, upload_date, exposure_time, f_number, compression, focal_lenght) 
 VALUES 
   (3, 'src/img/img3.jpg', 'src/img/img3.jpg', 1060, 1050, 'foto_3', 0, null, 0, null, null, null, null, '2013-10-26 16:04:45', null, null, null, null);
+
 INSERT INTO Photos
   (id, link, thumbnail_link, width, height, name, views, address_id, favorites, manufacturer, model, software, date_and_time, upload_date, exposure_time, f_number, compression, focal_lenght) 
 VALUES 
   (4, 'src/img/img4.jpg', 'src/img/img4.jpg', 1060, 1050, 'foto_4', 0, null, 0, null, null, null, null, '2013-10-26 16:04:45', null, null, null, null);
+
 INSERT INTO Photos
   (id, link, thumbnail_link, width, height, name, views, address_id, favorites, manufacturer, model, software, date_and_time, upload_date, exposure_time, f_number, compression, focal_lenght) 
 VALUES 
   (5, 'src/img/img5.jpg', 'src/img/img5.jpg		', 1060, 1050, 'foto_5', 0, null, 0, null, null, null, null, '2013-10-26 16:04:45', null, null, null, null);
+
 INSERT INTO Photos
   (id, link, thumbnail_link, width, height, name, views, address_id, favorites, manufacturer, model, software, date_and_time, upload_date, exposure_time, f_number, compression, focal_lenght) 
 VALUES 
   (6, 'src/img/img6.jpg', 'src/img/img6.jpg', 1060, 1050, 'foto_6', 0, null, 0, null, null, null, null, '2013-10-26 16:04:45', null, null, null, null);
+
 INSERT INTO Photos
   (id, link, thumbnail_link, width, height, name, views, address_id, favorites, manufacturer, model, software, date_and_time, upload_date, exposure_time, f_number, compression, focal_lenght) 
 VALUES 
   (7, 'src/img/img7.jpg', 'src/img/img7.jpg', 1060, 1050, 'foto_7', 0, null, 0, null, null, null, null, '2013-10-26 16:04:45', null, null, null, null);
+
 INSERT INTO Users
   (id, login, name, surname, email, password, gender, birth_date, avatar, register_date, address_id) 
 VALUES 
   (1, 'logSmith', 'Will', 'Smith', 'will.smith@gmail.com', 'secret1', 'M', '1992-07-10', '', '2013-11-20 16:04:45', 1);
+
 INSERT INTO Users
   (id, login, name, surname, email, password, gender, birth_date, avatar, register_date, address_id) 
 VALUES 
   (2, 'logBlack', 'John', 'Black', 'john.black@gmail.com', 'secret2', null, null, '', '2013-11-21 16:04:45', 1);
+
 INSERT INTO Friends
   (user_id, friend_id) 
 VALUES 
   (1, 2);
+
 INSERT INTO Friends
   (user_id, friend_id) 
 VALUES 
   (2, 1);
+
 INSERT INTO Favorite_photos
   (user_id, photo_id) 
 VALUES 
   (1, 1);
+
 INSERT INTO Favorite_photos
   (user_id, photo_id) 
 VALUES 
   (1, 2);
+
 INSERT INTO Favorite_photos
   (user_id, photo_id) 
 VALUES 
   (2, 3);
+
 INSERT INTO Galleries
   (id, name, views, favorites, description, tumbnail_href, user_id) 
 VALUES 
   (1, 'Popular', 0, 0, 'Contains the most popular photos', null, null);
+
 INSERT INTO Galleries
   (id, name, views, favorites, description, tumbnail_href, user_id) 
 VALUES 
   (2, 'Galleria 2', 0, 0, 'test gallery 2', 'src/img/img2.jpg', 2);
+
 
 INSERT INTO Galleries
   (id, name, views, favorites, description, tumbnail_href, user_id) 
 VALUES 
   (3, 'Galleria 1', 0, 0, 'test gallery 1', 'src/img/img1.jpg', 1);
 
+
 INSERT INTO Photos_galleries
   (gallery_id, photo_id) 
 VALUES 
   (2, 1);
+
 INSERT INTO Photos_galleries
   (gallery_id, photo_id) 
 VALUES 
   (2, 2);
+
 INSERT INTO Photos_galleries
   (gallery_id, photo_id) 
 VALUES 
   (2, 3);
+
 INSERT INTO Photos_galleries
   (gallery_id, photo_id) 
 VALUES 
   (2, 4);
+
 INSERT INTO Photos_galleries
   (gallery_id, photo_id) 
 VALUES 
   (2, 5);
+
 INSERT INTO Photos_galleries
   (gallery_id, photo_id) 
 VALUES 
   (2, 6);
+
 INSERT INTO Photos_galleries
   (gallery_id, photo_id) 
 VALUES 
   (2, 7);
+
 INSERT INTO Photos_galleries
   (gallery_id, photo_id) 
 VALUES 
   (3, 1);
+
 INSERT INTO Photos_galleries
   (gallery_id, photo_id) 
 VALUES 
   (3, 2);
+
 INSERT INTO Photos_galleries
   (gallery_id, photo_id) 
 VALUES 
   (3, 3);
+
 INSERT INTO Followed_galleries
   (user_id, gallery_id) 
 VALUES 
   (2, 1);
+
 INSERT INTO Comments
   (id, title, text, date_and_time, user_id, photo_id) 
 VALUES 
   (1, 'Test title', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac volutpat magna. Vestibulum semper dignissim diam, eget auctor diam feugiat vitae. Integer suscipit orci at nisl ultricies dignissim. Donec elementum leo est', '2013-10-26 16:04:45', 1, 1);
+
 INSERT INTO Comments
   (id, title, text, date_and_time, user_id, photo_id) 
 VALUES 
