@@ -1,21 +1,21 @@
 
 .gallery-thumbnail:hover > .gallery-thumbnail-top-gradient{
-    height:43px !important;
+	height:43px !important;
 }
 
 .gallery-thumbnail:hover > .gallery-thumbnail-bottom-gradient{
-    height:43px !important;
+	height:43px !important;
 }
 
 h4{
-    margin-bottom: 3px !important;
+	margin-bottom: 3px !important;
 }
 .foreground-image{
 
-    height: 99px;
-    width: 151px;
-    position: relative;
-    bottom: 151px;
-    left: 52px;
+	height: 99px;
+	width: 151px;
+	position: relative;
+	bottom: 151px;
+	left: 52px;
 
 }

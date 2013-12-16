@@ -1,4 +1,5 @@
 <?php
+include './model/databaseManager.php';
 
 $app_name = substr( $_SERVER["PHP_SELF"], 0, strrpos( $_SERVER["PHP_SELF"], "/"));
 $main_url = ((!empty($_SERVER["HTTPS"])) ? "https" : "http") . "://" . $_SERVER["HTTP_HOST"].$app_name;
@@ -37,23 +38,22 @@ function about() {
 }
 
 function popular() {
-    include './model/gallery.php';
-    include './model/photos.php';
-    $gallery = Galleries::getInstance()->getGallery(3);
-    $photos = $gallery->allPhotos();
-    return render_template("gallery-view.php", array(
-        "css_stylesheets" => array("src/css/gallery-view.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
-        "photos" => $photos,
-        "gallery" => $gallery,
-        "user_name" => "Adam Smith"
-    ));
+	$gallery = getObjectById("Gallery", POPULAR_GALLARY_ID);		
+	$photos = $gallery->allPhotos();
+	return render_template("gallery-view.php", array(
+		"css_stylesheets" => array("src/css/gallery-view.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
+		"photos" => $photos,
+		"gallery" => $gallery,
+		"user_name" => "Adam Smith"
+	));
 }
+
 
 function user_profile( $page) {
 	//check_user_authorization_or_go_to_login_page();
 	
     include './model/userData.php';
-	$userData =  $personData = Users::getInstance()->getUser(1);
+	$userData =  getObjectById("User", 1);
 	return render_template("user-view.php", array(
         "css_stylesheets" => array("src/css/user-view.css","src/css/settings.css"),
         "title" => "User",
@@ -63,62 +63,65 @@ function user_profile( $page) {
     ));
 }
 
-function gallery() {
-    include './model/gallery.php';
-    include './model/photos.php';
-    $galleryId = $_GET["galleryId"];
-    $gallery = Galleries::getInstance()->getGallery($galleryId);
-    $photos = $gallery->allPhotos();
-    return render_template("gallery-view.php", array(
-        "css_stylesheets" => array("src/css/gallery-view.css"),
-        "photos" => $photos,
-        "gallery" => $gallery,
-        "user_name" => "Adam Smith"
-    ));
+function gallery($id) {
+	$gallery = getObjectById("Gallery", $id);
+	$photos = $gallery->allPhotos();
+	return render_template("gallery-view.php", array(
+		"css_stylesheets" => array("src/css/gallery-view.css"),
+		"photos" => $photos,
+		"gallery" => $gallery,
+		"user_name" => "Adam Smith"
+	));
 }
 
-function person_info() {
-    //static data input
-    include './model/userData.php';
-    $person = Users::getInstance()->getUser(2);
-    return render_template('public-person-view.php', array(
-        "css_stylesheets" => array("src/css/settings.css"),
-        "person" => $person
-    ));
+
+//function settings($userId) {
+//	
+//	$user  = getObjectById("User", $userId);
+//	
+//	return render_template('settings.php', array(
+//		"css_stylesheets" => array("src/css/settings.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
+//		"user" => $user
+//	));
+//}
+
+function person_info($userId) {
+	
+	$person = getObjectById("User", $userId);
+	
+	return render_template('public-person-view.php', array(
+		"css_stylesheets" => array("src/css/settings.css"),
+		"person" => $person
+	));
 }
 
-function galleries(){
-    include './model/gallery.php';
-    $gallery1 = Galleries::getInstance()->getGallery(1);
-    $gallery2 = Galleries::getInstance()->getGallery(2);
-    $gallery3 = Galleries::getInstance()->getGallery(3);
-    $galleries = [$gallery1, $gallery2, $gallery3];
-    return render_template("galleries.php", array(
-        "css_stylesheets" => array("src/css/gallery-view.css","src/css/galleries.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
-        "galleries" => $galleries,
-        "user_name" => "Adam Smith"
-    ));   
+function galleries(){	
+	$galleries = getAllObjects("Gallery");
+	return render_template("galleries.php", array(
+		"css_stylesheets" => array("src/css/gallery-view.css","src/css/galleries.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
+		"galleries" => $galleries,
+		"user_name" => "Adam Smith"
+	));   
 }
 
-function single_photo() {
-    include './model/gallery.php';
-    $galleryId = $_GET["galleryId"];
-    $gallery = Galleries::getInstance()->getGallery($galleryId);
-    $photos = $gallery->photosRef;
-    $chosen_photo = $_GET["photo"];
-    return render_template("single_photo.php", array(
-        "css_stylesheets" => array(
-            "src/css/carousel.css",
-            "src/css/photo_style.css",
-        ),
-        "js_scripts" => array(
-            "vendor/bootstrap/js/bootstrap.min.js",
-            "vendor/bootstrap/js/holder.js"       
-         ),
-            "photos" => $photos,
-            "chosen_photo" =>$chosen_photo,
-            "galleryId" => $galleryId
-    ));
+function single_photo($galleryId, $photoId) {	
+	$gallery = getObjectById("Gallery", $galleryId);
+	$photos = $gallery->allPhotos();
+	$chosen_photo = $photos[$photoId];
+	return render_template("single_photo.php", array(
+		"css_stylesheets" => array(
+			"src/css/carousel.css",
+			"src/css/photo_style.css",
+		),
+		"js_scripts" => array(
+			"vendor/bootstrap/js/bootstrap.min.js",
+			"vendor/bootstrap/js/holder.js",
+		"src/js/commentFold.js"
+		 ),
+			"photos" => $photos,
+			"chosen_photo" =>$chosen_photo,
+			"galleryId" => $galleryId
+	));
 }
 
 function upload(){

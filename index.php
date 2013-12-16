@@ -57,10 +57,10 @@
 
 	}else if( $page_name=="/gallery"){
 		/* view of the choosen gallery */
-		$content = gallery();
+		$content = gallery($_GET["galleryId"]);
 		
 	}else if( $page_name=="/photo"){            
-		$content = single_photo();
+		$content = single_photo($_GET["galleryId"], $_GET["photoId"]);
 	
 	}else if( $page_name=="/profile"){
 		/* public profile */
@@ -82,7 +82,7 @@
 		$content =  '<html><body><h1>Page Not Found</h1></body></html>';
 		header('Status: 404 Not Found');
 	}
-        
+		
 	
 	/*
 	TODO:
@@ -98,5 +98,5 @@
 	
 	// render content
 	echo $content;
-        
+		
 ?>
