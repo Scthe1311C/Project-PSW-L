@@ -1,6 +1,6 @@
 <?php 
 
-require 'dropboxKeys.php';
+//require 'dropboxKeys.php';
 
 class phpDropbox{
 	// https://www.dropbox.com/developers/core/docs
