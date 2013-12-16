@@ -57,10 +57,11 @@ $( document ).ready(function() {
 				var basicScheme = btoa(creds);
 				var hashStr = "Basic "+basicScheme;
 				xhr.setRequestHeader('Authorization', hashStr);
-				xhr.setRequestHeader('Method', "login"); // TODO handle by uri not header
+				xhr.setRequestHeader('Method', "login");
 			},
 			success: function(data){
-				if (data === 'true') {
+				var json = $.parseJSON( data );
+				if ( json.status === 'ok') {
 					window.location = 'user-profile';
 				} else {
 					// TODO error msg slide down animation

@@ -11,6 +11,7 @@ function dropbox_authorize( $return_url){
 function getDropboxDirectoryInfo( $path){
 	$dropbox = new phpDropbox("dropboxAuthorize");
 	$files_list = $dropbox->metadata( "dropbox", $path);
+	$files_list["status"] = "ok";
 	return json_encode($files_list, true);
 }
 
@@ -30,6 +31,16 @@ function requestDropboxImageThumb( $path){
 	}
 	$res = array("status" => "ok", "path" => $img_thumb_path);
 	return json_encode($res, true);
+}
+
+function userLogin( $password){
+	// check if login and password are valid and then write user to the session
+	// $user = 
+	if( strcmp($password, "Basic YTph")==0){ // "a:a"
+		$_SESSION["user_name"] = "a";
+		return "{ \"status\":\"ok\" }";
+	}
+	return "{ \"status\":\"failure\", \"cause\":\"user not found\" }";
 }
 
 

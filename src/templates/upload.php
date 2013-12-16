@@ -69,7 +69,7 @@ function go_to_folder( path){
 		url: base_uri,
 		beforeSend: function (xhr) {
 			xhr.setRequestHeader('Path', path);
-			xhr.setRequestHeader('Method', "metadata"); // TODO handle by uri not header
+			xhr.setRequestHeader('Method', "metadata");
 		},
 		success: function(data){
 			var json = $.parseJSON( data );
@@ -150,7 +150,7 @@ function requestImageThumbnail( id, img_path){
 		url: base_uri,
 		beforeSend: function (xhr) {
 			xhr.setRequestHeader('Path', img_path);
-			xhr.setRequestHeader('Method', "requestThumb"); // TODO handle by uri not header
+			xhr.setRequestHeader('Method', "requestThumb");
 		},
 		success: function(data){
 			// substitute stub image
