@@ -92,6 +92,10 @@
 		}
 		return $class;
 	}
+	function getAllUserCreatedGalleries($userId){
+		return getObjectsByConditions("Gallery", new Condition("user_id", "=",$userId));
+	}
+	
 	function getAllPhotosFromGallery($galleryId){
 		$data = DAO::select(["photos_galleries", "photos"], "photos.*", [new Condition("gallery_id", "=", $galleryId),
 																		 new Condition("photo_id", "=", "photos.id")]);

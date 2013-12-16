@@ -4,6 +4,7 @@
 	<!-- TODO fill navbar background image with the last-activity images -->
 	<?php 
 		$friends_identifier = "friends";
+		$photos_identifier = "photos";
 		$galleries_identifier = "galleries";
 		$groups_identifier = "groups";
 		$settings_identifier = "settings";
@@ -29,7 +30,10 @@
 			<li><a href="user-profile?page=friends">Friends</a></li>
 			
 			<!-- all user's photos grouped by galleries -->
-			<li><a href="user-profile?page=galleries">My photos</a></li>
+			<li><a href="user-profile?page=photos">My photos</a></li>
+			
+			<!-- all user's photos grouped by galleries -->
+			<li><a href="user-profile?page=galleries">My galleries</a></li>
 			
 			<!-- last photos from followed groups galleries -->
 			<li><a href="user-profile?page=groups">My groups</a></li>
@@ -63,12 +67,9 @@
 			<br/><br/>
 			<br/><br/>
 		<?php }else if($page === $galleries_identifier){ ?>
-			gal<br/>
-			<!-- my galleries page -->
-			TODO: my galleries, manage my photos etc.<br/><br/>
-			<br/><br/>
-			<br/><br/>
-			<br/><br/>
+			
+			<?php include "galleries.php"; ?>
+			
 		<?php }else if($page === $groups_identifier){ ?>
 			gr<br/>
 			<!-- groups the user belongs to -->

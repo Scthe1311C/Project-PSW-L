@@ -36,6 +36,7 @@
 
 	}else if( $page_name=="/logout"){
 		unset($_SESSION["user_name"]);
+		unset($_SESSION["user_id"]);
 		header("Location: home");
 		
 	}else if( $page_name=="/about"){
@@ -64,12 +65,15 @@
 	
 	}else if( $page_name=="/profile"){
 		/* public profile */
-		$content = person_info();
+		$content = person_info($_GET["userId"]);
     
 	}else if( $page_name=="/user-profile"){
 		/* user profile page - settings, friends, */
 		$page = isset($_GET["page"])? $_GET["page"] : NULL;
-		$content = user_profile( $page);
+		//Static user_id input 
+		$_SESSION["user_id"] = 1;
+		//
+		$content = user_profile( $page, $_SESSION["user_id"]);
 	
 	}else if( $page_name=="/dropboxAuthorize"){
 		if(isset($_GET["source"]))

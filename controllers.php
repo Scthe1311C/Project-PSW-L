@@ -49,15 +49,16 @@ function popular() {
 }
 
 
-function user_profile( $page) {
+function user_profile( $page, $userId) {
 	//check_user_authorization_or_go_to_login_page();
 	
-    include './model/userData.php';
-	$userData =  getObjectById("User", 1);
+	$userData =  getObjectById("User", $userId);
+	$userGalleries = getAllUserCreatedGalleries($userId);
 	return render_template("user-view.php", array(
-        "css_stylesheets" => array("src/css/user-view.css","src/css/settings.css"),
+        "css_stylesheets" => array("src/css/user-view.css","src/css/settings.css","src/css/gallery-view.css","src/css/galleries.css"),
         "title" => "User",
 		"page" => $page,
+		"galleries" =>$userGalleries,
         "user_name" => "Adam Smith",
 		"user" => $userData
     ));
@@ -74,21 +75,8 @@ function gallery($id) {
 	));
 }
 
-
-//function settings($userId) {
-//	
-//	$user  = getObjectById("User", $userId);
-//	
-//	return render_template('settings.php', array(
-//		"css_stylesheets" => array("src/css/settings.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
-//		"user" => $user
-//	));
-//}
-
-function person_info($userId) {
-	
+function person_info($userId) {	
 	$person = getObjectById("User", $userId);
-	
 	return render_template('public-person-view.php', array(
 		"css_stylesheets" => array("src/css/settings.css"),
 		"person" => $person

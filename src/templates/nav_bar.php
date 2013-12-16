@@ -107,8 +107,8 @@
 					</a>
 					<ul class="dropdown-menu">
 						<li class="navigation-bar-dropdown-item"><a href="user-profile?page=friends">Friends</a></li>
-						<li class="navigation-bar-dropdown-item"><a href="user-profile?page=galleries">My photos</a></li>
-						<li class="navigation-bar-dropdown-item"><a href="user-profile?page=groups">My galleries</a></li>
+						<li class="navigation-bar-dropdown-item"><a href="user-profile?page=photos">My photos</a></li>
+						<li class="navigation-bar-dropdown-item"><a href="user-profile?page=galleries">My galleries</a></li>
 						<li class="navigation-bar-dropdown-item"><a href="user-profile?page=settings">Settings</a></li>
 						<li class="navigation-bar-dropdown-item"><a href="logout">Logout</a></li>
 					</ul>
