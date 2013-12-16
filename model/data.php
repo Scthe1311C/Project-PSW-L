@@ -30,6 +30,7 @@ abstract class Data {
 		return $data;
 	}
 	
+	//TODO make invariants of fields for each class
 	public static function checkCorrect($name, $value){
 		return true;
 		//throw new Exception("Data not correct ".$name." => ".$value);

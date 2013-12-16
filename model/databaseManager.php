@@ -92,7 +92,40 @@
 		}
 		return $class;
 	}
-
+	function getAllPhotosFromGallery($galleryId){
+		$data = DAO::select(["photos_galleries", "photos"], "photos.*", [new Condition("gallery_id", "=", $galleryId),
+																		 new Condition("photo_id", "=", "photos.id")]);
+		return getAllObjectsArray("Photo", $data);
+	}
+	
+	function getAllUserFavoritePhotos($userId){
+		$data = DAO::select(["favorite_photos", "photos"], "photos.*", [new Condition("user_id", "=",$userId),
+																		new Condition("photos.id","=","photo_id")]);
+		return getAllObjectsArray("Photo", $data);
+	}
+	
+	function getAllUserFollowedGalleries($userId){
+		$data = DAO::select(["fallowed_galleries", "gallery"], "gallery.*", [new Condition("user_id", "=",$userId),
+																		new Condition("gallery.id","=","gallery_id")]);
+		return getAllObjectsArray("Photo", $data);
+	}
+	
+	function getAllUserFriends($userId){
+		$data = DAO::select(["friends", "users"], "*", [new Condition("user_id", "=", $userId),
+														new Condition("id", "=", "friend_id")]);
+	}
+	
+	function addFavoritePhoto($userId, $photoId){
+		return DAO::insert("favorite_photos", ["user_id" => $userId, "photo_id" => $photoId]);
+	}
+	
+	function addFollowedGallery($userId, $galleryId){
+		return DAO::insert("followed_galleries", ["user_id" => $userId, "gallery_id" =>$galleryId]);
+	}
+	
+	function addFriend($userId, $friendId){
+		return DAO::insert("friends", ["user_id" => $userId, "friend_id" =>$friendId]);
+	}
 //$p1 = getClassById("Photo", "1");
 //print_r($p1);
 //print_r (getAllClass("Photo"));

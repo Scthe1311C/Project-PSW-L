@@ -1,9 +1,7 @@
 <?php
 class Gallery extends Data {
 	public function allPhotos(){
-		$data = DAO::select(["photos_galleries", "photos"], "photos.*", [new Condition("gallery_id", "=", $this->data["id"]),
-																		 new Condition("photo_id", "=", "photos.id")]);
-		return getAllObjectsArray("Photo", $data);
+		return getAllPhotosFromGallery($this->id);
 	}  
 
 	public function getDesignerSignature(){

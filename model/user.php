@@ -21,7 +21,7 @@
 												$this->data["login"];
 		return $signature;
 	}
-	
+	//
 	public static function checkCorrect($name, $value) {
 		$isCorrect = TRUE;
 		switch ($name){
