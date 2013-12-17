@@ -25,6 +25,7 @@ CREATE TABLE Users (
   gender        varchar(1), 
   birth_date    date, 
   avatar        varchar(255) DEFAULT 'NULL', 
+  dropbox_token varchar(128) DEFAULT 'NULL', 
   register_date datetime NOT NULL, 
   address_id    int(11) NOT NULL, 
   PRIMARY KEY (id)) CHARACTER SET UTF8;

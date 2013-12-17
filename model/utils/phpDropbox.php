@@ -1,6 +1,6 @@
 <?php 
 
-//require 'dropboxKeys.php';
+require 'dropboxKeys.php';
 
 class phpDropbox{
 	// https://www.dropbox.com/developers/core/docs
@@ -18,7 +18,7 @@ class phpDropbox{
 		$_token = $tokenStorage->retrieveAccessToken();
 		if( $_token === NULL){
 			global $dropbox_key, $dropbox_secret;
-			echo '<div class="alert alert-error">Token authorization not found ! Requesting a new one..</div>';
+			//echo '<div class="alert alert-error">Token authorization not found ! Requesting a new one..</div>';
 			
 			// get new token
 			$oAuth = new oAuth2( $dropbox_key, $dropbox_secret, $this->_app_root, self::$authorize_endpoint, self::$token_endpoint);
@@ -43,10 +43,10 @@ class phpDropbox{
 		$tokenStorage = new TokenStorage();
 		$token = $tokenStorage->retrieveAccessToken();
 		//check if token is valid
-		if ($token->getLifeTime() && $token->getLifeTime() < time()) { // TODO this check may be off
+		if ( ! $token->getLifeTime() || $token->getLifeTime() < time()) { // TODO this check may be off
 			global $dropbox_key, $dropbox_secret;
 			$oAuth = new oAuth2( $dropbox_key, $dropbox_secret, $this->_app_root, self::$authorize_endpoint, self::$token_endpoint);
-			$token = $this->refreshAccessToken($token);
+			$token = $this->refreshAccessToken($token); // requires  Token._refreshToken
 			$tokenStorage->storeAccessToken( $this->_token);
 		}
 		return $token;
@@ -155,17 +155,30 @@ class phpDropbox{
 class TokenStorage{
 
 	public function retrieveAccessToken() {
-		if( isset($_SESSION['oauth2_token']) ){
-			$token = $_SESSION['oauth2_token'];
-			$token = unserialize (serialize ($token));
+		$user = getActiveUser();
+		if( isset( $user->dropbox_token) && $user->dropbox_token != NULL){
+			$token_refresh = $user->dropbox_token;
+			$token = new Token("###",
+				$token_refresh,
+				0, // forces immediate refresh of access token
+				NULL);
 			return $token;
 		}
 		return NULL;
 	}
 
 	public function storeAccessToken(Token $token) {
-		// TODO store token in some non-volatile place
-		$_SESSION['oauth2_token'] = $token;
+		//$_SESSION['oauth2_token'] = $token;
+		//$_SESSION['oauth2_token_a'] = $token->getRefreshToken();
+		//$_SESSION['oauth2_token_r'] = $token->getAccessToken();
+		
+		$user = getActiveUser();
+		$token_refresh = $token->getRefreshToken();
+		if( isset( $token_refresh) || strlen( $token_refresh) == 0 )
+			$token_refresh = $token->getAccessToken();
+		$user->dropbox_token = $token_refresh;
+		
+		updateObjectById("User", array( "dropbox_token" => $token_refresh), $user->id);
 	}
 }
 

@@ -21,7 +21,7 @@ class oAuth2{
 		$parameters = array_merge($userParameters, array(
 			'client_id' => $this->_clientKey,
 			'redirect_uri' => $this->_callbackUrl,
-			'response_type' => 'code',
+			'response_type' => 'code'
 		));
 		// some additional parameters
 		//if ($this->_scope) $parameters['scope'] = $this->_scope;

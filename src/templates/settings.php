@@ -1,5 +1,6 @@
 <script>
 $(function() {
+	// pretty avatar upload input button TODO set avatar
 	$('input[type=file]').each(function(){
 		var $this = $(this);
 		var labeltext = $(this).attr('title');
@@ -36,7 +37,7 @@ $(function() {
 					<tr>
 						<td class="settings-label">Password</td>
 						<td class="settings-value form-read-only">
-							<span><a href="#">change password</a></span>
+							<span><a href="#">change password</a></span><!-- TODO password change -->
 						</td>
 					</tr>
 					
@@ -85,8 +86,18 @@ $(function() {
 				<h3 class="panel-title">Dropbox account</h3>
 			</div>
 			<div class="panel-body">
+				<?php if( ! $user->hasDropboxAccount() ){ ?>
 				<a style="width: 100%" id="browse" class="btn btn-large btn-primary" href="dropboxAuthorize?source=<?php echo urlencode("user-profile?page=settings"); ?>">Connect Dropbox account</a>
+				<?php }else{ ?>
+				<!-- TODO dropbox account unlink -->
+				<a style="width: 100%" id="browse" class="btn btn-large btn-primary" href="dropboxAuthorize?source=<?php echo urlencode("user-profile?page=settings"); ?>">Unlink Dropbox account</a>
+				<?php } ?>
 			</div>
+			<?php 
+				//$user->debug();
+				//if( isset($_SESSION['oauth2_token']) )
+				//	echo "'".$_SESSION['oauth2_token_r']."<>".$_SESSION['oauth2_token_a']."'";
+			?>
 		</section>
 	</div>
 

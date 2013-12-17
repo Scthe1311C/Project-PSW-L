@@ -22,7 +22,7 @@
 		return $signature;
 	}
 	//
-	public static function checkCorrect($name, $value) { // TODO rename to validate, or create UserValidator
+	public static function checkCorrect($name, $value) {
 		$isCorrect = TRUE;
 		switch ($name){
 			case "gender": $isCorrect = ($value == "M" || $value == "F" || $value == NULL);
@@ -31,6 +31,15 @@
 			throw new Exception("Data not correct".$name." => ".$value);
 		return $isCorrect;
 	}
+	
+	public function hasDropboxAccount(){
+		return isset( $this->data["dropbox_token"]);
+	}
+	
+	public function debug(){
+		print_r( $this->data);
+	}
+	
 }
 ?>
 
