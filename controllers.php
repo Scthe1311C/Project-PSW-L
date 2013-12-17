@@ -33,6 +33,10 @@ function login( $register=false) {
 	));
 }
 
+function logout(){
+	userLogout();
+}
+
 function about() {
 	return render_template("about.php", array(
 		"css_stylesheets" => array("src/css/about.css")
@@ -46,7 +50,6 @@ function popular() {
 		"css_stylesheets" => array("src/css/gallery-view.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
 		"photos" => $photos,
 		"gallery" => $gallery,
-		"user_name" => "Adam Smith"
 	));
 }
 
@@ -61,7 +64,6 @@ function user_profile( $page, $userId) {
 		"title" => "User",
 		"page" => $page,
 		"galleries" =>$userGalleries,
-		"user_name" => "Adam Smith",
 		"user" => $userData
 	));
 }
@@ -73,7 +75,6 @@ function gallery($id) {
 		"css_stylesheets" => array("src/css/gallery-view.css"),
 		"photos" => $photos,
 		"gallery" => $gallery,
-		"user_name" => "Adam Smith"
 	));
 }
 
@@ -85,13 +86,12 @@ function person_info($userId) {
 	));
 }
 
-function galleries(){	
+function galleries(){
 	$galleries = getAllGalleries();
 	return render_template("galleries.php", array(
 		"css_stylesheets" => array("src/css/gallery-view.css","src/css/galleries.css"),
 		"galleries" => $galleries,
-		"user_name" => "Adam Smith"
-	));   
+	));
 }
 
 function single_photo($galleryId, $photoId) {	

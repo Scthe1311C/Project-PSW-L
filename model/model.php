@@ -46,17 +46,21 @@ function userLogin( $password){
 	// check if login and password are valid and then write user to the session
 	if( strpos($password, "Basic ") === 0){
 		$pass = '"'.substr($password, 6).'"'; // password to check excluding the 'Basic ' part
-		$user = getObjectsByConditions("User", new Condition("password","=",$pass));
+		$user = getObjectsByConditions("User", new Condition("password","=",$pass)); // TODO is this array 'keyed' by id ?!
 		if( count($user) == 1){
-			$user = $user[1];
-			$_SESSION["active_user"] = $user->id;
+			foreach( $user as $user) // once !
+				$_SESSION["active_user"] = $user->id;
 			return "{ \"status\":\"ok\" }";
 			//return "{ \"status\":\"ok\",\"data\":\"".implode( array_keys($user))."\" }"; // TODO client side can view the password :)
 		}
 	}
 	return "{ \"status\":\"failure\", \"cause\":\"user not found\" }";
+	//return "{ \"status\":\"failure\", \"cause\":\"user not found\", \"data\":\"".implode( array_keys($user))."\" }";
 }
 
+function userLogout(){
+	unset($_SESSION["active_user"]);
+}
 
 function getPopularGallery(){
 	return getObjectById("Gallery", POPULAR_GALLARY_ID);

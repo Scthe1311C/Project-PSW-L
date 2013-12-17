@@ -14,7 +14,7 @@
 		<!-- avatar -->
 		<div id="user-avatar"></div>
 		<!-- name -->
-		<h1><?php echo $user_name; ?></h1>
+		<h1><?php echo $user->name." ".$user->surname; ?></h1>
 	</div>
 	
 	<hr/>

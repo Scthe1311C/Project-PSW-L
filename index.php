@@ -35,8 +35,7 @@
 		$content = login( $register);
 
 	}else if( $page_name=="/logout"){
-		unset($_SESSION["user_name"]);
-		unset($_SESSION["user_id"]);
+		logout();
 		header("Location: home");
 		
 	}else if( $page_name=="/about"){
