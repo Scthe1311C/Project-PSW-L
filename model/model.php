@@ -9,6 +9,14 @@ function dropbox_authorize( $return_url){
 	return true;
 }
 
+function getActiveUser(){
+	if ( isset($_SESSION["active_user"]) ){
+		$user_id = $_SESSION["active_user"];
+		return getObjectById("User", $user_id);
+	}
+	return NULL;
+}
+
 function getDropboxDirectoryInfo( $path){
 	$dropbox = new phpDropbox("dropboxAuthorize");
 	$files_list = $dropbox->metadata( "dropbox", $path);
@@ -40,7 +48,10 @@ function userLogin( $password){
 		$pass = '"'.substr($password, 6).'"'; // password to check excluding the 'Basic ' part
 		$user = getObjectsByConditions("User", new Condition("password","=",$pass));
 		if( count($user) == 1){
+			$user = $user[1];
+			$_SESSION["active_user"] = $user->id;
 			return "{ \"status\":\"ok\" }";
+			//return "{ \"status\":\"ok\",\"data\":\"".implode( array_keys($user))."\" }"; // TODO client side can view the password :)
 		}
 	}
 	return "{ \"status\":\"failure\", \"cause\":\"user not found\" }";

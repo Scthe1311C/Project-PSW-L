@@ -4,8 +4,10 @@ $app_name = substr( $_SERVER["PHP_SELF"], 0, strrpos( $_SERVER["PHP_SELF"], "/")
 $main_url = ((!empty($_SERVER["HTTPS"])) ? "https" : "http") . "://" . $_SERVER["HTTP_HOST"].$app_name;
 
 function check_user_authorization_or_go_to_login_page(){
-	if (!isset($_SESSION["user_name"]) )
+	$user = getActiveUser();
+	if( $user == NULL)
 		header("Location: login");
+	return $user;
 }
 
 function dropboxAuthorize(){
@@ -22,6 +24,7 @@ function home() {
 }
 
 function login( $register=false) {
+	// TODO what if user gets here ?
 	return render_template("login.php", array(
 		"css_stylesheets" => array("src/css/login.css"),
 		"fullscreen" => true,
@@ -131,6 +134,9 @@ function render_template($path, array $args = NULL) {
 	global $app_name, $main_url;
 	$args["app_name"] = $app_name;
 	$args["main_url"] = $main_url;
+	$__user__ = getActiveUser();
+	if( $__user__ != NULL)
+		$args["user"] = $__user__;
 	
 	extract($args);
 	$content = $path;

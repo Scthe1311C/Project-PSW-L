@@ -19,7 +19,7 @@
 	
 	<?php
 		// read auxiliary variables
-		$is_logged = isset($_SESSION["user_name"]);
+		$is_logged = isset($_SESSION["user"]) && $_SESSION["user"] != NULL;
 		if(!isset($user_name)) $user_name = "Adam Smith";
 		$is_fullscreeen = isset($fullscreen) && $fullscreen; //remove navbar
 		$minimal_navbar = isset($minimal_navbar) && $minimal_navbar;  // do not display the big image on top
