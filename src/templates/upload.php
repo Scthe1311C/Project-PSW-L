@@ -72,8 +72,12 @@ function go_to_folder( path){
 			xhr.setRequestHeader('Method', "metadata");
 		},
 		success: function(data){
+			//document.getElementById("pseudo-console").innerHTML += "\n>"+data+"<";
 			var json = $.parseJSON( data );
 			create_folder_content( json);
+		},
+		error: function(xhr, textStatus, errorThrown){
+			document.getElementById("pseudo-console").innerHTML += "\n'"+textStatus+"'  ;'"+errorThrown+"'";
 		}
 	});
 }
@@ -162,13 +166,14 @@ function requestImageThumbnail( id, img_path){
 				img_path = "src/img/be.png";
 			$("#"+id).css("background-image", "url("+img_path+")" );
 			//document.getElementById("pseudo-console").innerHTML += "respond(" +id+ "): '"+data+"'";
+		},
+		 error: function (xhr, ajaxOptions, thrownError) {
+			document.getElementById("pseudo-console").innerHTML += "\nrequestImageThumbnail() error";
 		}
    });
 }
 
 </script>
-
-
 
 
 <div id="browse-actions">

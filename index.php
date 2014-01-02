@@ -76,7 +76,7 @@
 	
 	}else if( $page_name=="/dropboxAuthorize"){
 		if(isset($_GET["source"]))
-			$_SESSION["afterAuthorizeRedirect"]=urldecode($_GET["source"]);
+			$_SESSION["afterAuthorizeRedirect"] = urldecode($_GET["source"]);
 		
 		if(dropboxAuthorize())
 			header("Location: ".$_SESSION["afterAuthorizeRedirect"]);

@@ -10,6 +10,7 @@ function dropbox_authorize( $return_url){
 }
 
 function getActiveUser(){
+	// TODO create some short term cache
 	if ( isset($_SESSION["active_user"]) ){
 		$user_id = $_SESSION["active_user"];
 		return getObjectById("User", $user_id);
@@ -21,6 +22,7 @@ function getDropboxDirectoryInfo( $path){
 	$dropbox = new phpDropbox("dropboxAuthorize");
 	$files_list = $dropbox->metadata( "dropbox", $path);
 	$files_list["status"] = "ok";
+	//$files_list["debug"] = trim(ob_get_clean());
 	return json_encode($files_list, true);
 }
 
