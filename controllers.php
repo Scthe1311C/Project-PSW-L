@@ -53,7 +53,6 @@ function popular() {
 	));
 }
 
-
 function user_profile( $page, $userId) {
 	check_user_authorization_or_go_to_login_page();
 
@@ -61,6 +60,7 @@ function user_profile( $page, $userId) {
 	$userGalleries = getGalleriesByUser($userId);
 	return render_template("user-view.php", array(
 		"css_stylesheets" => array("src/css/user-view.css","src/css/settings.css","src/css/gallery-view.css","src/css/galleries.css"),
+		"js_scripts" => array("src/js/settings.js"),
 		"title" => "User",
 		"page" => $page,
 		"galleries" =>$userGalleries,
@@ -118,6 +118,9 @@ function upload(){
 	check_user_authorization_or_go_to_login_page();
 	return render_template("upload.php", array(
 		"css_stylesheets" => array("src/css/upload.css"),
+		"js_scripts" => array(
+			"src/js/upload.js"
+		 ),
 		"title" => "Upload",
 		"content_width100" => true
 	));

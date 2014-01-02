@@ -27,13 +27,13 @@ function getDropboxDirectoryInfo( $path){
 }
 
 function requestDropboxImageThumb( $path){
-	$dropbox = new phpDropbox("dropboxAuthorize");
-	$acc = $dropbox->account_info();
 	$file_name = basename($path);
 	$file_name = substr($file_name, 0, strpos($file_name, '.'));
-	$img_thumb_path = "media/" . $acc["uid"] . "_" . $file_name . ".jpeg";
+	$user_id = getActiveUser()->id;
+	$img_thumb_path = "media/" . $user_id . "_" . $file_name . ".jpeg";
 	
 	if( !file_exists( $img_thumb_path)){
+		$dropbox = new phpDropbox("dropboxAuthorize");
 		$img_data = $dropbox->thumbnails("dropbox", $path, "l"); 
 		// write image
 		$file = fopen( $img_thumb_path, "wb");
