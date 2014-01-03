@@ -2,26 +2,38 @@
 
 require_once 'utils/php_oAuth20.php';
 require_once 'utils/phpDropbox.php';
+require_once 'databaseManager.php';
 
 function dropbox_authorize( $return_url){
 	$dropbox = new phpDropbox( $return_url, true);
 	return true;
 }
 
+function getActiveUser(){
+	// TODO create some short term cache
+	if ( isset($_SESSION["active_user"]) ){
+		$user_id = $_SESSION["active_user"];
+		return getObjectById("User", $user_id);
+	}
+	return NULL;
+}
+
 function getDropboxDirectoryInfo( $path){
 	$dropbox = new phpDropbox("dropboxAuthorize");
 	$files_list = $dropbox->metadata( "dropbox", $path);
+	$files_list["status"] = "ok";
+	//$files_list["debug"] = trim(ob_get_clean());
 	return json_encode($files_list, true);
 }
 
 function requestDropboxImageThumb( $path){
-	$dropbox = new phpDropbox("dropboxAuthorize");
-	$acc = $dropbox->account_info();
 	$file_name = basename($path);
 	$file_name = substr($file_name, 0, strpos($file_name, '.'));
-	$img_thumb_path = "media/" . $acc["uid"] . "_" . $file_name . ".jpeg";
+	$user_id = getActiveUser()->id;
+	$img_thumb_path = "media/" . $user_id . "_" . $file_name . ".jpeg";
 	
 	if( !file_exists( $img_thumb_path)){
+		$dropbox = new phpDropbox("dropboxAuthorize");
 		$img_data = $dropbox->thumbnails("dropbox", $path, "l"); 
 		// write image
 		$file = fopen( $img_thumb_path, "wb");
@@ -31,6 +43,47 @@ function requestDropboxImageThumb( $path){
 	$res = array("status" => "ok", "path" => $img_thumb_path);
 	return json_encode($res, true);
 }
+
+function userLogin( $password){
+	// check if login and password are valid and then write user to the session
+	if( strpos($password, "Basic ") === 0){
+		$pass = '"'.substr($password, 6).'"'; // password to check excluding the 'Basic ' part
+		$user = getObjectsByConditions("User", new Condition("password","=",$pass)); // TODO is this array 'keyed' by id ?!
+		if( count($user) == 1){
+			foreach( $user as $user) // once !
+				$_SESSION["active_user"] = $user->id;
+			return "{ \"status\":\"ok\" }";
+			//return "{ \"status\":\"ok\",\"data\":\"".implode( array_keys($user))."\" }"; // TODO client side can view the password :)
+		}
+	}
+	return "{ \"status\":\"failure\", \"cause\":\"user not found\" }";
+	//return "{ \"status\":\"failure\", \"cause\":\"user not found\", \"data\":\"".implode( array_keys($user))."\" }";
+}
+
+function userLogout(){
+	unset($_SESSION["active_user"]);
+}
+
+function getPopularGallery(){
+	return getObjectById("Gallery", POPULAR_GALLARY_ID);
+}
+
+function getUser( $id){
+	return getObjectById("User", $id);
+}
+
+function getGalleriesByUser( $userId){
+	return getAllUserCreatedGalleries($userId);
+}
+
+function getAllGalleries(){
+	return getAllObjects("Gallery");
+}
+
+function getGalleryById( $id){
+	return getObjectById("Gallery", $id);
+}
+
 
 
 ///

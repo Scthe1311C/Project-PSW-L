@@ -21,7 +21,7 @@ class oAuth2{
 		$parameters = array_merge($userParameters, array(
 			'client_id' => $this->_clientKey,
 			'redirect_uri' => $this->_callbackUrl,
-			'response_type' => 'code',
+			'response_type' => 'code'
 		));
 		// some additional parameters
 		//if ($this->_scope) $parameters['scope'] = $this->_scope;
@@ -75,41 +75,6 @@ class oAuth2{
 		return $token;
 	}
 	
-	public function refreshAccessToken(Token $token) {
-		if (! $token->getRefreshToken()) {
-			throw new Exception('could not refresh access token, no refresh token available');
-		}
-
-		$parameters = array(
-			//'type' => 'web_server',
-			'client_id' => $this->_clientKey,
-			'client_secret' => $this->_clientSecret,
-			'grant_type' => 'refresh_token',
-			'refresh_token' => $token->getRefreshToken(),
-		);
-
-		$curl = curl_init($this->_token_endpoint);
-		curl_setopt($curl, CURLOPT_POST, 1);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-		curl_setopt($curl, CURLOPT_HEADER, 1);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-		
-		// make call
-		$response = curl_exec($curl);
-		$info = curl_getinfo($curl);
-		curl_close($curl);
-		
-		$response = substr($response, $info['header_size'], strlen($response));
-		if ($response === false) {
-			$response = '';
-		}
-		
-		$token = $this->_parseAccessTokenResponse( $response, $token->getRefreshToken());
-		//$this->_dataStore->storeAccessToken($token);
-		return $token;
-	}
-	
 	private function _parseAccessTokenResponse( $response, $oldRefreshToken = null) {
 		$json = json_decode($response, true);
 		//echo "<br/>response: '".$response."'<br/>";
@@ -152,7 +117,12 @@ class Token{
 	}
 
 	public function getRefreshToken() {
-		return $this->_refreshToken;
+		return !isset($refToken) || (strlen( $refToken)===0)? $this->getAccessToken() : $this->_refreshToken;
+		//return $this->_refreshToken;
+	}
+	
+	public function setRefreshToken( $newToken) {
+		$this->_refreshToken = $newToken;
 	}
 
 	public function getLifeTime() {

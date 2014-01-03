@@ -35,8 +35,7 @@
 		$content = login( $register);
 
 	}else if( $page_name=="/logout"){
-		unset($_SESSION["user_name"]);
-		unset($_SESSION["user_id"]);
+		logout();
 		header("Location: home");
 		
 	}else if( $page_name=="/about"){
@@ -77,7 +76,7 @@
 	
 	}else if( $page_name=="/dropboxAuthorize"){
 		if(isset($_GET["source"]))
-			$_SESSION["afterAuthorizeRedirect"]=urldecode($_GET["source"]);
+			$_SESSION["afterAuthorizeRedirect"] = urldecode($_GET["source"]);
 		
 		if(dropboxAuthorize())
 			header("Location: ".$_SESSION["afterAuthorizeRedirect"]);

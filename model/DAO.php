@@ -51,10 +51,10 @@ class DAO implements IDAO{
 				$sql .= "\n".$addition;
 			}
 		}
-	   //print_r($sql);
+		//print_r($sql);
 		$resource   = DAO::executeQuery($sql);
 		$dataTable  = [];
-		while($data = mysql_fetch_assoc($resource)){
+		while( $resource && $data = mysql_fetch_assoc($resource)){ // $resource==FALSE when query failed
 			$dataTable[] = $data;
 		}
 		return $dataTable;
@@ -69,7 +69,7 @@ class DAO implements IDAO{
 		 $sql  = "UPDATE ".$tableName;
 		 $sql .= "\nSET ";
 		 foreach ($data as $column => $value){
-			$sql .=$column."='".$value."', ";        
+			$sql .=$column."='".$value."', ";
 		 }
 		 $sql  = substr($sql, 0, -2);
 		 $sql .= DAO::generateConditions($conditions);
@@ -78,15 +78,16 @@ class DAO implements IDAO{
 	}
 	
 	public static function executeQuery($sql){
+		file_put_contents("db_log.txt", $sql."\n", FILE_APPEND);
 		include '/connection.php';
 		return mysql_query($sql, $sql_conn);
 	}
 
 		private static function generateConditions($conditions){
-			$where ="\nWHERE ";
+			$where ="\n\tWHERE ";
 			foreach ($conditions as $con){
 				$where .=$con." and ";
-			}        
+			}
 			$where = substr($where, 0, -5);
 			return $where;
 			}

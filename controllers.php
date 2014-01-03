@@ -1,12 +1,13 @@
 <?php
-include './model/databaseManager.php';
 
 $app_name = substr( $_SERVER["PHP_SELF"], 0, strrpos( $_SERVER["PHP_SELF"], "/"));
 $main_url = ((!empty($_SERVER["HTTPS"])) ? "https" : "http") . "://" . $_SERVER["HTTP_HOST"].$app_name;
 
 function check_user_authorization_or_go_to_login_page(){
-	if (!isset($_SESSION["user_name"]) )
+	$user = getActiveUser();
+	if( $user == NULL)
 		header("Location: login");
+	return $user;
 }
 
 function dropboxAuthorize(){
@@ -15,7 +16,7 @@ function dropboxAuthorize(){
 }
 
 function home() {
-    return render_template("home.php", array(
+	return render_template("home.php", array(
 		"css_stylesheets" => array("src/css/home.css"),
 		"minimal_navbar" => true,
 		"content_width100" => true
@@ -23,77 +24,78 @@ function home() {
 }
 
 function login( $register=false) {
-    return render_template("login.php", array(
-        "css_stylesheets" => array("src/css/login.css"),
-        "fullscreen" => true,
+	// TODO what if user gets here ?
+	return render_template("login.php", array(
+		"css_stylesheets" => array("src/css/login.css"),
+		"fullscreen" => true,
 		"register" => $register,
-        "title" => "Log in"
-    ));
+		"title" => "Log in"
+	));
+}
+
+function logout(){
+	userLogout();
 }
 
 function about() {
-    return render_template("about.php", array(
-        "css_stylesheets" => array("src/css/about.css")
-    ));
+	return render_template("about.php", array(
+		"css_stylesheets" => array("src/css/about.css")
+	));
 }
 
 function popular() {
-	$gallery = getObjectById("Gallery", POPULAR_GALLARY_ID);		
+	$gallery = getPopularGallery();
 	$photos = $gallery->allPhotos();
 	return render_template("gallery-view.php", array(
 		"css_stylesheets" => array("src/css/gallery-view.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
 		"photos" => $photos,
 		"gallery" => $gallery,
-		"user_name" => "Adam Smith"
 	));
 }
 
-
 function user_profile( $page, $userId) {
-	//check_user_authorization_or_go_to_login_page();
-	
-	$userData =  getObjectById("User", $userId);
-	$userGalleries = getAllUserCreatedGalleries($userId);
+	check_user_authorization_or_go_to_login_page();
+
+	$userData = getUser( $userId);
+	$userGalleries = getGalleriesByUser($userId);
 	return render_template("user-view.php", array(
-        "css_stylesheets" => array("src/css/user-view.css","src/css/settings.css","src/css/gallery-view.css","src/css/galleries.css"),
-        "title" => "User",
+		"css_stylesheets" => array("src/css/user-view.css","src/css/settings.css","src/css/gallery-view.css","src/css/galleries.css"),
+		"js_scripts" => array("src/js/settings.js"),
+		"title" => "User",
 		"page" => $page,
 		"galleries" =>$userGalleries,
-        "user_name" => "Adam Smith",
 		"user" => $userData
-    ));
+	));
 }
 
 function gallery($id) {
-	$gallery = getObjectById("Gallery", $id);
+	$gallery = getGalleryById( $id);
 	$photos = $gallery->allPhotos();
 	return render_template("gallery-view.php", array(
 		"css_stylesheets" => array("src/css/gallery-view.css"),
 		"photos" => $photos,
 		"gallery" => $gallery,
-		"user_name" => "Adam Smith"
 	));
 }
 
-function person_info($userId) {	
-	$person = getObjectById("User", $userId);
+function person_info($userId) {
+	$person = getUser( $userId);
 	return render_template('public-person-view.php', array(
 		"css_stylesheets" => array("src/css/settings.css"),
 		"person" => $person
 	));
 }
 
-function galleries(){	
-	$galleries = getAllObjects("Gallery");
+function galleries(){
+	$galleries = getAllGalleries();
 	return render_template("galleries.php", array(
-		"css_stylesheets" => array("src/css/gallery-view.css","src/css/galleries.css"), // TODO !!! WHY AM I PROVIDING *.CSS INSIDE CONTORLLER ?
+		"css_stylesheets" => array("src/css/gallery-view.css","src/css/galleries.css"),
 		"galleries" => $galleries,
-		"user_name" => "Adam Smith"
-	));   
+	));
 }
 
 function single_photo($galleryId, $photoId) {	
-	$gallery = getObjectById("Gallery", $galleryId);
+	$gallery = getGalleryById( $galleryId);
 	$photos = $gallery->allPhotos();
 	$chosen_photo = $photos[$photoId];
 	return render_template("single_photo.php", array(
@@ -113,33 +115,39 @@ function single_photo($galleryId, $photoId) {
 }
 
 function upload(){
-	//check_user_authorization_or_go_to_login_page();
+	check_user_authorization_or_go_to_login_page();
 	return render_template("upload.php", array(
-        "css_stylesheets" => array("src/css/upload.css"),
-        "title" => "Upload",
+		"css_stylesheets" => array("src/css/upload.css"),
+		"js_scripts" => array(
+			"src/js/upload.js"
+		 ),
+		"title" => "Upload",
 		"content_width100" => true
-    ));
+	));
 }
 
 ///
 ///
 ///
 function render_template($path, array $args = NULL) {
-    if ($args === NULL || !isset($args['title'])) {
-        $args["title"] = "app";
-    }
+	if ($args === NULL || !isset($args['title'])) {
+		$args["title"] = "app";
+	}
 	$args["session"] = $_SESSION;
 	global $app_name, $main_url;
 	$args["app_name"] = $app_name;
 	$args["main_url"] = $main_url;
+	$__user__ = getActiveUser();
+	if( $__user__ != NULL)
+		$args["user"] = $__user__;
 	
 	extract($args);
-    $content = $path;
-    ob_start();
-    //require "src/templates/" . $path;
-    require "src/templates/app-layout.php";
-    $html = ob_get_clean();
-    return $html;
+	$content = $path;
+	ob_start();
+	//require "src/templates/" . $path;
+	require "src/templates/app-layout.php";
+	$html = ob_get_clean();
+	return $html;
 }
 
 ?>

@@ -31,7 +31,7 @@
 				$objectTab[$id];
 	}
 	
-	//Return array of object from selected type form DB with contains conditions and addition
+	//Return array of object from selected type from DB that meet specified conditions and addition
 	//(f.e "Photo",["id", "link"], new Condition("width",">","1024"), "Limit(0,30)")	
 	function getObjectsByConditions($className, $conditions, $additions = []) {
 		global $class_tables;

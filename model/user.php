@@ -5,7 +5,7 @@
 	public function __get($name) {
 		switch($name){
 			case "address":{
-				if(!array_key_exists("address", $this->data)){    					
+				if(!array_key_exists("address", $this->data)){
 				$address = getObjectById("Address", $this->data["address_id"]);
 				$this->data["address"] = $address;
 				}
@@ -31,6 +31,15 @@
 			throw new Exception("Data not correct".$name." => ".$value);
 		return $isCorrect;
 	}
+	
+	public function hasDropboxAccount(){
+		return isset( $this->data["dropbox_token"]);
+	}
+	
+	public function debug(){
+		print_r( $this->data);
+	}
+	
 }
 ?>
 

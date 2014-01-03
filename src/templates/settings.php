@@ -1,23 +1,3 @@
-<script>
-$(function() {
-	$('input[type=file]').each(function(){
-		var $this = $(this);
-		var labeltext = $(this).attr('title');
-
-		var $fileContainer = $('<div class="file-container" />');
-
-		var $text_file = $('<input type="text" class="input-text" value="..." />');
-		var $uploadbutton = $('<input class="input-browse" type="button" value="'+labeltext+'" />');
-
-		$this.wrap($fileContainer);			
-		$this.parents('.file-container').append($text_file).append($uploadbutton);	
-		$this.bind('click', function() {
-			$this.parent().find('.input-text').val($this.val());
-		});
-	});
-})
-</script>
-
 <form enctype="multipart/form-data" method="post">
 	
 	<div class="column50">
@@ -36,7 +16,7 @@ $(function() {
 					<tr>
 						<td class="settings-label">Password</td>
 						<td class="settings-value form-read-only">
-							<span><a href="#">change password</a></span>
+							<span><a href="#">change password</a></span><!-- TODO password change -->
 						</td>
 					</tr>
 					
@@ -85,8 +65,18 @@ $(function() {
 				<h3 class="panel-title">Dropbox account</h3>
 			</div>
 			<div class="panel-body">
+				<?php if( ! $user->hasDropboxAccount() ){ ?>
 				<a style="width: 100%" id="browse" class="btn btn-large btn-primary" href="dropboxAuthorize?source=<?php echo urlencode("user-profile?page=settings"); ?>">Connect Dropbox account</a>
+				<?php }else{ ?>
+				<!-- TODO dropbox account unlink -->
+				<a style="width: 100%" id="browse" class="btn btn-large btn-primary" href="dropboxAuthorize?source=<?php echo urlencode("user-profile?page=settings"); ?>">Unlink Dropbox account</a>
+				<?php } ?>
 			</div>
+			<?php 
+				//$user->debug();
+				//if( isset($_SESSION['oauth2_token']) )
+				//	echo "'".$_SESSION['oauth2_token_r']."<>".$_SESSION['oauth2_token_a']."'";
+			?>
 		</section>
 	</div>
 

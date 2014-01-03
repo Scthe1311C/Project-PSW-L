@@ -103,7 +103,7 @@
 				<!-- user pages -->
 				<li class="dropdown" id="navigation-bar-user">
 					<a href="user-profile" class="navigation-bar-item dropdown-toggle" data-toggle="dropdown">
-						<?php echo $user_name; ?>
+						<?php echo $user->name." ".$user->surname; ?>
 					</a>
 					<ul class="dropdown-menu">
 						<li class="navigation-bar-dropdown-item"><a href="user-profile?page=friends">Friends</a></li>

@@ -1,6 +1,6 @@
 <?php 
 
-//require 'dropboxKeys.php';
+require 'dropboxKeys.php';
 
 class phpDropbox{
 	// https://www.dropbox.com/developers/core/docs
@@ -14,46 +14,36 @@ class phpDropbox{
 	
 	public function __construct( $callbackUrl, $debug=false) {
 		$this->_app_root = $callbackUrl;
+		
+		// try to retrieve token
 		$tokenStorage = new TokenStorage();
-		$_token = $tokenStorage->retrieveAccessToken();
-		if( $_token === NULL){
+		$this->_token = $tokenStorage->retrieveAccessToken();
+		//echo "token?: '" . ( $this->_token->getAccessToken()."'");
+		
+		$tokenIsInvalid = !$this->_token || ($this->_token =="NULL");
+		//echo $tokenIsInvalid;
+		if( $tokenIsInvalid){
+			//echo "token-null";
+			// could not retrieve token
 			global $dropbox_key, $dropbox_secret;
-			echo '<div class="alert alert-error">Token authorization not found ! Requesting a new one..</div>';
 			
 			// get new token
 			$oAuth = new oAuth2( $dropbox_key, $dropbox_secret, $this->_app_root, self::$authorize_endpoint, self::$token_endpoint);
 			if (!isset($_GET['code'])) {
 				// authorization phase 1
-				//echo "authorization phase 1";
 				$oAuth->authorize();
 			}else{
 				// authorization phase 2
 				// retrieve access token from endpoint
-				//echo "authorization phase 2<pre>";
 				$this->_token = $oAuth->read_access_token();
-				//echo "</pre>";
 				$tokenStorage->storeAccessToken( $this->_token);
 			}
-		}else if( $debug){
-			echo '<div class="alert alert-success">Token authorization found in the storage !</div>';
 		}
-	}
-	
-	public function get_token(){
-		$tokenStorage = new TokenStorage();
-		$token = $tokenStorage->retrieveAccessToken();
-		//check if token is valid
-		if ($token->getLifeTime() && $token->getLifeTime() < time()) { // TODO this check may be off
-			global $dropbox_key, $dropbox_secret;
-			$oAuth = new oAuth2( $dropbox_key, $dropbox_secret, $this->_app_root, self::$authorize_endpoint, self::$token_endpoint);
-			$token = $this->refreshAccessToken($token);
-			$tokenStorage->storeAccessToken( $this->_token);
-		}
-		return $token;
 	}
 	
 	private function execute( $method, $data=NULL, $type="GET", $debug=false){
-		$token = $this->get_token();
+		$tokenStorage = new TokenStorage();
+		$token = $tokenStorage->retrieveAccessToken();
 
 		$curl = curl_init($method);
 		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
@@ -155,17 +145,48 @@ class phpDropbox{
 class TokenStorage{
 
 	public function retrieveAccessToken() {
-		if( isset($_SESSION['oauth2_token']) ){
-			$token = $_SESSION['oauth2_token'];
-			$token = unserialize (serialize ($token));
+		$user = getActiveUser();
+		
+		// first try - session cache
+		if( isset( $_SESSION['oauth2_token']) &&
+			isset( $_SESSION['oauth2_token_user_id'])&& $user->id == $_SESSION['oauth2_token_user_id']){
+			
+			return unserialize($_SESSION['oauth2_token']);
+		}
+		
+		// second try - renew based on the database token
+		$dbToken = $user->dropbox_token;
+		//echo "db token search :".( $dbToken )."\n";
+		if( isset( $dbToken) && $dbToken != NULL){
+			$token_refresh = $user->dropbox_token;
+			$token = new Token( $token_refresh,
+				$token_refresh,
+				0,
+				NULL);
+			
+			// save to the session cache
+			$user = getActiveUser();
+			$_SESSION['oauth2_token'] = serialize($token);
+			$_SESSION['oauth2_token_user_id'] = $user->id;
 			return $token;
 		}
+		
+		// no token found in the database
 		return NULL;
 	}
 
 	public function storeAccessToken(Token $token) {
-		// TODO store token in some non-volatile place
-		$_SESSION['oauth2_token'] = $token;
+		// save to the session cache
+		$user = getActiveUser();
+		$_SESSION['oauth2_token'] = serialize($token);
+		$_SESSION['oauth2_token_user_id'] = $user->id;
+		
+		// save renew token to the database
+		$user = getActiveUser();
+		$token_refresh = $token->getRefreshToken();
+		if( isset( $token_refresh) || strlen( $token_refresh) == 0 )
+			$token_refresh = $token->getAccessToken();
+		updateObjectById("User", array( "dropbox_token" => $token_refresh), $user->id);
 	}
 }
 
