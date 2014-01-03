@@ -1,49 +1,28 @@
-<?php
-foreach ($galleries as $gallery) {
-?>
+<div class="galleries">
 
-	<!-- single image element -->
-	<div class="gallery-thumbnail" style="width:256px; height:246px">
-
-		<!-- gradients -->
-		<div class="image-info gallery-thumbnail-bottom-gradient"></div>
-		<div class="image-info gallery-thumbnail-top-gradient"></div>
-
-		<!-- image info -->
-		<div class="image-info views-count">
-			<span class="glyphicon glyphicon-eye-open"></span><span>&nbsp;<?php echo $gallery->views<1000?
-																					 $gallery->views:
-																					 ($gallery->views/1000)."k"?></span>
-		</div>
-		<div class="image-info favorite-count">
-			<span class="glyphicon glyphicon-heart"></span><span>&nbsp;<?php echo $gallery->favorites<1000?
-																				  $gallery->favorites:
-																				  ($gallery->favorites/1000)."k" ?></span>
-		</div>
-		<div class="image-info image-data">
-			<span class="glyphicon glyphicon-question-sign"></span>
-			<div class="image-data-popup">
-				<?php
-				$signature = $gallery->getDesignerSignature();
-				echo '<label>Designed by:</label><a href="profile?userId=' . $gallery->user_id. '">' . $signature .'</a>'
-				?><br/>
-				<label>Description:</label><?php echo $gallery->description ?> <br/>
-			</div>
-		</div>
-		<?php if ($is_logged) { ?>
-			<!-- quick mark as favorite -->
-			<div class="image-info favorite-mark-up">
-				<span  class="glyphicon glyphicon-heart"></span>
-			</div>
-		<?php } ?>
-		<!--title-->
-		<h4 style="text-align: center;padding-bottom: 0"><?php echo $gallery->name ?></h4>
+<?php foreach ($galleries as $gallery) { ?>
+	<div class="gallery">
 		<!-- image -->
 		<a href="gallery?galleryId=<?php echo $gallery->id ?>">
-			<img  src="src/img/galleries_folder.png"/>
-			<div class="foreground-image">
-				<img src="<?php echo $gallery->tumbnail_href ?>" class="file"/>
-			</div>
-		</a>		
+			<img class="folder-image" src="src/img/folder-img2.png"/>
+			<img class="gallery-thumbnail" src="<?php echo $gallery->tumbnail_href ?>"/>
+		<div></div>
+		</a>
+		<!--title-->
+		<h4><?php echo $gallery->name ?></h4>
 	</div>
 <?php } ?>
+
+<?php if( isset($user) && strpos($_SERVER["REQUEST_URI"],'user-profile') !== false){ ?>
+	<div class="gallery">
+		<!-- image -->
+		<input type="image" src="src/img/folder-img2.png" class="folder-image" >
+		<span id="gallery-add" class="glyphicon glyphicon-plus"></span>
+		<div></div>
+		<!--title-->
+		<h4>Add new gallery</h4>
+	</div>
+<?php } ?>
+
+
+</div>

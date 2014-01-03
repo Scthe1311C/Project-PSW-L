@@ -1,21 +1,65 @@
-
-.gallery-thumbnail:hover > .gallery-thumbnail-top-gradient{
-	height:43px !important;
+.galleries{
+	width:100%;
 }
 
-.gallery-thumbnail:hover > .gallery-thumbnail-bottom-gradient{
-	height:43px !important;
+.gallery{
+	width:165px;
+	float:left;
+	margin-right:10px;
+	position:relative;
 }
 
-h4{
-	margin-bottom: 3px !important;
+.gallery h4{
+	text-align: center;
+	padding-bottom: 0
 }
-.foreground-image{
 
-	height: 99px;
-	width: 151px;
-	position: relative;
-	bottom: 151px;
-	left: 52px;
-
+.gallery a{
+	position:relative;
 }
+
+.gallery img{
+	width:100%;
+}
+
+.gallery .folder-image{
+	width:100%;
+}
+
+.gallery-thumbnail{
+	width: 153px !important;
+	position: absolute;
+	bottom: -60px;
+	right: 10px;
+	height: 101px;
+/*
+width: 115px !important;
+position: absolute;
+bottom: -45px;
+right: 26px;
+height: 100px;
+*/
+}
+
+#gallery-add{
+position: absolute;
+right: 58px;
+top: 70px;
+font-size: 50px;
+}
+
+/* darken the image layer */
+/*
+.gallery div{
+	width:inherit;
+	height:inherit;
+	opacity:0;
+	transition: opacity 0.5s;
+	background-color:black;
+	position:relative;
+}
+
+.gallery:hover div{
+	opacity:0.5;
+}
+*/
