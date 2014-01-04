@@ -38,7 +38,7 @@ hr{
 /*
  photos related
 */
-.gallery-thumbnail{
+.photo-thumbnail{
 	display:inline-block;
 	margin: 15px 18px 23px;
 	padding:0px;
@@ -47,7 +47,7 @@ hr{
 	position:relative;
 }
 
-.gallery-thumbnail .file { 
+.photo-thumbnail .file { 
 	height: 100%;
 	width: 100%;
 	padding: 0px;
@@ -57,7 +57,7 @@ hr{
 	margin:0px;
 }
 
-.gallery-thumbnail:hover > .gallery-thumbnail-bottom-gradient{
+.photo-thumbnail:hover > .photo-thumbnail-bottom-gradient{
 	background-color:red;
 	height:20px !important;
 	bottom:0px;
@@ -72,7 +72,7 @@ hr{
 	background: -o-linear-gradient(top, transparent, rgba(0,0,0,0.5));
 }
 
-.gallery-thumbnail:hover > .gallery-thumbnail-top-gradient{
+.photo-thumbnail:hover > .photo-thumbnail-top-gradient{
 	background-color:red;
 	height:20px !important;
 	top:0px;
@@ -92,27 +92,27 @@ hr{
 /*
  photo stats
 */
-.gallery-thumbnail > .image-stats{
+.photo-thumbnail > .image-stats{
 	position:absolute;
 	color:white;
 	margin: 2px 2px;
 	display:none;
 }
 
-.gallery-thumbnail:hover > .image-stats{
+.photo-thumbnail:hover > .image-stats{
 	display:block;
 }
 
-.gallery-thumbnail .views-count{
+.photo-thumbnail .views-count{
 	padding:0px 3px;
 }
 
-.gallery-thumbnail .favorite-count{
+.photo-thumbnail .favorite-count{
 	padding:0px 3px;
 	bottom:0px;
 }
 
-.gallery-thumbnail .favorite-mark-up{
+.photo-thumbnail .favorite-mark-up{
 	padding:0px 3px;
 	bottom:8px;
 	right:8px;
@@ -120,6 +120,6 @@ hr{
 	font-size:25px;
 }
 
-.gallery-thumbnail .favorite-mark-up:hover{
+.photo-thumbnail .favorite-mark-up:hover{
 	color:red;
 }

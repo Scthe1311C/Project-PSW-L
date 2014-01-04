@@ -1,24 +1,5 @@
 <!-- 
 TODO provide exif data variables !
-
-var name = $("#gallery-name").val();
-		$.ajax({
-			type: "GET",
-			url: base_uri,
-			beforeSend: function (xhr) {
-				xhr.setRequestHeader('Method', "createGallery");
-				xhr.setRequestHeader('GalleryName', name);
-			},
-			success: function(data){
-				//document.getElementById("pseudo-console").innerHTML += "<br/>"+data;
-				var json = $.parseJSON( data );
-				if( json.status == "ok"){
-					location.reload(); // lazy way to do things :)
-					//document.getElementById("dialog_overlay").style.display = "none";
-					//document.getElementById("pseudo-console").innerHTML += "<br/>OOOOOOOOK !";
-				}
-			}
-		});
 -->
 
 <script>
@@ -27,6 +8,7 @@ var base_uri = "api.php"; // TODO https ?
 $('document').ready(function(){
 	
 	$("#gallery-remove").click(function(){
+		// TODO ask if user really wants to remove this gallery
 		log("remove");
 		$.ajax({
 			type: "GET",
@@ -126,18 +108,20 @@ function log( text){
 </div>
 <hr>
 
+
 <pre id="pseudo-console">
 </pre>
+
 
 <!-- photos -->
 <?php foreach($photos as $photo){ ?>
 
 	<!-- single image element -->
-	<div class="gallery-thumbnail" style="width:188px; height:141">
+	<div class="photo-thumbnail" style="width:188px; height:141">
 		
 		<!-- gradients -->
-		<div class="image-stats gallery-thumbnail-bottom-gradient"></div>
-		<div style="height:30px !important;" class="image-stats gallery-thumbnail-top-gradient"></div>
+		<div class="image-stats photo-thumbnail-bottom-gradient"></div>
+		<div style="height:30px !important;" class="image-stats photo-thumbnail-top-gradient"></div>
 		
 		<!-- image info -->
 		<div class="image-stats views-count">
