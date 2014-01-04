@@ -11,20 +11,22 @@ interface IDAO {
 }
 
 class DAO implements IDAO{
+
 	public static function insert($tableName, $data) {
-		 $sql    = "INSERT INTO ".$tableName." (";
-		 $values = "VALUES(";
-		 foreach ($data as $column => $value){
+		$sql    = "INSERT INTO ".$tableName." (";
+		$values = "VALUES(";
+		foreach ($data as $column => $value){
 			$sql    .=$column.", ";
 			$values .="'".$value."', ";
-		 }
-		 $sql     = substr($sql, 0, -2);
-		 $values  = substr($values, 0, -2);
-		 $sql    .=")";
-		 $values .=")";
-		 $sql    .= "\n".$values; 
-		// print_r($sql);
-		 return DAO::executeQuery($sql);
+		}
+		$sql     = substr($sql, 0, -2);
+		$values  = substr($values, 0, -2);
+		$sql    .=")";
+		$values .=")";
+		$sql    .= "\n".$values; 
+		//print_r($sql);
+		return DAO::executeQuery($sql);
+		//return $sql;
 	} 
 
 

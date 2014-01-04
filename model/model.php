@@ -4,6 +4,8 @@ require_once 'utils/php_oAuth20.php';
 require_once 'utils/phpDropbox.php';
 require_once 'databaseManager.php';
 
+// TODO separate database scripts: schema, values, testValues
+
 function dropbox_authorize( $return_url){
 	$dropbox = new phpDropbox( $return_url, true);
 	return true;
@@ -18,6 +20,10 @@ function getActiveUser(){
 	return NULL;
 }
 
+function getActiveUserId(){
+	return $_SESSION["active_user"];
+}
+
 function getDropboxDirectoryInfo( $path){
 	$dropbox = new phpDropbox("dropboxAuthorize");
 	$files_list = $dropbox->metadata( "dropbox", $path);
@@ -29,7 +35,7 @@ function getDropboxDirectoryInfo( $path){
 function requestDropboxImageThumb( $path){
 	$file_name = basename($path);
 	$file_name = substr($file_name, 0, strpos($file_name, '.'));
-	$user_id = getActiveUser()->id;
+	$user_id = getActiveUserId();
 	$img_thumb_path = "media/" . $user_id . "_" . $file_name . ".jpeg";
 	
 	if( !file_exists( $img_thumb_path)){
@@ -41,6 +47,23 @@ function requestDropboxImageThumb( $path){
 		fclose( $file);
 	}
 	$res = array("status" => "ok", "path" => $img_thumb_path);
+	return json_encode($res, true);
+}
+
+function createGallery( $name){
+	$res = array("status" => "failure", "cause" => "Name '".$name."' is not valid", );
+	$name = trim($name);
+	if( preg_match( "/^[A-Za-z0-9_ ]+$/", $name)){
+		$gallery = array(
+			"name" => $name,
+			"user_id" => getActiveUserId(),
+			"tumbnail_href" => "src/img/img2.jpg" // TODO hardcoded 'tumbnail_href'
+		);
+		// TODO 'tumbnail' in database ?! tHumbnail !
+		
+		insertObject( "Gallery", $gallery); // TODO check if already exists before !
+		$res = array("status" => "ok", "create" => $name);
+	}
 	return json_encode($res, true);
 }
 

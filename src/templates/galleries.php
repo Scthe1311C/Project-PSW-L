@@ -11,8 +11,30 @@ $('document').ready(function(){
 		//console.log( "black-background "+e.target.nodeName);
 		if( e.target.id == "dialog_overlay")
 			document.getElementById("dialog_overlay").style.display = "none";
-	});	
+	});
 	
+	var base_uri = "api.php"; // TODO https ?
+	
+	$("#create-gallery-button").click(function( e){
+		var name = $("#gallery-name").val();
+		$.ajax({
+			type: "GET",
+			url: base_uri,
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader('Method', "createGallery");
+				xhr.setRequestHeader('GalleryName', name);
+			},
+			success: function(data){
+				//document.getElementById("pseudo-console").innerHTML += "<br/>"+data;
+				var json = $.parseJSON( data );
+				if( json.status == "ok"){
+					location.reload(); // lazy way to do things :)
+					//document.getElementById("dialog_overlay").style.display = "none";
+					//document.getElementById("pseudo-console").innerHTML += "<br/>OOOOOOOOK !";
+				}
+			}
+		});
+	});
 });
 	
 </script>
@@ -48,7 +70,7 @@ $('document').ready(function(){
 <div id="dialog_overlay">
 	<div>
 		<h4>Create new gallery</h4>
-		<input id="username" type="text" class="form-control" placeholder="Gallery name..">
+		<input id="gallery-name" type="text" class="form-control" placeholder="Gallery name..">
 		<input type="submit" id="create-gallery-button" class="btn btn-default" value="Create gallery" >
 	</div>
 </div>

@@ -24,6 +24,11 @@
 		$path = $headers["Path"];
 		$return = requestDropboxImageThumb( trim($path));
 
+	}else if( $method === "createGallery"){
+		// create new gallery
+		$name = isset( $headers["GalleryName"]) ? $headers["GalleryName"] : "";
+		$return = createGallery( $name);
+
 	}else{
 		$return = "{ \"status\":\"failure\", \"cause\":\"method '" . $method . "' not found\" }";
 	}
