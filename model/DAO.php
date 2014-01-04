@@ -79,6 +79,13 @@ class DAO implements IDAO{
 		 return DAO::executeQuery($sql);
 	}
 	
+	public static function remove($tableName, $conditions) {
+		$sql  = "DELETE FROM ".$tableName;
+		$sql .= DAO::generateConditions($conditions);
+		// print_r($sql);
+		return DAO::executeQuery($sql);
+	}
+	
 	public static function executeQuery($sql){
 		file_put_contents("db_log.txt", $sql."\n", FILE_APPEND);
 		include '/connection.php';

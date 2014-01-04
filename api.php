@@ -29,6 +29,21 @@
 		$name = isset( $headers["GalleryName"]) ? $headers["GalleryName"] : "";
 		$return = createGallery( $name);
 
+	}else if( $method === "removeGallery"){
+		$GalleryId = isset( $headers["GalleryId"]) ? $headers["GalleryId"] : -1;
+		$return = removeGallery( $GalleryId);
+
+	}else if( $method === "renameGallery"){
+		// rename gallery
+		$name = isset( $headers["GalleryName"]) ? $headers["GalleryName"] : "";
+		$id = isset( $headers["GalleryId"]) ? $headers["GalleryId"] : -1;
+		$return = renameGallery( $id, $name);
+
+	}else if( $method === "addToFavorite"){
+		// add photo to favorite photos collection
+		$photoId = isset( $headers["photoId"]) ? $headers["photoId"] : "";
+		$return = addToFavorite( $photoId);
+		
 	}else{
 		$return = "{ \"status\":\"failure\", \"cause\":\"method '" . $method . "' not found\" }";
 	}

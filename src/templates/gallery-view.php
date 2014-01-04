@@ -1,30 +1,87 @@
 <!-- 
 TODO provide exif data variables !
+
+var name = $("#gallery-name").val();
+		$.ajax({
+			type: "GET",
+			url: base_uri,
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader('Method', "createGallery");
+				xhr.setRequestHeader('GalleryName', name);
+			},
+			success: function(data){
+				//document.getElementById("pseudo-console").innerHTML += "<br/>"+data;
+				var json = $.parseJSON( data );
+				if( json.status == "ok"){
+					location.reload(); // lazy way to do things :)
+					//document.getElementById("dialog_overlay").style.display = "none";
+					//document.getElementById("pseudo-console").innerHTML += "<br/>OOOOOOOOK !";
+				}
+			}
+		});
 -->
 
 <script>
+var base_uri = "api.php"; // TODO https ?
 
 $('document').ready(function(){
+	
 	$("#gallery-remove").click(function(){
 		log("remove");
+		$.ajax({
+			type: "GET",
+			url: base_uri,
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader('Method', "removeGallery");
+				xhr.setRequestHeader('GalleryId', <?php echo $gallery->id; ?>);
+			},
+			success: function(data){
+				log($.parseJSON( data ));
+				var json = $.parseJSON( data );				
+				if ( json.status === 'ok') {
+					window.location = 'user-profile?page=galleries';
+				}
+			}
+		});
 	});	
+	
 	
 	$("#gallery-rename").click(function(){
 		log("rename");
+		// TODO rename create pop-up
 	});	
 	
 	$("#gallery-upload").click(function(){
-		log("upload");
+		window.location = "upload?galleryId=<?php echo $gallery->id; ?>";
 	});	
-	
 	
 });
 
+// TODO remove photos
+
 function hearthIt( photoId){
 	log("hearth: "+photoId);
+	$.ajax({
+		type: "GET",
+		url: base_uri,
+		beforeSend: function (xhr) {
+			xhr.setRequestHeader('Method', "addToFavorite");
+			xhr.setRequestHeader('photoId', photoId);
+		},
+		success: function(data){
+			log($.parseJSON( data ));
+			//var json = $.parseJSON( data );
+			//if( json.status == "ok"){
+			//	location.reload(); // lazy way to do things :)
+				
+			// TODO add little heart if You like this photo !
+		}
+	});
 }
 	
 function log( text){
+	if( typeof(text) != 'string')
+		text = JSON.stringify(text);
 	document.getElementById("pseudo-console").innerHTML += "<br/>"+text;
 }
 

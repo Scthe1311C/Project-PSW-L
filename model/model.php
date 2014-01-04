@@ -6,11 +6,10 @@ require_once 'databaseManager.php';
 
 // TODO separate database scripts: schema, values, testValues
 
-function dropbox_authorize( $return_url){
-	$dropbox = new phpDropbox( $return_url, true);
-	return true;
-}
 
+/*
+Active user utils
+*/
 function getActiveUser(){
 	// TODO create some short term cache
 	if ( isset($_SESSION["active_user"]) ){
@@ -22,6 +21,18 @@ function getActiveUser(){
 
 function getActiveUserId(){
 	return $_SESSION["active_user"];
+}
+
+function checkUserAutorization( $userIdToTest){
+	return getActiveUserId() == $userIdToTest;
+}
+
+/*
+Dropbox
+*/
+function dropbox_authorize( $return_url){
+	$dropbox = new phpDropbox( $return_url, true);
+	return true;
 }
 
 function getDropboxDirectoryInfo( $path){
@@ -50,6 +61,9 @@ function requestDropboxImageThumb( $path){
 	return json_encode($res, true);
 }
 
+/*
+Galleries CRUD
+*/
 function createGallery( $name){
 	$res = array("status" => "failure", "cause" => "Name '".$name."' is not valid", );
 	$name = trim($name);
@@ -67,6 +81,54 @@ function createGallery( $name){
 	return json_encode($res, true);
 }
 
+function removeGallery( $id){
+	$res = array("status" => "failure", "cause" => "Gallery (id=".$id.") could not be removed. Don't ask why, I don't know.." );
+	$gallery = getObjectById("Gallery", $id);
+	if( !isset( $gallery) || !$gallery){
+		$res = array("status" => "failure", "cause" => "Gallery (id=".$id.") does not exist" );
+	}else if( !checkUserAutorization($gallery->user_id)){
+		$res = array("status" => "failure", "cause" => "User does not have authority to remove gallery ( id=".$id.")" );
+	}else{
+		//$a = DAO::remove( "Gallery", [new Condition("id", "=", $id)] );
+		//$res = array("status" => "ok", "sql" => $a );
+		removeObject( "Gallery", $id);
+		$res = array("status" => "ok", "removedGallery" => $id );
+	}
+	
+	return json_encode($res, true);
+}
+
+function renameGallery( $id, $name){
+	$res = array("status" => "failure", "cause" => "Name '".$name."' is not valid" );
+	$name = trim($name);
+	if( preg_match( "/^[A-Za-z0-9_ ]+$/", $name)){
+		$gallery = getObjectById("Gallery", $id);
+		if( !isset( $gallery) || !$gallery){
+			$res = array("status" => "failure", "cause" => "Could not find gallery ( id=".$id.")" );
+		}else if( !checkUserAutorization($gallery->id)){
+			$res = array("status" => "failure", "cause" => "User does not have authority to update gallery ( id=".$id.")" );
+		}else{
+			updateObjectById("Gallery", array( "name" => $name), $id);
+			$res = array("status" => "ok");
+		}
+	}
+	return json_encode($res, true);
+}
+
+function addToFavorite( $photoId){
+	$attr = array(
+			"photo_id" => $photoId,
+			"user_id" => getActiveUserId()
+		);
+	insertObject( "FavoritePhotos", $attr);
+	$res = array("status" => "ok", "favorite" => getActiveUserId()." => ".$photoId);
+	return json_encode($res, true);
+}
+
+
+/*
+Login
+*/
 function userLogin( $password){
 	// check if login and password are valid and then write user to the session
 	if( strpos($password, "Basic ") === 0){
@@ -87,7 +149,11 @@ function userLogout(){
 	unset($_SESSION["active_user"]);
 }
 
+/*
+Utils
+*/
 function getPopularGallery(){
+	// TODO just sort galleries by views..
 	return getObjectById("Gallery", POPULAR_GALLARY_ID);
 }
 

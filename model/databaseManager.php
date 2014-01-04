@@ -1,5 +1,5 @@
 <?php
-	$includedFiles = ["DAO", "data", "address", "comment", "gallery", "photo", "user"];
+	$includedFiles = ["DAO", "data", "address", "comment", "gallery", "photo", "user","favoritePhotos"];
 	foreach ($includedFiles as $file) {
 		include $file . ".php";
 	}
@@ -13,7 +13,8 @@
 		"Popular" => "galleries",
 		"Photo"   => "photos",
 		"User"    => "users",
-		"Country" => "countries"
+		"Country" => "countries",
+		"FavoritePhotos" => "favorite_photos"
 	];
 	
 	//Return all object from selected type ( f.e. "User")
@@ -91,6 +92,17 @@
 		}
 		return $class;
 	}
+	
+   /**
+	*	remove object based on id.
+	*	
+	*	NOTE: assumption is that the table contains the 'id' column
+	*/
+	function removeObject( $className, $id){
+		global $class_tables;
+		DAO::remove($class_tables[$className], [new Condition("id", "=", $id)]);
+	}
+	
 	function getAllUserCreatedGalleries($userId){
 		return getObjectsByConditions("Gallery", new Condition("user_id", "=",$userId));
 	}
