@@ -72,7 +72,7 @@ function gallery($id) {
 	$gallery = getGalleryById( $id);
 	$photos = $gallery->allPhotos();
 	return render_template("gallery-view.php", array(
-		"css_stylesheets" => array("src/css/gallery-view.css"),
+		"css_stylesheets" => array("src/css/gallery-view.css","src/css/galleries.css"),
 		"photos" => $photos,
 		"gallery" => $gallery,
 	));

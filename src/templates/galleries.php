@@ -3,7 +3,7 @@
 $('document').ready(function(){
 	$("#add-new-gallery").click(function(e){
 		var el = document.getElementById("dialog_overlay");
-		console.log( (el.style.display != "block")+"  " +el.style.display);
+		//console.log( (el.style.display != "block")+"  " +el.style.display);
 		el.style.display = el.style.display != "block" ? "block" : "none";
 	});	
 	

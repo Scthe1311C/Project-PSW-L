@@ -105,7 +105,7 @@ function renameGallery( $id, $name){
 		$gallery = getObjectById("Gallery", $id);
 		if( !isset( $gallery) || !$gallery){
 			$res = array("status" => "failure", "cause" => "Could not find gallery ( id=".$id.")" );
-		}else if( !checkUserAutorization($gallery->id)){
+		}else if( !checkUserAutorization($gallery->user_id)){
 			$res = array("status" => "failure", "cause" => "User does not have authority to update gallery ( id=".$id.")" );
 		}else{
 			updateObjectById("Gallery", array( "name" => $name), $id);

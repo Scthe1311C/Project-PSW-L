@@ -45,14 +45,42 @@ $('document').ready(function(){
 		});
 	});	
 	
-	
-	$("#gallery-rename").click(function(){
-		log("rename");
-		// TODO rename create pop-up
-	});	
-	
 	$("#gallery-upload").click(function(){
 		window.location = "upload?galleryId=<?php echo $gallery->id; ?>";
+	});	
+	
+	/*
+	 Rename handlers
+	*/
+	$("#gallery-rename").click(function(){
+		log("rename");
+		var el = document.getElementById("dialog_overlay");
+		el.style.display = el.style.display != "block" ? "block" : "none";
+	});	
+	
+	$("#dialog_overlay").click(function( e){
+		if( e.target.id == "dialog_overlay")
+			document.getElementById("dialog_overlay").style.display = "none";
+	});
+	
+	$("#create-gallery-button").click(function(){
+		var name = $("#gallery-name").val();
+		$.ajax({
+			type: "GET",
+			url: base_uri,
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader('Method', "renameGallery");
+				xhr.setRequestHeader('GalleryName', name);
+				xhr.setRequestHeader('GalleryId', <?php echo $gallery->id; ?>);
+			},
+			success: function(data){
+				//log($.parseJSON( data ));
+				var json = $.parseJSON( data );
+				if( json.status == "ok"){
+					location.reload(); // lazy way to do things :)
+				}
+			}
+		});
 	});	
 	
 });
@@ -134,3 +162,11 @@ function log( text){
 		</a>		
 	</div>
 <?php } ?>
+
+<div id="dialog_overlay">
+	<div>
+		<h4>Rename '<?php echo $gallery->name; ?>'</h4>
+		<input id="gallery-name" type="text" class="form-control" placeholder="New gallery name..">
+		<input type="submit" id="create-gallery-button" class="btn btn-default" value="Rename gallery" >
+	</div>
+</div>
