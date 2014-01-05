@@ -1,8 +1,10 @@
 <?php
-	$includedFiles = ["DAO", "data", "address", "comment", "gallery", "photo", "user","favoritePhotos"];
+	$includedFiles = ["DAO", "data", "address", "comment", "gallery", "photo", "user", "favoritePhotos", "photosGallery"];
 	foreach ($includedFiles as $file) {
 		include $file . ".php";
 	}
+	
+	// TODO escape everything
 	
 	const POPULAR_GALLARY_ID = 1;
 	//array map className =>DB_tableName
@@ -14,7 +16,8 @@
 		"Photo"   => "photos",
 		"User"    => "users",
 		"Country" => "countries",
-		"FavoritePhotos" => "favorite_photos"
+		"FavoritePhotos" => "favorite_photos",
+		"PhotosGallery" => "photos_galleries"
 	];
 	
 	//Return all object from selected type ( f.e. "User")

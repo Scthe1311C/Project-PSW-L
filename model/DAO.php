@@ -53,7 +53,7 @@ class DAO implements IDAO{
 				$sql .= "\n".$addition;
 			}
 		}
-		//print_r($sql);
+		//print_r($sql."<br/>");
 		$resource   = DAO::executeQuery($sql);
 		$dataTable  = [];
 		while( $resource && $data = mysql_fetch_assoc($resource)){ // $resource==FALSE when query failed

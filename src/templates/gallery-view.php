@@ -69,8 +69,8 @@ $('document').ready(function(){
 
 // TODO remove photos
 
-function hearthIt( photoId){
-	log("hearth: "+photoId);
+function heartIt( photoId){
+	log("heart: "+photoId);
 	$.ajax({
 		type: "GET",
 		url: base_uri,
@@ -136,13 +136,13 @@ function log( text){
 		<!-- quick mark as favorite -->
 		<?php if( $is_logged){ ?>
 			<div class="image-stats favorite-mark-up">
-				<span class="glyphicon glyphicon-heart" onclick="hearthIt(<?php echo $photo->id; ?>);"></span>
+				<span class="glyphicon glyphicon-heart" onclick="heartIt(<?php echo $photo->id; ?>);"></span>
 			</div>
 		<?php } ?>
 		
 		<!-- image -->
 		<a href="<?php echo 'photo?galleryId='.$gallery->id.'&photoId='.$photo->id;?>">
-			<img src="<?php echo $photo->thumbnail_link; ?>" class="file"/>
+			<img src="<?php echo $photo->link; ?>" class="file"/>
 		</a>		
 	</div>
 <?php } ?>

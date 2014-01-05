@@ -24,24 +24,55 @@ $('document').ready(function(){
 	// place itself in root
 	go_to_folder("/");
 	
+	
+	// add to gallery button
+	$("#add-to-gallery").click(function(){
+		if( selectedImages.length <1)
+			return;
+		
+		var arr = new Array();
+		$.each( selectedImages, function( i,v){
+			document.getElementById("pseudo-console").innerHTML += "<br/>"+i+" -> " + v+"  -> "+($("#"+v).data("path") );
+			arr.splice( 0, 0, $("#"+v).data("path"));
+		});
+		
+		var imgs = JSON.stringify(arr);
+		$.ajax({
+			type: "GET",
+			async: true,
+			url: base_uri,
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader('Method', "addToGallery");
+			},
+// !!!
+			data:{ "Images":imgs, "GalleryId":3}, // TODO hardcoded gallery id
+			success: function(data){
+				log(data);
+			},
+			 error: function (xhr, ajaxOptions, thrownError) {
+				log("add-to-gallery error");
+			}
+	   });
+	});	
 });
 
+function log( text){
+	if( typeof(text) != 'string')
+		text = JSON.stringify(text);
+	document.getElementById("pseudo-console").innerHTML += "<br/>"+text;
+}
 </script>
 
 
 <div id="browse-actions">
-	<button name="action" type="submit" style="text-align: left; cursor: default;" class="action-button pull-left" id="folder-hierarchy-up">
-		<span style="cursor: default;">
-			<img class="sprite" src="src/img/folder-up.png" style="cursor: default;"></img>
-			Back
-		</span>
+	<button name="action" class="pull-left" id="folder-hierarchy-up">
+		<span id="gallery-upload" class="gallery-action-icon glyphicon glyphicon-chevron-left"></span>
+		<span>&nbsp Back</span>
 	</button>
 
-	<button name="action" style="cursor: default;" class="action-button pull-right">
-		<span style="cursor: default;">
-			<img class="sprite sprite_rainbow" src="src/img/sprite_spacer.gif" style="cursor: default;"></img>
-			add to gallery
-		</span>
+	<button name="action" class="pull-right" id="add-to-gallery">
+		<span id="gallery-upload" class="gallery-action-icon glyphicon glyphicon-folder-open"></span>
+		<span>&nbsp Add to gallery</span>
 	</button>
 	
 	<div class="" id="current-folder-name">

@@ -87,6 +87,7 @@ function create_folder_content( dropbox_dir_json){
 			// TODO base id on image spec. data
 			imgsHTML += createImageItem( "gallery_item_"+i, file.path, display_file_name);
 		}
+		//return false; // debug
 	});
 	
 	// swap
@@ -113,9 +114,10 @@ function createImageItem( id, img_path, name){
 	var on_click = "image_click(\'" + id + "\')";
 	return '<div class="gallery-item-wrapper gallery-item-wrapper-image" onclick="'+on_click+'" >'+
 				'<div class="gallery-image" id="'+id+'" >'+
-				'<div><label>'+name+'</label></div>'+
-				'<span class="glyphicon glyphicon-ok"></span>'+
-			'</div></div>';
+					'<div><label>'+name+'</label></div>'+
+					'<span class="glyphicon glyphicon-ok"></span>'+
+				'</div>'+
+			'</div>';
 }
 
 function requestImageThumbnail( id, img_path){
@@ -131,11 +133,11 @@ function requestImageThumbnail( id, img_path){
 			// substitute stub image
 			var json = $.parseJSON( data );
 			if(json.status=="ok"){
-				img_path = "" + json.path;
+				img_local_path = "" + json.path;
 				$("#"+id).addClass("background-cover");
 			}else // TODO could not load image - raise warning
-				img_path = "src/img/be.png";
-			$("#"+id).css("background-image", "url("+img_path+")" );
+				img_local_path = "src/img/be.png";
+			$("#"+id).data("path", img_path).css("background-image", "url("+img_local_path+")" );
 			//document.getElementById("pseudo-console").innerHTML += "respond(" +id+ "): '"+data+"'";
 		},
 		 error: function (xhr, ajaxOptions, thrownError) {

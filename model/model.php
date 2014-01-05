@@ -44,10 +44,11 @@ function getDropboxDirectoryInfo( $path){
 }
 
 function requestDropboxImageThumb( $path){
+	// TODO use database to find cache image
 	$file_name = basename($path);
 	$file_name = substr($file_name, 0, strpos($file_name, '.'));
 	$user_id = getActiveUserId();
-	$img_thumb_path = "media/" . $user_id . "_" . $file_name . ".jpeg";
+	$img_thumb_path = "media/thumbs/" . $user_id . "_" . $file_name . ".jpeg";
 	
 	if( !file_exists( $img_thumb_path)){
 		$dropbox = new phpDropbox("dropboxAuthorize");
@@ -112,6 +113,62 @@ function renameGallery( $id, $name){
 			$res = array("status" => "ok");
 		}
 	}
+	return json_encode($res, true);
+}
+
+function addToGallery( $galleryId, $imgs){
+	// TODO check authorization
+	// TODO client: show dialog of progress ?
+	// TODO duplicates
+	
+	$dropbox = new phpDropbox("dropboxAuthorize");
+	$date = date( "Y-m-d h:i:s", time());//0000-00-00 00:00:00
+	$res = array();
+	foreach( $imgs as $i => $img){
+		$path_parts = pathinfo( $img);
+		$file_name = $path_parts["filename"];
+		
+		// download image
+		$img_data = $dropbox->files_get("dropbox", $img); 
+		
+		// write image
+		$path = "media/src/".(time())."_".$path_parts["basename"];
+		$file = fopen( $path, "wb");
+		fwrite( $file, $img_data);
+		fclose( $file);
+		
+		//  write image to database
+		$photo = array(
+			"link" => $path,
+			//"thumbnail_link" => $path,
+			//"width" =>
+			//"height" =>
+			"name" => $file_name,
+			"upload_date" => $date
+		);
+		insertObject( "Photo", $photo);
+		
+		//  write image and gallery to photos_galleries
+		$photo = getObjectsByConditions("Photo", array(
+			new Condition("link", "=", "'".$path."'"),
+			new Condition("name", "=", "'".$file_name."'"),
+			new Condition("upload_date", "=", "'".$date."'")
+			));
+		$photo = reset($photo);
+		//print_r($photo);
+		if($photo){ // object leakage ?
+			$photosGallery = array(
+				"gallery_id" => $galleryId,
+				"photo_id" => $photo->id
+			);
+			insertObject( "PhotosGallery", $photosGallery);
+			$res[$file_name] = [ "path"=>$path, "gallery"=>$galleryId];
+		}else{
+			$res[$file_name] = [ "Error"=>"could not find photo to connect it to the gallery"];
+		}
+	}
+	
+	$res["status"] = "success";
 	return json_encode($res, true);
 }
 

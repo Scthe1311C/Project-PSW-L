@@ -9,21 +9,15 @@ bar with actions
 	line-height:37px;
 }
 
-#browse-actions ul{
-	list-style-type:none;
-	height:inherit;
-}
-
-#browse-actions li{
-	height:inherit;
-	display:table-cell;
-	vertical-align:middle
-}
-
-.action-button{
-	width:130px;
+#browse-actions button{
+	width:140px;
 	border: 0px none;
 	background-color: transparent;
+	cursor: default;
+}
+
+#browse-actions button:hover span{
+	font-weight:600;
 }
 
 #current-folder-name{
@@ -37,20 +31,12 @@ bar with actions
 	text-decoration:underline;
 }
 
-.sprite{
-	background-repeat: no-repeat;
-	width: 16px;
-	height:16px;
-	background-image: url("../img/web_sprites.png");
+#add-to-gallery{
+	text-align:right !important;
 }
 
-.sprite_upload{
-	background-position: left -12317px
-}
-
-.sprite_rainbow{
-	background-position: 0% -10613px;
-	
+#folder-hierarchy-up{
+	text-align:left !important;
 }
 
 /*
