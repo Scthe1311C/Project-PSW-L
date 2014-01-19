@@ -1,8 +1,13 @@
 <?php
 class Gallery extends Data {
+	
+	protected $photoCache;
+
 	public function allPhotos(){
-		return getAllPhotosFromGallery($this->id);
-	}  
+		if($this->photoCache == NULL)
+			$this->photoCache = getAllPhotosFromGallery($this->id);
+		return $this->photoCache;
+	}
 
 	public function getDesignerSignature(){
 		$designer = getObjectsByConditions("User", new Condition("id", "=", $this->data["user_id"]))[$this->user_id];

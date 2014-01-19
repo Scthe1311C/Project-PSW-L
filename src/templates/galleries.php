@@ -45,9 +45,11 @@ $('document').ready(function(){
 		<div class="gallery">
 			<!-- image -->
 			<a href="gallery?galleryId=<?php echo $gallery->id ?>">
-				<img class="folder-image" src="src/img/folder-img2.png"/>
 				<img class="gallery-thumbnail" src="<?php echo $gallery->tumbnail_href ?>"/>
 			</a>
+			<div class="gallery-thumbnail gallery-darken-layer">
+				<label><?php echo count( $gallery->allPhotos()); ?></label>
+			</div>
 			<!--title-->
 			<h4><?php echo $gallery->name ?></h4>
 		</div>
@@ -57,11 +59,8 @@ $('document').ready(function(){
 		<div class="gallery">
 			<!-- image -->
 			<div id="add-new-gallery">
-				<img class="folder-image" src="src/img/folder-img2.png"/>
 				<span id="gallery-add" class="glyphicon glyphicon-plus"></span>
 			</div>
-			<!--title-->
-			<h4>Add new gallery</h4>
 		</div>
 	<?php } ?>
 

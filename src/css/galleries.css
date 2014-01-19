@@ -9,37 +9,52 @@
 	position:relative;
 }
 
+.gallery-thumbnail{
+	width: 153px !important;
+	height: 101px;
+	transition: opacity 0.5s;
+}
+
+#gallery-add{
+	position: absolute;
+	right: 59px;
+	font-size: 50px;
+	color: black;
+	top: 15px;
+}
+
+#gallery-add:hover{
+	color:rgb(255,64,64)
+}
+
 .gallery h4{
 	text-align: center;
 	padding-bottom: 0
 }
 
-.gallery a{
-	position:relative;
+.gallery-darken-layer{
+	opacity:0;
+	transition: opacity 0.5s;
+	background-color:black;
+	position:absolute;
+	top:0px;
+	color:white;
+	font-size:1.2em;
 }
 
-.gallery img{
-	width:100%;
+.gallery-darken-layer:hover{
+	opacity:0.5;
 }
 
-.gallery .folder-image{
-	width:100%;
-}
-
-.gallery-thumbnail{
-	width: 153px !important;
+.gallery-darken-layer label{
+	position:absolute;
 	position: absolute;
-	bottom: -60px;
-	right: 10px;
-	height: 101px;
-/*
-width: 115px !important;
-position: absolute;
-bottom: -45px;
-right: 26px;
-height: 100px;
-*/
+	right: 7px;
+	top: 3px;
 }
+
+
+
 
 /*
   Create new gallery dialog
@@ -68,14 +83,6 @@ height: 100px;
 	text-align:center;
 	border-radius: 5px;
 	z-index: 1001;
-}
-
-#gallery-add{
-	position: absolute;
-	right: 59px;
-	font-size: 50px;
-	color: black;
-	top: 65px;
 }
 
 #create-gallery-button{
