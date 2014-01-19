@@ -45,7 +45,9 @@ $('document').ready(function(){
 		<div class="gallery">
 			<!-- image -->
 			<a href="gallery?galleryId=<?php echo $gallery->id ?>">
-				<img class="gallery-thumbnail" src="<?php echo $gallery->tumbnail_href ?>"/>
+				<!-- <img class="gallery-thumbnail" src="< ?php echo $gallery->tumbnail_href ?>"/>
+				 -->
+				<img class="gallery-thumbnail" src="<?php echo $gallery->getThumbnail(); ?>"/>
 			</a>
 			<div class="gallery-thumbnail gallery-darken-layer">
 				<label><?php echo count( $gallery->allPhotos()); ?></label>

@@ -9,6 +9,10 @@ class Gallery extends Data {
 		return $this->photoCache;
 	}
 
+	public function getThumbnail(){
+		return count($this->allPhotos()) > 0 ? current( $this->allPhotos())->getThumbnail() : "src/img/folder-img2.png";
+	}
+	
 	public function getDesignerSignature(){
 		$designer = getObjectsByConditions("User", new Condition("id", "=", $this->data["user_id"]))[$this->user_id];
 		return $designer->getSignature();

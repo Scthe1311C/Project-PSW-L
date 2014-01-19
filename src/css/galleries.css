@@ -11,8 +11,10 @@
 
 .gallery-thumbnail{
 	width: 153px !important;
-	height: 101px;
+	height: 131px;
 	transition: opacity 0.5s;
+	/*background: no-repeat fixed center center / cover transparent;*/
+	/*background-position:center center;*/
 }
 
 #gallery-add{
@@ -20,7 +22,7 @@
 	right: 59px;
 	font-size: 50px;
 	color: black;
-	top: 15px;
+	top: 35px;
 }
 
 #gallery-add:hover{
@@ -39,10 +41,11 @@
 	position:absolute;
 	top:0px;
 	color:white;
-	font-size:1.2em;
+	font-size:2em;
+	pointer-events:none;
 }
 
-.gallery-darken-layer:hover{
+.gallery:hover .gallery-darken-layer{
 	opacity:0.5;
 }
 
@@ -50,7 +53,7 @@
 	position:absolute;
 	position: absolute;
 	right: 7px;
-	top: 3px;
+	bottom: 3px;
 }
 
 
