@@ -39,21 +39,53 @@ bar with actions
 	text-align:left !important;
 }
 
+#dropbox-content{
+	position:relative
+}
+/*
+loading screen
+*/
+#dropbox-folder-loading{
+	width:100%;
+	/*height:100%;
+	min-height:500px;*/
+	height:500px;
+	top: 0px;
+}
+
+#dropbox-folder-loading table{
+	width: inherit;
+	height: inherit;
+	vertical-align: middle;
+	text-align: center;
+}
+
+#dropbox-folder-loading table td{
+	vertical-align: middle;
+	text-align: center;
+}
+
+#dropbox-folder-loading div{
+	background-color: white;
+	opacity: 0.7;
+	position: absolute;
+	width: inherit;
+	height: inherit;
+}
+.dropbox-loading-upload{
+	position:absolute !important;
+	height:100% !important;
+	min-height:500px;
+}
+
+.dropbox-loading-upload table{
+	/*position:fixed;*/
+	position: absolute;
+}
+
 /*
 gallery
 */
-#dropbox-folder-loading{
-	height:500px;
-	vertical-align: middle;
-	text-align: center;
-	width:100%;
-}
-
-#dropbox-folder-loading td{
-	vertical-align: middle;
-	text-align: center;
-}
-
 #dropbox-folder-folders{
 }
 
@@ -125,7 +157,7 @@ gallery
 	color:white;
 }
 
-/* tick */
+/* tick icon ( image selected marker) */
 .gallery-image span.glyphicon{
 	position:absolute;
 	top:0px;

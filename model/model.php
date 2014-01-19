@@ -72,9 +72,9 @@ function createGallery( $name){
 		$gallery = array(
 			"name" => $name,
 			"user_id" => getActiveUserId(),
-			"tumbnail_href" => "src/img/img2.jpg" // TODO hardcoded 'tumbnail_href'
+			"tumbnail_href" => "src/img/img2.jpg"
 		);
-		// TODO 'tumbnail' in database ?! tHumbnail !
+		// TODO remove 'tumbnail_href' from database
 		
 		insertObject( "Gallery", $gallery); // TODO check if already exists before !
 		$res = array("status" => "ok", "create" => $name);

@@ -30,12 +30,17 @@ $('document').ready(function(){
 		if( selectedImages.length <1)
 			return;
 		
+		// add white overlay
+		$("#dropbox-folder-loading").addClass("dropbox-loading-upload");
+		
+		// get images
 		var arr = new Array();
 		$.each( selectedImages, function( i,v){
 			document.getElementById("pseudo-console").innerHTML += "<br/>"+i+" -> " + v+"  -> "+($("#"+v).data("path") );
 			arr.splice( 0, 0, $("#"+v).data("path"));
 		});
 		
+		// send download request
 		var imgs = JSON.stringify(arr);
 		$.ajax({
 			type: "GET",
@@ -48,9 +53,11 @@ $('document').ready(function(){
 			data:{ "Images":imgs, "GalleryId":3}, // TODO hardcoded gallery id
 			success: function(data){
 				log(data);
+				$("#dropbox-folder-loading").removeClass("dropbox-loading-upload");
 			},
 			 error: function (xhr, ajaxOptions, thrownError) {
 				log("add-to-gallery error");
+				$("#dropbox-folder-loading").removeClass("dropbox-loading-upload");
 			}
 	   });
 	});	
@@ -82,20 +89,25 @@ function log( text){
 
 <pre id="pseudo-console" ></pre>
 	
-<!-- loading screen -->
-<table  id="dropbox-folder-loading">
-	<tr><td>
-		<img src="src/img/dots64.gif"></img>
-	</td></tr>
-</table>
- 
-<div id="dropbox-folder" style="display:none">
-	<div id="dropbox-folder-folders" style="width:100%">
-		<!-- place for the folders that have root in the current directory -->
-	</div> 
-	<hr>
-	<div id="dropbox-folder-content">
-		<!-- place for the folder view -->
-	</div> 
-</div>
 
+<div id="dropbox-content" style="">
+	<div id="dropbox-folder">
+		<div id="dropbox-folder-folders" style="width:100%">
+			<!-- place for the folders that have root in the current directory -->
+		</div> 
+		<hr>
+		<div id="dropbox-folder-content">
+			<!-- place for the folder view -->
+		</div> 
+	</div>
+
+	<!-- loading screen -->
+	<div id="dropbox-folder-loading">
+		<div></div>
+		<table>
+			<tr><td>
+				<img src="src/img/dots64.gif"></img><!-- TODO add alpha to image -->
+			</td></tr>
+		</table>
+	</div>
+</div>
