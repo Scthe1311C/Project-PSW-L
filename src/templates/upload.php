@@ -110,7 +110,7 @@ function cancelUpload(){
 		<div></div>
 		<table>
 			<tr><td>
-				<img src="src/img/dots64.gif"></img><!-- TODO add alpha to image -->
+				<img src="src/img/dots64_2.gif"></img><!-- TODO add alpha to image -->
 			</td></tr>
 		</table>
 	</div>

@@ -150,7 +150,6 @@ function uploadImages( galleryId){
 	// add white overlay
 	$("#dropbox-folder-loading").addClass("dropbox-loading-upload");
 	$("#dropbox-folder-loading").show();
-	
 	// get images
 	var arr = new Array();
 	$.each( selectedImages, function( i,v){
