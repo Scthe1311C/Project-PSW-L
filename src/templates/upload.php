@@ -4,7 +4,6 @@ TODO template mechanism
 	declare-css(src/css/"a.css") // lazy buffer instantiate, write to buffer
 	declare-js(src/js/"a.js")
 TODO 'back' when in root reloads content
-TODO if (selectedPhotosCount > 0) {
 TODO when back from folder previously selected images should be visibly selected
 TODO when quickly switching folders old async. response updates new content ( unique ids should do the work)
 */
@@ -17,7 +16,7 @@ $('document').ready(function(){
 	// 'Back' button handler
 	$("#folder-hierarchy-up").click(function(){
 		var return_path = current_folder.substr( 0,  current_folder.lastIndexOf("/"));
-		document.getElementById("pseudo-console").innerHTML += "up pressed, current path: '"+current_folder+"' back to: '"+return_path+"'";
+		//document.getElementById("pseudo-console").innerHTML += "up pressed, current path: '"+current_folder+"' back to: '"+return_path+"'";
 		go_to_folder(return_path);
 	});	
 	
@@ -27,18 +26,21 @@ $('document').ready(function(){
 	
 	// add to gallery button
 	$("#add-to-gallery").click(function(){
-		if( selectedImages.length <1)
-			return;
+		//if( selectedImages.length <1)
+		//	return;
 		
 		// add white overlay
 		$("#dropbox-folder-loading").addClass("dropbox-loading-upload");
+		$("#dropbox-folder-loading").show();
+		//return;
 		
 		// get images
 		var arr = new Array();
 		$.each( selectedImages, function( i,v){
-			document.getElementById("pseudo-console").innerHTML += "<br/>"+i+" -> " + v+"  -> "+($("#"+v).data("path") );
+			//document.getElementById("pseudo-console").innerHTML += "<br/>"+i+" -> " + v+"  -> "+($("#"+v).data("path") );
 			arr.splice( 0, 0, $("#"+v).data("path"));
 		});
+		selectedImages = new Array();
 		
 		// send download request
 		var imgs = JSON.stringify(arr);
@@ -54,10 +56,12 @@ $('document').ready(function(){
 			success: function(data){
 				log(data);
 				$("#dropbox-folder-loading").removeClass("dropbox-loading-upload");
+				go_to_folder( current_folder);
 			},
 			 error: function (xhr, ajaxOptions, thrownError) {
 				log("add-to-gallery error");
 				$("#dropbox-folder-loading").removeClass("dropbox-loading-upload");
+				go_to_folder( current_folder);
 			}
 	   });
 	});	
@@ -66,7 +70,7 @@ $('document').ready(function(){
 function log( text){
 	if( typeof(text) != 'string')
 		text = JSON.stringify(text);
-	document.getElementById("pseudo-console").innerHTML += "<br/>"+text;
+	//document.getElementById("pseudo-console").innerHTML += "<br/>"+text;
 }
 </script>
 
@@ -87,8 +91,9 @@ function log( text){
 	</div>
 </div>
 
+<!-- 
 <pre id="pseudo-console" ></pre>
-	
+ -->
 
 <div id="dropbox-content" style="">
 	<div id="dropbox-folder">

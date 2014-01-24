@@ -26,7 +26,7 @@ function image_click( id){
 function go_to_folder( path){
 	if( isBlank(path))
 		path = "/";
-	document.getElementById("pseudo-console").innerHTML += "\ndirectory metadata read: '"+path+"'";
+	//document.getElementById("pseudo-console").innerHTML += "\ndirectory metadata read: '"+path+"'";
 	
 	current_folder = path;
 	write_folder_name();
@@ -47,7 +47,7 @@ function go_to_folder( path){
 			create_folder_content( json);
 		},
 		error: function(xhr, textStatus, errorThrown){
-			document.getElementById("pseudo-console").innerHTML += "\n'"+textStatus+"'  ;'"+errorThrown+"'";
+			//document.getElementById("pseudo-console").innerHTML += "\n'"+textStatus+"'  ;'"+errorThrown+"'";
 		}
 	});
 }
@@ -141,7 +141,7 @@ function requestImageThumbnail( id, img_path){
 			//document.getElementById("pseudo-console").innerHTML += "respond(" +id+ "): '"+data+"'";
 		},
 		 error: function (xhr, ajaxOptions, thrownError) {
-			document.getElementById("pseudo-console").innerHTML += "\nrequestImageThumbnail() error";
+			//document.getElementById("pseudo-console").innerHTML += "\nrequestImageThumbnail() error";
 		}
    });
 }

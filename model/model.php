@@ -118,7 +118,6 @@ function renameGallery( $id, $name){
 
 function addToGallery( $galleryId, $imgs){
 	// TODO check authorization
-	// TODO client: show dialog of progress ?
 	// TODO duplicates
 	
 	$dropbox = new phpDropbox("dropboxAuthorize");
