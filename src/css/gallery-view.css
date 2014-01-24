@@ -123,3 +123,15 @@ hr{
 .photo-thumbnail .favorite-mark-up:hover{
 	color:red;
 }
+
+.photo-thumbnail .delte-img{
+	padding:0px 3px;
+	top:8px;
+	right:8px;
+	color:white;
+	font-size:25px;
+}
+
+.photo-thumbnail .delte-img:hover{
+	color:red;
+}

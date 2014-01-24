@@ -181,6 +181,12 @@ function addToFavorite( $photoId){
 	return json_encode($res, true);
 }
 
+function removePhoto( $photoId){
+	// TODO check permissions
+	DAO::remove("`photos_galleries`", [new Condition("photo_id", "=", $photoId)]);
+	$res = array("status" => "ok", "removedPhoto" => $photoId );
+	return json_encode($res, true);
+}
 
 /*
 Login

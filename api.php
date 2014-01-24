@@ -48,6 +48,11 @@
 		// add photo to favorite photos collection
 		$imgs = json_decode($_GET["Images"]);
 		$return = addToGallery( $_GET["GalleryId"], $imgs);
+		
+	}else if( $method === "removePhoto"){
+		// add photo to favorite photos collection
+		$photoId = isset( $headers["photoId"]) ? $headers["photoId"] : "";
+		$return = removePhoto( $photoId);
 			
 	}else{
 		$return = "{ \"status\":\"failure\", \"cause\":\"method '" . $method . "' not found\" }";

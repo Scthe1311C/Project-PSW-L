@@ -67,8 +67,6 @@ $('document').ready(function(){
 	
 });
 
-// TODO remove photos
-
 function heartIt( photoId){
 	log("heart: "+photoId);
 	$.ajax({
@@ -88,11 +86,36 @@ function heartIt( photoId){
 		}
 	});
 }
+
+function removePhoto( photoId){
+	log("remove: "+photoId);
+	$.ajax({
+		type: "GET",
+		url: base_uri,
+		beforeSend: function (xhr) {
+			xhr.setRequestHeader('Method', "removePhoto");
+			xhr.setRequestHeader('photoId', photoId);
+			log("send");
+		},
+		success: function(data){
+			log("resp came ! :="+data);
+			//log($.parseJSON( data ));
+			var json = $.parseJSON( data );
+			if( json.status == "ok")
+				//log("resp ok");
+				location.reload();
+			//else
+				//log("resp Error");
+			//	location.reload(); // lazy way to do things :)
+		}
+	});
+}
 	
 function log( text){
 	if( typeof(text) != 'string')
 		text = JSON.stringify(text);
-	document.getElementById("pseudo-console").innerHTML += "<br/>"+text;
+	//alert(text);
+	//document.getElementById("pseudo-console").innerHTML += "<br/>"+text;
 }
 
 </script>
@@ -108,22 +131,23 @@ function log( text){
 </div>
 <hr>
 
-
+<!-- 
 <pre id="pseudo-console">
-</pre>
+</pre>  -->
 
 
 <!-- photos -->
 <?php foreach($photos as $photo){ ?>
 
 	<!-- single image element -->
-	<div class="photo-thumbnail" style="width:188px; height:141">
+	<div class="photo-thumbnail" style="width:188px;">
 		
 		<!-- gradients -->
 		<div class="image-stats photo-thumbnail-bottom-gradient"></div>
 		<div style="height:30px !important;" class="image-stats photo-thumbnail-top-gradient"></div>
 		
 		<!-- image info -->
+		<!-- 
 		<div class="image-stats views-count">
 			<span class="glyphicon glyphicon-eye-open"></span>&nbsp;
 			<span><?php echo $photo->views<1000? $photo->views: ($photo->views/1000)."k"?></span>
@@ -132,11 +156,14 @@ function log( text){
 			<span class="glyphicon glyphicon-heart"></span>&nbsp;
 			<span><?php echo $photo->favorites<1000? $photo->favorites: ($photo->favorites/1000)."k"?></span>
 		</div>
-
-		<!-- quick mark as favorite -->
+		-->
+ 
 		<?php if( $is_logged){ ?>
 			<div class="image-stats favorite-mark-up">
 				<span class="glyphicon glyphicon-heart" onclick="heartIt(<?php echo $photo->id; ?>);"></span>
+			</div>
+			<div class="image-stats delte-img">
+				<span class="glyphicon glyphicon-remove" onclick="removePhoto(<?php echo $photo->id; ?>);"></span>
 			</div>
 		<?php } ?>
 		
