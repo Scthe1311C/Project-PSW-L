@@ -11,20 +11,22 @@ interface IDAO {
 }
 
 class DAO implements IDAO{
+
 	public static function insert($tableName, $data) {
-		 $sql    = "INSERT INTO ".$tableName." (";
-		 $values = "VALUES(";
-		 foreach ($data as $column => $value){
+		$sql    = "INSERT INTO ".$tableName." (";
+		$values = "VALUES(";
+		foreach ($data as $column => $value){
 			$sql    .=$column.", ";
 			$values .="'".$value."', ";
-		 }
-		 $sql     = substr($sql, 0, -2);
-		 $values  = substr($values, 0, -2);
-		 $sql    .=")";
-		 $values .=")";
-		 $sql    .= "\n".$values; 
-		// print_r($sql);
-		 return DAO::executeQuery($sql);
+		}
+		$sql     = substr($sql, 0, -2);
+		$values  = substr($values, 0, -2);
+		$sql    .=")";
+		$values .=")";
+		$sql    .= "\n".$values; 
+		//print_r($sql);
+		return DAO::executeQuery($sql);
+		//return $sql;
 	} 
 
 
@@ -51,7 +53,7 @@ class DAO implements IDAO{
 				$sql .= "\n".$addition;
 			}
 		}
-		//print_r($sql);
+		//print_r($sql."<br/>");
 		$resource   = DAO::executeQuery($sql);
 		$dataTable  = [];
 		while( $resource && $data = mysql_fetch_assoc($resource)){ // $resource==FALSE when query failed
@@ -75,6 +77,13 @@ class DAO implements IDAO{
 		 $sql .= DAO::generateConditions($conditions);
 		// print_r($sql);
 		 return DAO::executeQuery($sql);
+	}
+	
+	public static function remove($tableName, $conditions) {
+		$sql  = "DELETE FROM ".$tableName;
+		$sql .= DAO::generateConditions($conditions);
+		// print_r($sql);
+		return DAO::executeQuery($sql);
 	}
 	
 	public static function executeQuery($sql){

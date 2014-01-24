@@ -24,6 +24,36 @@
 		$path = $headers["Path"];
 		$return = requestDropboxImageThumb( trim($path));
 
+	}else if( $method === "createGallery"){
+		// create new gallery
+		$name = isset( $headers["GalleryName"]) ? $headers["GalleryName"] : "";
+		$return = createGallery( $name);
+
+	}else if( $method === "removeGallery"){
+		$GalleryId = isset( $headers["GalleryId"]) ? $headers["GalleryId"] : -1;
+		$return = removeGallery( $GalleryId);
+
+	}else if( $method === "renameGallery"){
+		// rename gallery
+		$name = isset( $headers["GalleryName"]) ? $headers["GalleryName"] : "";
+		$id = isset( $headers["GalleryId"]) ? $headers["GalleryId"] : -1;
+		$return = renameGallery( $id, $name);
+
+	}else if( $method === "addToFavorite"){
+		// add photo to favorite photos collection
+		$photoId = isset( $headers["photoId"]) ? $headers["photoId"] : "";
+		$return = addToFavorite( $photoId);
+	
+	}else if( $method === "addToGallery"){
+		// add photo to favorite photos collection
+		$imgs = json_decode($_GET["Images"]);
+		$return = addToGallery( $_GET["GalleryId"], $imgs);
+		
+	}else if( $method === "removePhoto"){
+		// add photo to favorite photos collection
+		$photoId = isset( $headers["photoId"]) ? $headers["photoId"] : "";
+		$return = removePhoto( $photoId);
+			
 	}else{
 		$return = "{ \"status\":\"failure\", \"cause\":\"method '" . $method . "' not found\" }";
 	}

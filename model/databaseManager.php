@@ -1,8 +1,10 @@
 <?php
-	$includedFiles = ["DAO", "data", "address", "comment", "gallery", "photo", "user"];
+	$includedFiles = ["DAO", "data", "address", "comment", "gallery", "photo", "user", "favoritePhotos", "photosGallery"];
 	foreach ($includedFiles as $file) {
 		include $file . ".php";
 	}
+	
+	// TODO escape everything
 	
 	const POPULAR_GALLARY_ID = 1;
 	//array map className =>DB_tableName
@@ -13,7 +15,9 @@
 		"Popular" => "galleries",
 		"Photo"   => "photos",
 		"User"    => "users",
-		"Country" => "countries"
+		"Country" => "countries",
+		"FavoritePhotos" => "favorite_photos",
+		"PhotosGallery" => "photos_galleries"
 	];
 	
 	//Return all object from selected type ( f.e. "User")
@@ -42,7 +46,7 @@
 	}
 		
 	//Check if new data are correct and update
-	//(f.e "User", ["name" => "Piter"], new Condition("surname","=","Smith"))
+	//(f.e "User", ["name" => "Peter"], new Condition("surname","=","Smith"))
 	function updateObjectByConditions($className, $newData, $conditions) {
 		global $class_tables;
 		foreach ($newData as $name =>$value)
@@ -51,14 +55,13 @@
 	}
 	
 	//Check if new data are correct and update
-	//(f.e "User", ["name" => "Piter"], 1)
+	//(f.e "User", ["name" => "Peter"], 1)
 	function updateObjectById($className, $newData, $id){
 		updateObjectByConditions($className, $newData, new Condition("id", "=",$id));
 	}
 	
-	// if data are correct updtate insert new data in DB
-	// (f.e "User", "$userData")
-	
+	// if data is valid, insert new data in DB
+	// (f.e "User", $userData)
 	function insertObject($className, $data) {
 		global $class_tables;
 		foreach ($data as $name =>$value)
@@ -66,7 +69,7 @@
 		DAO::insert($class_tables[$className], $data);
 	}
 
-	//Return instace of class construct by data
+	//Return instance of class construct by data
 	//(f.e "Gallery", $galleryData)	
 	function getInsance($className, $data) {
 		switch ($className) {
@@ -92,6 +95,17 @@
 		}
 		return $class;
 	}
+	
+   /**
+	*	remove object based on id.
+	*	
+	*	NOTE: assumption is that the table contains the 'id' column
+	*/
+	function removeObject( $className, $id){
+		global $class_tables;
+		DAO::remove($class_tables[$className], [new Condition("id", "=", $id)]);
+	}
+	
 	function getAllUserCreatedGalleries($userId){
 		return getObjectsByConditions("Gallery", new Condition("user_id", "=",$userId));
 	}

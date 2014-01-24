@@ -1,9 +1,18 @@
 <?php
 class Gallery extends Data {
-	public function allPhotos(){
-		return getAllPhotosFromGallery($this->id);
-	}  
+	
+	protected $photoCache;
 
+	public function allPhotos(){
+		if($this->photoCache == NULL)
+			$this->photoCache = getAllPhotosFromGallery($this->id);
+		return $this->photoCache;
+	}
+
+	public function getThumbnail(){
+		return count($this->allPhotos()) > 0 ? current( $this->allPhotos())->getThumbnail() : "src/img/folder-img2.png";
+	}
+	
 	public function getDesignerSignature(){
 		$designer = getObjectsByConditions("User", new Condition("id", "=", $this->data["user_id"]))[$this->user_id];
 		return $designer->getSignature();

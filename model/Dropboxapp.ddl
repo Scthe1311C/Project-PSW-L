@@ -36,7 +36,7 @@ CREATE TABLE Photos (
   thumbnail_link varchar(255) NOT NULL, 
   width          int(5) NOT NULL, 
   height         int(5) NOT NULL, 
-  name           varchar(32), 
+  name           varchar(255), 
   views          int(10) DEFAULT 0, 
   address_id     int(11), 
   favorites      int(10) DEFAULT 0, 

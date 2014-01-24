@@ -4,11 +4,12 @@ require_once 'utils/php_oAuth20.php';
 require_once 'utils/phpDropbox.php';
 require_once 'databaseManager.php';
 
-function dropbox_authorize( $return_url){
-	$dropbox = new phpDropbox( $return_url, true);
-	return true;
-}
+// TODO separate database scripts: schema, values, testValues
 
+
+/*
+Active user utils
+*/
 function getActiveUser(){
 	// TODO create some short term cache
 	if ( isset($_SESSION["active_user"]) ){
@@ -16,6 +17,22 @@ function getActiveUser(){
 		return getObjectById("User", $user_id);
 	}
 	return NULL;
+}
+
+function getActiveUserId(){
+	return $_SESSION["active_user"];
+}
+
+function checkUserAutorization( $userIdToTest){
+	return getActiveUserId() == $userIdToTest;
+}
+
+/*
+Dropbox
+*/
+function dropbox_authorize( $return_url){
+	$dropbox = new phpDropbox( $return_url, true);
+	return true;
 }
 
 function getDropboxDirectoryInfo( $path){
@@ -27,10 +44,11 @@ function getDropboxDirectoryInfo( $path){
 }
 
 function requestDropboxImageThumb( $path){
+	// TODO use database to find cache image
 	$file_name = basename($path);
 	$file_name = substr($file_name, 0, strpos($file_name, '.'));
-	$user_id = getActiveUser()->id;
-	$img_thumb_path = "media/" . $user_id . "_" . $file_name . ".jpeg";
+	$user_id = getActiveUserId();
+	$img_thumb_path = "media/thumbs/" . $user_id . "_" . $file_name . ".jpeg";
 	
 	if( !file_exists( $img_thumb_path)){
 		$dropbox = new phpDropbox("dropboxAuthorize");
@@ -44,6 +62,135 @@ function requestDropboxImageThumb( $path){
 	return json_encode($res, true);
 }
 
+/*
+Galleries CRUD
+*/
+function createGallery( $name){
+	$res = array("status" => "failure", "cause" => "Name '".$name."' is not valid", );
+	$name = trim($name);
+	if( preg_match( "/^[A-Za-z0-9_ ]+$/", $name)){
+		$gallery = array(
+			"name" => $name,
+			"user_id" => getActiveUserId(),
+			"tumbnail_href" => "src/img/img2.jpg"
+		);
+		// TODO remove 'tumbnail_href' from database
+		
+		insertObject( "Gallery", $gallery); // TODO check if already exists before !
+		$res = array("status" => "ok", "create" => $name);
+	}
+	return json_encode($res, true);
+}
+
+function removeGallery( $id){
+	$res = array("status" => "failure", "cause" => "Gallery (id=".$id.") could not be removed. Don't ask why, I don't know.." );
+	$gallery = getObjectById("Gallery", $id);
+	if( !isset( $gallery) || !$gallery){
+		$res = array("status" => "failure", "cause" => "Gallery (id=".$id.") does not exist" );
+	}else if( !checkUserAutorization($gallery->user_id)){
+		$res = array("status" => "failure", "cause" => "User does not have authority to remove gallery ( id=".$id.")" );
+	}else{
+		//$a = DAO::remove( "Gallery", [new Condition("id", "=", $id)] );
+		//$res = array("status" => "ok", "sql" => $a );
+		removeObject( "Gallery", $id);
+		$res = array("status" => "ok", "removedGallery" => $id );
+	}
+	
+	return json_encode($res, true);
+}
+
+function renameGallery( $id, $name){
+	$res = array("status" => "failure", "cause" => "Name '".$name."' is not valid" );
+	$name = trim($name);
+	if( preg_match( "/^[A-Za-z0-9_ ]+$/", $name)){
+		$gallery = getObjectById("Gallery", $id);
+		if( !isset( $gallery) || !$gallery){
+			$res = array("status" => "failure", "cause" => "Could not find gallery ( id=".$id.")" );
+		}else if( !checkUserAutorization($gallery->user_id)){
+			$res = array("status" => "failure", "cause" => "User does not have authority to update gallery ( id=".$id.")" );
+		}else{
+			updateObjectById("Gallery", array( "name" => $name), $id);
+			$res = array("status" => "ok");
+		}
+	}
+	return json_encode($res, true);
+}
+
+function addToGallery( $galleryId, $imgs){
+	// TODO check authorization
+	// TODO duplicates
+	
+	$dropbox = new phpDropbox("dropboxAuthorize");
+	$date = date( "Y-m-d h:i:s", time());//0000-00-00 00:00:00
+	$res = array();
+	foreach( $imgs as $i => $img){
+		$path_parts = pathinfo( $img);
+		$file_name = $path_parts["filename"];
+		
+		// download image
+		$img_data = $dropbox->files_get("dropbox", $img); 
+		
+		// write image
+		$path = "media/src/".(time())."_".$path_parts["basename"];
+		$file = fopen( $path, "wb");
+		fwrite( $file, $img_data);
+		fclose( $file);
+		
+		//  write image to database
+		$photo = array(
+			"link" => $path,
+			//"thumbnail_link" => $path,
+			//"width" =>
+			//"height" =>
+			"name" => $file_name,
+			"upload_date" => $date
+		);
+		insertObject( "Photo", $photo);
+		
+		//  write image and gallery to photos_galleries
+		$photo = getObjectsByConditions("Photo", array(
+			new Condition("link", "=", "'".$path."'"),
+			new Condition("name", "=", "'".$file_name."'"),
+			new Condition("upload_date", "=", "'".$date."'")
+			));
+		$photo = reset($photo);
+		//print_r($photo);
+		if($photo){ // object leakage ?
+			$photosGallery = array(
+				"gallery_id" => $galleryId,
+				"photo_id" => $photo->id
+			);
+			insertObject( "PhotosGallery", $photosGallery);
+			$res[$file_name] = [ "path"=>$path, "gallery"=>$galleryId];
+		}else{
+			$res[$file_name] = [ "Error"=>"could not find photo to connect it to the gallery"];
+		}
+	}
+	
+	$res["status"] = "success";
+	return json_encode($res, true);
+}
+
+function addToFavorite( $photoId){
+	$attr = array(
+			"photo_id" => $photoId,
+			"user_id" => getActiveUserId()
+		);
+	insertObject( "FavoritePhotos", $attr);
+	$res = array("status" => "ok", "favorite" => getActiveUserId()." => ".$photoId);
+	return json_encode($res, true);
+}
+
+function removePhoto( $photoId){
+	// TODO check permissions
+	DAO::remove("`photos_galleries`", [new Condition("photo_id", "=", $photoId)]);
+	$res = array("status" => "ok", "removedPhoto" => $photoId );
+	return json_encode($res, true);
+}
+
+/*
+Login
+*/
 function userLogin( $password){
 	// check if login and password are valid and then write user to the session
 	if( strpos($password, "Basic ") === 0){
@@ -64,7 +211,11 @@ function userLogout(){
 	unset($_SESSION["active_user"]);
 }
 
+/*
+Utils
+*/
 function getPopularGallery(){
+	// TODO just sort galleries by views..
 	return getObjectById("Gallery", POPULAR_GALLARY_ID);
 }
 

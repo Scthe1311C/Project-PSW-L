@@ -59,7 +59,7 @@ function user_profile( $page, $userId) {
 	$userData = getUser( $userId);
 	$userGalleries = getGalleriesByUser($userId);
 	return render_template("user-view.php", array(
-		"css_stylesheets" => array("src/css/user-view.css","src/css/settings.css","src/css/gallery-view.css","src/css/galleries.css"),
+		"css_stylesheets" => array("src/css/user-view.css","src/css/settings.css","src/css/galleries.css"),
 		"js_scripts" => array("src/js/settings.js"),
 		"title" => "User",
 		"page" => $page,
@@ -72,7 +72,7 @@ function gallery($id) {
 	$gallery = getGalleryById( $id);
 	$photos = $gallery->allPhotos();
 	return render_template("gallery-view.php", array(
-		"css_stylesheets" => array("src/css/gallery-view.css"),
+		"css_stylesheets" => array("src/css/gallery-view.css","src/css/galleries.css"),
 		"photos" => $photos,
 		"gallery" => $gallery,
 	));
@@ -89,7 +89,7 @@ function person_info($userId) {
 function galleries(){
 	$galleries = getAllGalleries();
 	return render_template("galleries.php", array(
-		"css_stylesheets" => array("src/css/gallery-view.css","src/css/galleries.css"),
+		"css_stylesheets" => array("src/css/galleries.css"),
 		"galleries" => $galleries,
 	));
 }
@@ -116,13 +116,15 @@ function single_photo($galleryId, $photoId) {
 
 function upload(){
 	check_user_authorization_or_go_to_login_page();
+	$userGalleries = getGalleriesByUser( getActiveUserId());
 	return render_template("upload.php", array(
 		"css_stylesheets" => array("src/css/upload.css"),
 		"js_scripts" => array(
 			"src/js/upload.js"
 		 ),
 		"title" => "Upload",
-		"content_width100" => true
+		"content_width100" => true,
+		"user_galleries" => $userGalleries
 	));
 }
 
@@ -138,7 +140,7 @@ function render_template($path, array $args = NULL) {
 	$args["app_name"] = $app_name;
 	$args["main_url"] = $main_url;
 	$__user__ = getActiveUser();
-	if( $__user__ != NULL)
+	if( isset($__user__) && $__user__ != NULL)
 		$args["user"] = $__user__;
 	
 	extract($args);

@@ -26,7 +26,7 @@ function image_click( id){
 function go_to_folder( path){
 	if( isBlank(path))
 		path = "/";
-	document.getElementById("pseudo-console").innerHTML += "\ndirectory metadata read: '"+path+"'";
+	//document.getElementById("pseudo-console").innerHTML += "\ndirectory metadata read: '"+path+"'";
 	
 	current_folder = path;
 	write_folder_name();
@@ -47,7 +47,7 @@ function go_to_folder( path){
 			create_folder_content( json);
 		},
 		error: function(xhr, textStatus, errorThrown){
-			document.getElementById("pseudo-console").innerHTML += "\n'"+textStatus+"'  ;'"+errorThrown+"'";
+			//document.getElementById("pseudo-console").innerHTML += "\n'"+textStatus+"'  ;'"+errorThrown+"'";
 		}
 	});
 }
@@ -87,6 +87,7 @@ function create_folder_content( dropbox_dir_json){
 			// TODO base id on image spec. data
 			imgsHTML += createImageItem( "gallery_item_"+i, file.path, display_file_name);
 		}
+		//return false; // debug
 	});
 	
 	// swap
@@ -113,9 +114,10 @@ function createImageItem( id, img_path, name){
 	var on_click = "image_click(\'" + id + "\')";
 	return '<div class="gallery-item-wrapper gallery-item-wrapper-image" onclick="'+on_click+'" >'+
 				'<div class="gallery-image" id="'+id+'" >'+
-				'<div><label>'+name+'</label></div>'+
-				'<span class="glyphicon glyphicon-ok"></span>'+
-			'</div></div>';
+					'<div><label>'+name+'</label></div>'+
+					'<span class="glyphicon glyphicon-ok"></span>'+
+				'</div>'+
+			'</div>';
 }
 
 function requestImageThumbnail( id, img_path){
@@ -131,15 +133,51 @@ function requestImageThumbnail( id, img_path){
 			// substitute stub image
 			var json = $.parseJSON( data );
 			if(json.status=="ok"){
-				img_path = "" + json.path;
+				img_local_path = "" + json.path;
 				$("#"+id).addClass("background-cover");
 			}else // TODO could not load image - raise warning
-				img_path = "src/img/be.png";
-			$("#"+id).css("background-image", "url("+img_path+")" );
+				img_local_path = "src/img/be.png";
+			$("#"+id).data("path", img_path).css("background-image", "url("+img_local_path+")" );
 			//document.getElementById("pseudo-console").innerHTML += "respond(" +id+ "): '"+data+"'";
 		},
 		 error: function (xhr, ajaxOptions, thrownError) {
-			document.getElementById("pseudo-console").innerHTML += "\nrequestImageThumbnail() error";
+			//document.getElementById("pseudo-console").innerHTML += "\nrequestImageThumbnail() error";
+		}
+   });
+}
+
+function uploadImages( galleryId){
+	// add white overlay
+	$("#dropbox-folder-loading").addClass("dropbox-loading-upload");
+	$("#dropbox-folder-loading").show();
+	// get images
+	var arr = new Array();
+	$.each( selectedImages, function( i,v){
+		//document.getElementById("pseudo-console").innerHTML += "<br/>"+i+" -> " + v+"  -> "+($("#"+v).data("path") );
+		arr.splice( 0, 0, $("#"+v).data("path"));
+	});
+	selectedImages = new Array();
+	
+	// send download request
+	var imgs = JSON.stringify(arr);
+	$.ajax({
+		type: "GET",
+		async: true,
+		url: base_uri,
+		beforeSend: function (xhr) {
+			xhr.setRequestHeader('Method', "addToGallery");
+		},
+// !!!
+		data:{ "Images":imgs, "GalleryId":galleryId},
+		success: function(data){
+			//log(data);
+			$("#dropbox-folder-loading").removeClass("dropbox-loading-upload");
+			go_to_folder( current_folder);
+		},
+		 error: function (xhr, ajaxOptions, thrownError) {
+			//log("add-to-gallery error");
+			$("#dropbox-folder-loading").removeClass("dropbox-loading-upload");
+			go_to_folder( current_folder);
 		}
    });
 }

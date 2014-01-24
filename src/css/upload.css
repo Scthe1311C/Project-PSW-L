@@ -9,21 +9,15 @@ bar with actions
 	line-height:37px;
 }
 
-#browse-actions ul{
-	list-style-type:none;
-	height:inherit;
-}
-
-#browse-actions li{
-	height:inherit;
-	display:table-cell;
-	vertical-align:middle
-}
-
-.action-button{
-	width:130px;
+#browse-actions button{
+	width:140px;
 	border: 0px none;
 	background-color: transparent;
+	cursor: default;
+}
+
+#browse-actions button:hover span{
+	font-weight:600;
 }
 
 #current-folder-name{
@@ -37,37 +31,66 @@ bar with actions
 	text-decoration:underline;
 }
 
-.sprite{
-	background-repeat: no-repeat;
-	width: 16px;
-	height:16px;
-	background-image: url("../img/web_sprites.png");
+#add-to-gallery{
+	text-align:right !important;
 }
 
-.sprite_upload{
-	background-position: left -12317px
+#folder-hierarchy-up{
+	text-align:left !important;
 }
 
-.sprite_rainbow{
-	background-position: 0% -10613px;
-	
+#dropbox-content{
+	position:relative
+}
+/*
+loading screen
+*/
+#dropbox-folder{
+	text-align: center;
+}
+
+#dropbox-folder-loading{
+	width:100%;
+	/*height:100%;
+	min-height:500px;*/
+	height:500px;
+	top: 0px;
+}
+
+#dropbox-folder-loading table{
+	width: inherit;
+	height: inherit;
+	vertical-align: middle;
+	text-align: center;
+}
+
+#dropbox-folder-loading table td{
+	vertical-align: middle;
+	text-align: center;
+}
+
+#dropbox-folder-loading div{
+	background-color: white;
+	opacity: 0.7;
+	position: absolute;
+	width: inherit;
+	height: inherit;
+}
+.dropbox-loading-upload{
+	position:absolute !important;
+	height:100% !important;
+	min-height:500px;
+	display:block
+}
+
+.dropbox-loading-upload table{
+	/*position:fixed;*/
+	position: absolute;
 }
 
 /*
 gallery
 */
-#dropbox-folder-loading{
-	height:500px;
-	vertical-align: middle;
-	text-align: center;
-	width:100%;
-}
-
-#dropbox-folder-loading td{
-	vertical-align: middle;
-	text-align: center;
-}
-
 #dropbox-folder-folders{
 }
 
@@ -139,7 +162,7 @@ gallery
 	color:white;
 }
 
-/* tick */
+/* tick icon ( image selected marker) */
 .gallery-image span.glyphicon{
 	position:absolute;
 	top:0px;
@@ -156,4 +179,53 @@ gallery
 	color:white !important;
 }
 
+/*
+gallery select dialog
+*/
+#dialog_overlay{
+	display:none;
+	/*position: fixed;*/
+	position: relative !important;
+	left: 0px;
+	top: 0px;
+	width:100%;
+	height:100%;
+	text-align:center;
+	z-index: 1000;
+	background-color: rgba(1,0,0,0.8);
+}
 
+#dialog_overlay div{
+	position:absolute;
+	top: 25%;
+	left: 50%;
+	width:300px;
+	margin-left: -150px;
+	background-color: #fff;
+	border:1px solid #000;
+	padding:15px;
+	text-align:center;
+	border-radius: 5px;
+	z-index: 1001;
+}
+
+.submit-button{
+	margin-bottom:0px;
+	font-size:18px;
+	border:1px solid transparent;
+	color:rgba(128,128,128,0.5);
+	transition: border linear 0.2s, box-shadow linear 0.2s, color linear 0.2s;
+	background-color:white;
+	width: 100%;
+}
+
+.submit-button:hover{
+	color:#517FA4;
+	box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.071), 0px 0px 8px rgba(82, 168, 236, 0.600);
+	border:1px solid rgba(82, 168, 236, 0.804);
+}
+
+#galleryChooseCancel{
+width: 50%;
+margin-top: 20px;
+}

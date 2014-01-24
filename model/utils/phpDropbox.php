@@ -130,13 +130,13 @@ class phpDropbox{
 	/**
 		Returns image to download
 	*/
-	public function files_get( $root, $path, $size="s"){
+	public function files_get( $root, $path){
 		$url = "https://api-content.dropbox.com/1/files/";
 		if( $root !== "sandbox" && $root !== "dropbox" )
 			 throw new Exception("Valid values for 'root' are sandbox and dropbox.");
 		$url .= $root."/".$path;
 		$response = $this->execute( $url);
-		return json_decode($response, true);
+		return $response;
 	}
 	
 }	
