@@ -145,3 +145,40 @@ function requestImageThumbnail( id, img_path){
 		}
    });
 }
+
+function uploadImages( galleryId){
+	// add white overlay
+	$("#dropbox-folder-loading").addClass("dropbox-loading-upload");
+	$("#dropbox-folder-loading").show();
+	
+	// get images
+	var arr = new Array();
+	$.each( selectedImages, function( i,v){
+		//document.getElementById("pseudo-console").innerHTML += "<br/>"+i+" -> " + v+"  -> "+($("#"+v).data("path") );
+		arr.splice( 0, 0, $("#"+v).data("path"));
+	});
+	selectedImages = new Array();
+	
+	// send download request
+	var imgs = JSON.stringify(arr);
+	$.ajax({
+		type: "GET",
+		async: true,
+		url: base_uri,
+		beforeSend: function (xhr) {
+			xhr.setRequestHeader('Method', "addToGallery");
+		},
+// !!!
+		data:{ "Images":imgs, "GalleryId":galleryId},
+		success: function(data){
+			//log(data);
+			$("#dropbox-folder-loading").removeClass("dropbox-loading-upload");
+			go_to_folder( current_folder);
+		},
+		 error: function (xhr, ajaxOptions, thrownError) {
+			//log("add-to-gallery error");
+			$("#dropbox-folder-loading").removeClass("dropbox-loading-upload");
+			go_to_folder( current_folder);
+		}
+   });
+}

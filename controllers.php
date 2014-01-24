@@ -116,13 +116,15 @@ function single_photo($galleryId, $photoId) {
 
 function upload(){
 	check_user_authorization_or_go_to_login_page();
+	$userGalleries = getGalleriesByUser( getActiveUserId());
 	return render_template("upload.php", array(
 		"css_stylesheets" => array("src/css/upload.css"),
 		"js_scripts" => array(
 			"src/js/upload.js"
 		 ),
 		"title" => "Upload",
-		"content_width100" => true
+		"content_width100" => true,
+		"user_galleries" => $userGalleries
 	));
 }
 

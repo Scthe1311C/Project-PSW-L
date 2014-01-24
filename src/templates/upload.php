@@ -13,6 +13,7 @@ TODO when quickly switching folders old async. response updates new content ( un
 <script>
 
 $('document').ready(function(){
+
 	// 'Back' button handler
 	$("#folder-hierarchy-up").click(function(){
 		var return_path = current_folder.substr( 0,  current_folder.lastIndexOf("/"));
@@ -26,51 +27,30 @@ $('document').ready(function(){
 	
 	// add to gallery button
 	$("#add-to-gallery").click(function(){
-		//if( selectedImages.length <1)
-		//	return;
+		if( selectedImages.length < 1)
+			return;
+		<?php if( !isset( $_GET["galleryId"]) || $_GET["galleryId"] == NULL){ ?>
+			// show dialog
+			$("#dialog_overlay").show();
+		<?php }else{ ?>
+			uploadImages(<?php echo $_GET["galleryId"]; ?>);
+		<?php } ?>
 		
-		// add white overlay
-		$("#dropbox-folder-loading").addClass("dropbox-loading-upload");
-		$("#dropbox-folder-loading").show();
-		//return;
-		
-		// get images
-		var arr = new Array();
-		$.each( selectedImages, function( i,v){
-			//document.getElementById("pseudo-console").innerHTML += "<br/>"+i+" -> " + v+"  -> "+($("#"+v).data("path") );
-			arr.splice( 0, 0, $("#"+v).data("path"));
-		});
-		selectedImages = new Array();
-		
-		// send download request
-		var imgs = JSON.stringify(arr);
-		$.ajax({
-			type: "GET",
-			async: true,
-			url: base_uri,
-			beforeSend: function (xhr) {
-				xhr.setRequestHeader('Method', "addToGallery");
-			},
-// !!!
-			data:{ "Images":imgs, "GalleryId":3}, // TODO hardcoded gallery id
-			success: function(data){
-				log(data);
-				$("#dropbox-folder-loading").removeClass("dropbox-loading-upload");
-				go_to_folder( current_folder);
-			},
-			 error: function (xhr, ajaxOptions, thrownError) {
-				log("add-to-gallery error");
-				$("#dropbox-folder-loading").removeClass("dropbox-loading-upload");
-				go_to_folder( current_folder);
-			}
-	   });
-	});	
+	});
+	
+	
 });
 
-function log( text){
-	if( typeof(text) != 'string')
-		text = JSON.stringify(text);
-	//document.getElementById("pseudo-console").innerHTML += "<br/>"+text;
+function uploadToGallery( galleryId){
+	// hide dialog
+	$("#dialog_overlay").hide();
+	uploadImages( galleryId);
+}
+
+function cancelUpload(){
+	$("#dialog_overlay").hide();
+	$("#dropbox-folder-loading").removeClass("dropbox-loading-upload");
+	$("#dropbox-folder-loading").hide();
 }
 </script>
 
@@ -94,7 +74,26 @@ function log( text){
 <!-- 
 <pre id="pseudo-console" ></pre>
  -->
+<?php if( !isset( $_GET["galleryId"]) || $_GET["galleryId"] == NULL){ ?>
+	<!-- Target gallery choose -->
+	<div id="dialog_overlay">
+		<div>
+			<h4>Choose gallery</h4>
+			<!-- 
+			<input id="gallery-name" type="text" class="form-control" placeholder="Gallery name..">
+			<input type="submit" id="create-gallery-button" class="btn btn-default" value="Create gallery" >
+			 -->
+			<?php foreach( $user_galleries as $k=>$v){ ?>
+			<!-- <?php echo $k."->".($v->name)."<br/>" ?>  -->
+				<input class="submit-button" action="upload" type="submit" name="upload-submit"
+					value="<?php echo $v->name; ?>" onClick="uploadToGallery(<?php echo $k; ?>)">
+			<?php } ?>
+			<button id="galleryChooseCancel" type="button" class="btn btn-danger" onClick="cancelUpload()">Cancel</button>
+		</div>
+	</div>
+<?php } ?>
 
+ 
 <div id="dropbox-content" style="">
 	<div id="dropbox-folder">
 		<div id="dropbox-folder-folders" style="width:100%">
