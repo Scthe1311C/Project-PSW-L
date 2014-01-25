@@ -49,6 +49,26 @@ function modifyUser( $userData){
 	return json_encode($res, true);
 }
 
+function userLogin( $password){
+	// check if login and password are valid and then write user to the session
+	if( strpos($password, "Basic ") === 0){
+		$pass = '"'.substr($password, 6).'"'; // password to check excluding the 'Basic ' part
+		$user = getObjectsByConditions("User", new Condition("password","=",$pass)); // TODO is this array 'keyed' by id ?!
+		if( count($user) == 1){
+			foreach( $user as $user) // once !
+				$_SESSION["active_user"] = $user->id;
+			return "{ \"status\":\"ok\" }";
+			//return "{ \"status\":\"ok\",\"data\":\"".implode( array_keys($user))."\" }"; // TODO client side can view the password :)
+		}
+	}
+	return "{ \"status\":\"failure\", \"cause\":\"user not found\" }";
+	//return "{ \"status\":\"failure\", \"cause\":\"user not found\", \"data\":\"".implode( array_keys($user))."\" }";
+}
+
+function userLogout(){
+	unset($_SESSION["active_user"]);
+}
+
 function register( $mail, $login, $pass){
 	$l = preg_match ( "/^[A-Za-z-0-9]+$/", $login);
 	$m = preg_match ( "/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/", $mail);
@@ -68,6 +88,7 @@ function register( $mail, $login, $pass){
 			insertObject("User", ["login"=>$login,"email"=>$mail,"password"=>$pass,"address_id"=>$id ]);
 			$id = mysql_insert_id(); // last generated id
 			//echo ">".mysql_error();
+			$_SESSION["active_user"] = $id;
 			$res = array("status" => "ok");
 		}else{
 			$res = array("status" => "failure", "cause"=>"alreadyExists");
@@ -257,29 +278,6 @@ function removePhoto( $photoId){
 	DAO::remove("`photos_galleries`", [new Condition("photo_id", "=", $photoId)]);
 	$res = array("status" => "ok", "removedPhoto" => $photoId );
 	return json_encode($res, true);
-}
-
-/*
-Login
-*/
-function userLogin( $password){
-	// check if login and password are valid and then write user to the session
-	if( strpos($password, "Basic ") === 0){
-		$pass = '"'.substr($password, 6).'"'; // password to check excluding the 'Basic ' part
-		$user = getObjectsByConditions("User", new Condition("password","=",$pass)); // TODO is this array 'keyed' by id ?!
-		if( count($user) == 1){
-			foreach( $user as $user) // once !
-				$_SESSION["active_user"] = $user->id;
-			return "{ \"status\":\"ok\" }";
-			//return "{ \"status\":\"ok\",\"data\":\"".implode( array_keys($user))."\" }"; // TODO client side can view the password :)
-		}
-	}
-	return "{ \"status\":\"failure\", \"cause\":\"user not found\" }";
-	//return "{ \"status\":\"failure\", \"cause\":\"user not found\", \"data\":\"".implode( array_keys($user))."\" }";
-}
-
-function userLogout(){
-	unset($_SESSION["active_user"]);
 }
 
 /*
