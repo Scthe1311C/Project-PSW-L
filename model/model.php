@@ -49,6 +49,42 @@ function modifyUser( $userData){
 	return json_encode($res, true);
 }
 
+function register( $mail, $login, $pass){
+	$l = preg_match ( "/^[A-Za-z-0-9]+$/", $login);
+	$m = preg_match ( "/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/", $mail);
+	if( $l && $m && strpos($pass, "Basic ")==0){
+		$pass = substr($pass, 6);
+		// check unique
+		$sql = "SELECT * FROM `users` WHERE `login` =\"".$login."\" OR email=\"".$mail."\"";
+		$result = DAO::executeQuery($sql);
+		$num_rows = mysql_num_rows($result);
+		if( $num_rows == 0){
+			// preconditions meet, create address for user
+			$sql = "INSERT INTO `addresses` (`id`) VALUES (NULL);";
+			DAO::executeQuery($sql);
+			$id = mysql_insert_id(); // last generated id
+			//echo ">".mysql_error();
+			// create user
+			insertObject("User", ["login"=>$login,"email"=>$mail,"password"=>$pass,"address_id"=>$id ]);
+			$id = mysql_insert_id(); // last generated id
+			//echo ">".mysql_error();
+			$res = array("status" => "ok");
+		}else{
+			$res = array("status" => "failure", "cause"=>"alreadyExists");
+		}
+	}else{
+		$r = array();
+		if( !$l) array_push( $r,"login");
+		if( !$m) array_push( $r,"mail");
+		$res = array("status" => "failure", "cause"=>"invalidData", "invalidData" => $r);
+	}
+	
+	
+	
+	
+	return json_encode($res, true);
+}
+
 function userCheckValid( $userData){
 	$n = preg_match ( "/^[A-Za-z -]+$/", $userData["name"]);
 	$ln = preg_match ( "/^[A-Za-z -]+$/", $userData["surname"]);

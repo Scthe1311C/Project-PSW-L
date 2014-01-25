@@ -72,12 +72,63 @@ $( document ).ready(function() {
 	   });
 	 });
 	 
+	 // submit register
+	$('#login-section2-form').submit(function(e) {
+		e.preventDefault();
+		pass1 = $("#pass1").val();
+		pass2 = $("#pass2").val();
+		if( pass1==pass2){
+			var data_ ={
+				"login":$("#login").val(),
+				"mail":$("#mail").val() };
+				
+			$.ajax({
+				type: "POST",
+				url: 'api.php', // TODO https
+				data: data_,
+				beforeSend: function (xhr) {
+					var creds = username + ':' + password;
+					var basicScheme = btoa(creds);
+					var hashStr = "Basic "+basicScheme;
+					xhr.setRequestHeader('Authorization', hashStr);
+					xhr.setRequestHeader('Method', "register");
+				},
+				success: function(data){
+					// https://localhost/webapp/login?register=1
+					log(data);
+					/*
+					var json = $.parseJSON( data );
+					if ( json.status === 'ok') {
+						window.location = 'user-profile';
+					} else {
+						// TODO error msg slide down animation
+						$("#invalid-auth-msg").hide().slideDown(400);
+						$("#dialog").animate({height: nH+"px"}, 10);
+					}
+					*/
+				}
+		   });
+	   }else{
+			// passwords do not match
+	   }
+	 });
 });
+
+
+function log( text){
+	if( typeof(text) != 'string')
+		text = JSON.stringify(text);
+		text = text.replace(/(\r\n|\n|\r)/gm, "");
+	document.getElementById("pseudo-console").innerHTML += "<br/>"+text;
+}
 </script>
 
 <!-- TODO check for different browsers -->
 
 <div id="login-page">
+
+	<pre id="pseudo-console">
+	</pre>
 
 	<div  id="login-dialog">
 		<div id="login-tabs">
@@ -92,6 +143,7 @@ $( document ).ready(function() {
 				<a href="<?php echo $main_url; ?>"><h1>Dropbox App</h1></a>
 			</header>
 			
+			<!-- login form -->
 			<form class="login-section" id="login-section1-form" formmethod="post" role="form">
 				<div class="alert alert-danger" id="invalid-auth-msg">Please enter a correct username and password.</div>
 				<input id="username" type="text" class="form-control" placeholder="Username..">
@@ -104,13 +156,14 @@ $( document ).ready(function() {
 				<div style="clear:both"></div>
 			</form>
 			
+			<!-- register form -->
 			<form class="login-section" id="login-section2-form" formmethod="post" role="form">
-				<input type="text" class="form-control" placeholder="Login">
-				<input type="text" class="form-control" placeholder="Mail">
-				<input type="password" class="form-control" placeholder="Password">
-				<input type="password" class="form-control" placeholder="Confirm password">
+				<input id="login" type="text" class="form-control" placeholder="Login">
+				<input id="mail" type="text" class="form-control" placeholder="Mail">
+				<input id="pass1" type="password" class="form-control" placeholder="Password">
+				<input id="pass2" type="password" class="form-control" placeholder="Confirm password">
 				<a href="user-profile">
-					<span class="submit-button">Register</span>
+					<input class="submit-button" action="user-profile" type="submit" name="sign-in-submit" value="Register">
 				</a>
 				<div style="clear:both"></div>
 			</form>
