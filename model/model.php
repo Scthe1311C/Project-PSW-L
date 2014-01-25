@@ -27,6 +27,41 @@ function checkUserAutorization( $userIdToTest){
 	return getActiveUserId() == $userIdToTest;
 }
 
+function modifyUser( $userData){
+	$res = array("status" => "ok" );
+	$name = $userData["name"];
+	$data = array(
+		"name"=>$userData["name"],
+		"surname"=>$userData["lastName"],
+		"birth_date"=>$userData["birthDate"],
+		"gender"=>$userData["gender"]
+	);
+	$invalidFields = userCheckValid( $data);
+	if( !$invalidFields){
+		updateObjectById("User",$data,getActiveUserId());
+		$data = array("city"=>$userData["city"]);
+		updateObjectById("Address", $data,getActiveUser()->address_id );
+	}else
+		$res = array("status" => "failure", "invalidData" => $invalidFields );
+	// address
+	//echo $name;
+	//print_r( $userData);
+	return json_encode($res, true);
+}
+
+function userCheckValid( $userData){
+	$n = preg_match ( "/^[A-Za-z -]+$/", $userData["name"]);
+	$ln = preg_match ( "/^[A-Za-z -]+$/", $userData["surname"]);
+	$bd = preg_match ( "/^\d{4}-\d{2}-\d{2}$/", $userData["birth_date"]);
+	$g = preg_match ( "/^[MF]$/", $userData["gender"]);
+	$r = array();
+	if( !$n) array_push( $r,"name");
+	if( !$ln) array_push( $r,"lastName");
+	if( !$bd) array_push( $r,"birthDate");
+	if( !$g) array_push( $r,"gender");
+	return $r;
+}
+
 /*
 Dropbox
 */

@@ -1,6 +1,7 @@
 #user-page{
 	max-width:700px;
 	margin:0px auto;
+	margin-top: 70px;
 }
 
 .user-header{
@@ -19,7 +20,7 @@
 	/* name */
 	position:absolute;
 	bottom:0px;
-	left: 120px;
+	/*left: 120px;*/
 }
 
 .user-body{
