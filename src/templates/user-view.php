@@ -12,7 +12,8 @@
 	
 	<div class="user-header">
 		<!-- avatar -->
-		<div id="user-avatar"></div>
+		<!-- 
+		<div id="user-avatar"></div> -->
 		<!-- name -->
 		<h1><?php echo $user->name." ".$user->surname; ?></h1>
 	</div>

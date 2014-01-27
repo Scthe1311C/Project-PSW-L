@@ -29,7 +29,6 @@ class DAO implements IDAO{
 		//return $sql;
 	} 
 
-
 	public static function select($tablesNames, $columns, $conditions, $additionals=[]) {
 		$tablesNames = is_array($tablesNames)? $tablesNames : [$tablesNames];
 		$columns = is_array($columns)? $columns : [$columns];

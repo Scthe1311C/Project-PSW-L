@@ -53,6 +53,15 @@
 		// add photo to favorite photos collection
 		$photoId = isset( $headers["photoId"]) ? $headers["photoId"] : "";
 		$return = removePhoto( $photoId);
+		
+	}else if( $method === "modifyUser"){
+		$return = modifyUser( $_GET);
+		
+	}else if( $method === "register"){
+		$pass = $headers["Authorization"];
+		$login = $_POST["login"];
+		$mail = $_POST["mail"];
+		$return = register( $mail, $login, $pass);
 			
 	}else{
 		$return = "{ \"status\":\"failure\", \"cause\":\"method '" . $method . "' not found\" }";
